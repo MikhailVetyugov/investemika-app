@@ -1,4 +1,3 @@
-'use client'
 import React, { useState } from "react";
 
 import {
@@ -13,48 +12,57 @@ import {
   PopoverContent,
   PopoverAnchor,
 } from "@/components/ui/popover"
+import { ALL_COMPANIES } from "@/lib/data";
+import { TCompany } from "@/types/company";
 
-const ALL_COMPANIES = ['Лукойл', 'Газпром', 'Норникель', 'Новатэк', 'Полюс', 'Роснефть', 'Сбербанк', 'Татнефть', 'Транснефть', 'Северсталь'];
+interface ICompanySearchProps {
+  onSelect: (company: TCompany) => void;
+}
 
-export function CompanySearch() {
+export const CompanySearch: React.FC<ICompanySearchProps> = ({ onSelect }) => {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = useState<string>('');
-  const [companies, setCompanies] = useState<string[]>([]);
+  const [text, setText] = useState<string>('');
+  const [companyOptions, setCompanyOptions] = useState<TCompany[]>([]);
 
-  const notFound = value.length > 0 && companies.length === 0;
+  const notFound = text.length > 0 && companyOptions.length === 0;
 
   const handleValueChange = (value: string) => {
     const searchText = value.trim().toLowerCase();
-    const foundCompanies = ALL_COMPANIES.filter(company => company.toLowerCase().indexOf(searchText) > -1);
-    setCompanies(foundCompanies);
-    setValue(value);
+    const foundCompanies = ALL_COMPANIES.filter(company => company.name.toLowerCase().indexOf(searchText) > -1);
+
+    setCompanyOptions(foundCompanies);
+    setText(value);
     setOpen(true);
   };
 
   const handleFocus = () => {
-    if (value === '') {
-      setCompanies(ALL_COMPANIES);
+    if (text === '') {
+      setCompanyOptions(ALL_COMPANIES);
       setOpen(true);
     }
   };
 
   const handleSelect = (value: string) => {
-    setValue(value)
+    const company = ALL_COMPANIES.find(company => company.id === Number(value))!;
+
+    setText(company.name)
     setOpen(false);
+
+    onSelect(company);
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <Command className="rounded-lg border shadow-md md:min-w-[450px] max-w-[900px]" shouldFilter={false}>
         <PopoverAnchor>
-          <CommandInput placeholder="Введите имя компании..." value={value} onValueChange={handleValueChange} onFocus={handleFocus} />
+          <CommandInput placeholder="Введите имя компании..." value={text} onValueChange={handleValueChange} onFocus={handleFocus} />
         </PopoverAnchor>
         <PopoverContent className="p-0 w-(--radix-popover-trigger-width)" onOpenAutoFocus={event => event.preventDefault()}>
           <CommandList>
             {notFound && <CommandEmpty>Компания не нашлась</CommandEmpty>}
-            {companies.map(company => (
-              <CommandItem key={Math.random()} className="cursor-pointer" onSelect={handleSelect}>
-                <span>{company}</span>
+            {companyOptions.map(companyOption => (
+              <CommandItem key={companyOption.id} value={String(companyOption.id)} className="cursor-pointer" onSelect={handleSelect}>
+                <span>{companyOption.name}</span>
               </CommandItem>
             ))}
           </CommandList>
@@ -62,4 +70,4 @@ export function CompanySearch() {
       </Command>
     </Popover>
   );
-}
+};
