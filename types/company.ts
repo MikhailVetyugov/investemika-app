@@ -3,6 +3,7 @@ export type TCompany = IIndustrialCompany | IBank;
 interface ICompany {
   id: number,
   name: string,
+  ticker: string;
   units: string,
   type: string;
   years: [number, number, number, number, ...number[]];

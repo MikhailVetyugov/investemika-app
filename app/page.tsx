@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { CompanySearch } from "@/components/company-search";
 import { IncomeByYearTable } from "@/components/income-by-year-table";
+import { Price } from "@/components/price";
 import { ALL_COMPANIES } from "@/lib/data";
 import { TCompany } from "@/types/company";
 
@@ -18,6 +19,9 @@ export default function Home() {
       </div>
       <div className="mt-[32px]">
         <IncomeByYearTable company={company} />
+      </div>
+      <div className="mt-6">
+        <Price company={company} />
       </div>
     </div>
   );

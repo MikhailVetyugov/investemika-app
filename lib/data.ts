@@ -4,6 +4,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 1,
     name: 'Лукойл',
+    ticker: 'LKOH',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2021, 2020],
@@ -16,6 +17,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 2,
     name: 'Газпром',
+    ticker: 'GAZP',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -28,6 +30,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 3,
     name: "Норникель",
+    ticker: 'GMKN',
     units: "в млн. долларов США",
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -40,6 +43,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 4,
     name: 'Новатэк',
+    ticker: 'NVTK',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2021, 2020],
@@ -52,6 +56,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 5,
     name: 'Полюс',
+    ticker: 'PLZL',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -64,6 +69,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 6,
     name: 'Роснефть',
+    ticker: 'ROSN',
     units: 'в млрд. рублей',
     type: 'industrial',
     years: [2024, 2023, 2021, 2020],
@@ -76,6 +82,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 7,
     name: 'Сбербанк',
+    ticker: 'SBER',
     units: 'в млрд. рублей',
     type: 'bank',
     years: [2024, 2023, 2022, 2021],
@@ -87,6 +94,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 8,
     name: 'Татнефть',
+    ticker: 'TATN',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -99,6 +107,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 9,
     name: 'Транснефть',
+    ticker: 'TRNFP',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2020],
@@ -111,6 +120,7 @@ export const ALL_COMPANIES: TCompany[] = [
   {
     id: 10,
     name: 'Северсталь',
+    ticker: 'CHMF',
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
