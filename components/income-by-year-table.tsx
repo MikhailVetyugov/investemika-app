@@ -16,7 +16,6 @@ interface IIncomeByYearTableProps {
 
 export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = ({ company }) => {
   const {
-    name,
     units,
     type,
     years,
@@ -24,7 +23,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = ({ company }
 
   return (
     <Table className="table-fixed">
-      <TableCaption className="caption-top">{name} ({units})</TableCaption>
+      <TableCaption className="caption-top font-bold text-xl text-black mb-2">Финансовая отчетность ({units})</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[180px] font-bold" />

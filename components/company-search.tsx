@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverAnchor,
 } from "@/components/ui/popover"
+import { SCROLLBAR_CLASSES } from "@/constants/classes"
 import { ALL_COMPANIES } from "@/lib/data";
 import { TCompany } from "@/types/company";
 
@@ -58,7 +59,7 @@ export const CompanySearch: React.FC<ICompanySearchProps> = ({ onSelect }) => {
           <CommandInput placeholder="Введите имя компании..." value={text} onValueChange={handleValueChange} onFocus={handleFocus} />
         </PopoverAnchor>
         <PopoverContent className="p-0 w-(--radix-popover-trigger-width)" onOpenAutoFocus={event => event.preventDefault()}>
-          <CommandList>
+          <CommandList className={SCROLLBAR_CLASSES}>
             {notFound && <CommandEmpty>Компания не нашлась</CommandEmpty>}
             {companyOptions.map(companyOption => (
               <CommandItem key={companyOption.id} value={String(companyOption.id)} className="cursor-pointer" onSelect={handleSelect}>
