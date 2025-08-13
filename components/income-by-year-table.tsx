@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { TCompany } from "@/types/company";
-import { formatNumber } from "@/utils/formatNumber";
+import { formatNumber } from "@/utils/format-number";
 
 interface IIncomeByYearTableProps {
   company: TCompany;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { fetchPrice } from "@/services/fetchPrice";
+import { fetchPrice } from "@/services/fetch-price";
 import { TCompany } from "@/types/company";
 
 interface IPriceProps {
