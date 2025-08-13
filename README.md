@@ -1,17 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Это [Next.js](https://nextjs.org) проект, созданный с помощью [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+Цель проекта - создать сайт, позволяющий узнать выжимку из финансовой отчетности по МСФО российких компаний: доходы, операционную и чистую прибыль, капитал и изменение денежного потока. Также позволяет узнать текущую цену акций компаний, их показатели P/E, P/B, P/S, P/FCF, добавить компании в портфель для отслеживания. Сайт подойдет для частных инвесторов, ищущих информацию для принятия решения о добавлении в компании в свой портфель на базе фундаментального анализа.
 
-First, run the development server:
+## Как начать
+
+Сначала запустите дев сервер:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в вашем браузере и увидите результат.
