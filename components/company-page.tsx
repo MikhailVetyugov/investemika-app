@@ -1,13 +1,13 @@
 'use client'
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import translitRusEng from "translit-rus-eng";
 
 import { CompanySearch } from "@/components/company-search";
 import { IncomeByYearTable } from "@/components/income-by-year-table";
 import { Price } from "@/components/price";
 import { TCompany } from "@/types/company";
 import { getCompanyByUrlName } from "@/utils/get-company-by-url-name";
+import { getUrlNameByCompany } from "@/utils/get-url-name-by-company";
 import * as logoImage from '@/public/logo.png'
 
 interface ICompanyPageProps {
@@ -20,7 +20,7 @@ export const CompanyPage: React.FC<ICompanyPageProps> = ({ initialCompany }) => 
   const handleSelect = (company: TCompany) => {
     setCompany(company);
     // Не используем useRouter, чтобы это не привело к размонтированию страницы.
-    window.history.pushState(null, "", `/${translitRusEng(company.name, { target: 'eng', slugify: true })}`);
+    window.history.pushState(null, "", `/${getUrlNameByCompany(company)}`);
   };
 
   const handlePopState = useCallback(() => {
