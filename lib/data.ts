@@ -1,6 +1,7 @@
-import { TCompany } from "@/types/company";
+import { TCompany, INoDataCompany } from "@/types/company";
+import { normalizeCompanies } from "@/utils/normalize-companies";
 
-export const ALL_COMPANIES: TCompany[] = [
+const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 1,
     name: 'Лукойл',
@@ -93,6 +94,15 @@ export const ALL_COMPANIES: TCompany[] = [
   },
   {
     id: 8,
+    name: 'Сбербанк - привилегированные акции',
+    ticker: 'SBERP',
+    units: 'в млрд. рублей',
+    type: 'bank',
+    years: [2024, 2023, 2022, 2021],
+    dataId: 7,
+  },
+  {
+    id: 9,
     name: 'Татнефть',
     ticker: 'TATN',
     units: 'в млн. рублей',
@@ -105,8 +115,17 @@ export const ALL_COMPANIES: TCompany[] = [
     cashFlowChange: [30509, -91844, 108630, 26551],
   },
   {
-    id: 9,
-    name: 'Транснефть',
+    id: 10,
+    name: 'Татнефть - привилегированные акции',
+    ticker: 'TATNP',
+    units: 'в млн. рублей',
+    type: 'industrial',
+    years: [2024, 2023, 2022, 2021],
+    dataId: 9,
+  },
+  {
+    id: 11,
+    name: 'Транснефть - привилегированные акции',
     ticker: 'TRNFP',
     units: 'в млн. рублей',
     type: 'industrial',
@@ -118,7 +137,7 @@ export const ALL_COMPANIES: TCompany[] = [
     cashFlowChange: [-23645, 21525, 49946, -20789]
   },
   {
-    id: 10,
+    id: 12,
     name: 'Северсталь',
     ticker: 'CHMF',
     units: 'в млн. рублей',
@@ -131,3 +150,5 @@ export const ALL_COMPANIES: TCompany[] = [
     cashFlowChange: [-244997, 187349, 155181, -12058],
   }
 ];
+
+export const ALL_COMPANIES = normalizeCompanies(ALL_RAW_COMPANIES);
