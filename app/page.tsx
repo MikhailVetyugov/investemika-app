@@ -1,6 +1,6 @@
-import { CompanyPage } from "@/components/company-page";
-import { ALL_COMPANIES } from "@/lib/data";
+import { StockPage } from "@/components/stock-page";
+import { ALL_STOCKS } from "@/lib/data";
 
 export default function Home() {
-  return <CompanyPage initialCompany={ALL_COMPANIES[0]} />;
+  return <StockPage initialStock={ALL_STOCKS[0]} />;
 }

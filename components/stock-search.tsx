@@ -13,43 +13,43 @@ import {
   PopoverAnchor,
 } from "@/components/ui/popover"
 import { SCROLLBAR_CLASSES } from "@/constants/classes"
-import { ALL_COMPANIES } from "@/lib/data";
-import { TCompany } from "@/types/company";
+import { ALL_STOCKS } from "@/lib/data";
+import { IStock } from "@/types/stock";
 
-interface ICompanySearchProps {
-  onSelect: (company: TCompany) => void;
+interface IStockSearchProps {
+  onSelect: (stock: IStock) => void;
 }
 
-export const CompanySearch: React.FC<ICompanySearchProps> = ({ onSelect }) => {
+export const StockSearch: React.FC<IStockSearchProps> = ({ onSelect }) => {
   const [open, setOpen] = React.useState(false)
   const [text, setText] = useState<string>('');
-  const [companyOptions, setCompanyOptions] = useState<TCompany[]>([]);
+  const [options, setOptions] = useState<IStock[]>([]);
 
-  const notFound = text.length > 0 && companyOptions.length === 0;
+  const notFound = text.length > 0 && options.length === 0;
 
   const handleValueChange = (value: string) => {
     const searchText = value.trim().toLowerCase();
-    const foundCompanies = ALL_COMPANIES.filter(company => company.name.toLowerCase().indexOf(searchText) > -1);
+    const foundStocks = ALL_STOCKS.filter(stock => stock.name.toLowerCase().indexOf(searchText) > -1);
 
-    setCompanyOptions(foundCompanies);
+    setOptions(foundStocks);
     setText(value);
     setOpen(true);
   };
 
   const handleFocus = () => {
     if (text === '') {
-      setCompanyOptions(ALL_COMPANIES);
+      setOptions(ALL_STOCKS);
       setOpen(true);
     }
   };
 
-  const handleSelect = (value: string) => {
-    const company = ALL_COMPANIES.find(company => company.id === Number(value))!;
+  const handleSelect = (ticker: string) => {
+    const stock = ALL_STOCKS.find(stock => stock.ticker === ticker)!;
 
-    setText(company.name)
+    setText(stock.name)
     setOpen(false);
 
-    onSelect(company);
+    onSelect(stock);
   };
 
   return (
@@ -61,9 +61,9 @@ export const CompanySearch: React.FC<ICompanySearchProps> = ({ onSelect }) => {
         <PopoverContent className="p-0 w-(--radix-popover-trigger-width)" onOpenAutoFocus={event => event.preventDefault()}>
           <CommandList className={SCROLLBAR_CLASSES}>
             {notFound && <CommandEmpty>Компания не нашлась</CommandEmpty>}
-            {companyOptions.map(companyOption => (
-              <CommandItem key={companyOption.id} value={String(companyOption.id)} className="cursor-pointer" onSelect={handleSelect}>
-                <span>{companyOption.name}</span>
+            {options.map(option => (
+              <CommandItem key={option.ticker} value={option.ticker} className="cursor-pointer" onSelect={handleSelect}>
+                <span>{option.name}</span>
               </CommandItem>
             ))}
           </CommandList>

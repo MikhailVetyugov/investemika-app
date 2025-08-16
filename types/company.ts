@@ -1,13 +1,9 @@
 export type TCompany = IIndustrialCompany | IBank;
 
-export interface INoDataCompany extends ICompany {
-  dataId: number;
-}
-
 interface ICompany {
   id: number,
   name: string,
-  ticker: string;
+  tickers: string[];
   units: string,
   type: string;
   years: [number, number, number, number, ...number[]];

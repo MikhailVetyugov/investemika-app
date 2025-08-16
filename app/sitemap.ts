@@ -1,11 +1,11 @@
 import { MetadataRoute } from 'next';
 
-import { ALL_COMPANIES } from '@/lib/data';
-import { getUrlNameByCompany } from '@/utils/get-url-name-by-company';
+import { ALL_STOCKS } from '@/lib/data';
+import { getUrlNameByStock } from '@/utils/get-url-name-by-stock';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const dynamicUrls = ALL_COMPANIES.map(company => ({
-    url: `https://investemika.ru/${getUrlNameByCompany(company)}`,
+  const dynamicUrls = ALL_STOCKS.map(stock => ({
+    url: `https://investemika.ru/${getUrlNameByStock(stock)}`,
     lastModified: new Date(),
     priority: 0.9,
   }));

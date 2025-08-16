@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { fetchPrice } from "@/services/fetch-price";
-import { TCompany } from "@/types/company";
+import { IStock } from "@/types/stock";
 
 interface IPriceProps {
-  company: TCompany;
+  stock: IStock;
 }
 
 const POLLING_INTERVAL = 15_000;
 const ANIMATION_DURATION = 1_000;
 
-export const Price: React.FC<IPriceProps> = ({ company }) => {
+export const Price: React.FC<IPriceProps> = ({ stock }) => {
   const [price, setPrice] = useState<number | null>(null);
   const [priceChange, setPriceChange] = useState<'up' | 'down' | null>(null);
 
@@ -29,14 +29,14 @@ export const Price: React.FC<IPriceProps> = ({ company }) => {
   }, []);
 
   useEffect(() => {
-    updatePrice(company.ticker);
+    updatePrice(stock.ticker);
 
-    const intervalId = setInterval(() => updatePrice(company.ticker), POLLING_INTERVAL);
+    const intervalId = setInterval(() => updatePrice(stock.ticker), POLLING_INTERVAL);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [company, updatePrice]); 
+  }, [stock, updatePrice]); 
 
   const getBackgroundColor = () => {
     if (priceChange === 'up') return 'bg-green-100';

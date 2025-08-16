@@ -1,9 +1,9 @@
-import { TCompany } from "@/types/company";
+import { IStock } from "@/types/stock";
 
 interface ICoefficientsProps {
-  company: TCompany;
+  stock: IStock;
 }
 
-export const Coefficients: React.FC<ICoefficientsProps> = ({ company }) => {
+export const Coefficients: React.FC<ICoefficientsProps> = ({ stock }) => {
   return <div>Коэффициенты</div>
 };

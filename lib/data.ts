@@ -1,11 +1,11 @@
-import { TCompany, INoDataCompany } from "@/types/company";
-import { normalizeCompanies } from "@/utils/normalize-companies";
+import { TCompany } from "@/types/company";
+import { getStocksFromCompanies } from "@/utils/get-stocks-from-companies";
 
-const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
+const ALL_COMPANIES: TCompany[] = [
   {
     id: 1,
     name: 'Лукойл',
-    ticker: 'LKOH',
+    tickers: ['LKOH'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2021, 2020],
@@ -18,7 +18,7 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 2,
     name: 'Газпром',
-    ticker: 'GAZP',
+    tickers: ['GAZP'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -31,7 +31,7 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 3,
     name: "Норникель",
-    ticker: 'GMKN',
+    tickers: ['GMKN'],
     units: "в млн. долларов США",
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -44,7 +44,7 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 4,
     name: 'Новатэк',
-    ticker: 'NVTK',
+    tickers: ['NVTK'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2021, 2020],
@@ -57,7 +57,7 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 5,
     name: 'Полюс',
-    ticker: 'PLZL',
+    tickers: ['PLZL'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -70,7 +70,7 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 6,
     name: 'Роснефть',
-    ticker: 'ROSN',
+    tickers: ['ROSN'],
     units: 'в млрд. рублей',
     type: 'industrial',
     years: [2024, 2023, 2021, 2020],
@@ -83,7 +83,7 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   {
     id: 7,
     name: 'Сбербанк',
-    ticker: 'SBER',
+    tickers: ['SBER', 'SBERP'],
     units: 'в млрд. рублей',
     type: 'bank',
     years: [2024, 2023, 2022, 2021],
@@ -94,17 +94,8 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   },
   {
     id: 8,
-    name: 'Сбербанк - привилегированные акции',
-    ticker: 'SBERP',
-    units: 'в млрд. рублей',
-    type: 'bank',
-    years: [2024, 2023, 2022, 2021],
-    dataId: 7,
-  },
-  {
-    id: 9,
     name: 'Татнефть',
-    ticker: 'TATN',
+    tickers: ['TATN', 'TATNP'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -115,18 +106,9 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
     cashFlowChange: [30509, -91844, 108630, 26551],
   },
   {
-    id: 10,
-    name: 'Татнефть - привилегированные акции',
-    ticker: 'TATNP',
-    units: 'в млн. рублей',
-    type: 'industrial',
-    years: [2024, 2023, 2022, 2021],
-    dataId: 9,
-  },
-  {
-    id: 11,
-    name: 'Транснефть - привилегированные акции',
-    ticker: 'TRNFP',
+    id: 9,
+    name: 'Транснефть',
+    tickers: ['TRNFP'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2020],
@@ -137,9 +119,9 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
     cashFlowChange: [-23645, 21525, 49946, -20789]
   },
   {
-    id: 12,
+    id: 10,
     name: 'Северсталь',
-    ticker: 'CHMF',
+    tickers: ['CHMF'],
     units: 'в млн. рублей',
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
@@ -151,4 +133,6 @@ const ALL_RAW_COMPANIES: Array<TCompany | INoDataCompany> = [
   }
 ];
 
-export const ALL_COMPANIES = normalizeCompanies(ALL_RAW_COMPANIES);
+export const PREF_TICKERS = ['SBERP', 'TATNP', 'TRNFP'];
+
+export const ALL_STOCKS = getStocksFromCompanies(ALL_COMPANIES);
