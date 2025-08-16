@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
 
-import { fetchPrice } from "@/services/fetch-price";
 import { IStock } from "@/types/stock";
+import { DataContext } from "./data-context";
+import { fetchSingleIssueData } from "@/services/fetch-single-issue-stock-data";
 
 interface IPriceProps {
   stock: IStock;
@@ -11,32 +12,41 @@ const POLLING_INTERVAL = 15_000;
 const ANIMATION_DURATION = 1_000;
 
 export const Price: React.FC<IPriceProps> = ({ stock }) => {
-  const [price, setPrice] = useState<number | null>(null);
+  const { marketData, updateMarketData } = use(DataContext);
   const [priceChange, setPriceChange] = useState<'up' | 'down' | null>(null);
 
-  const updatePrice = useCallback(async (ticker: string) => {
-    const newPrice = await fetchPrice(ticker);
-    
-    setPrice(prevPrice => {
-      if (prevPrice && newPrice && prevPrice !== newPrice) {
-        const changeType = newPrice > prevPrice ? 'up' : 'down';
-        setPriceChange(changeType);
-        setTimeout(() => setPriceChange(null), ANIMATION_DURATION);
-      }
-
-      return newPrice;
-    });
-  }, []);
+  const priceRef = useRef(marketData.price);
 
   useEffect(() => {
-    updatePrice(stock.ticker);
+    priceRef.current = marketData.price;
+  }, [marketData.price]);
 
-    const intervalId = setInterval(() => updatePrice(stock.ticker), POLLING_INTERVAL);
+  const updatePrice = useCallback(async (stock: IStock) => {
+    const prevPrice = priceRef.current;
+    const { price: newPrice } = await fetchSingleIssueData(stock);
+
+    if (prevPrice && newPrice && prevPrice !== newPrice) {
+      const changeType = newPrice > prevPrice ? 'up' : 'down';
+      setPriceChange(changeType);
+      setTimeout(() => setPriceChange(null), ANIMATION_DURATION);
+    }
+
+    updateMarketData({ price: newPrice });
+  }, [updateMarketData]);
+
+  useEffect(() => {
+    if (!marketData.price) {
+      updatePrice(stock);
+    }
+  }, [stock, !!marketData.price, updatePrice]);
+
+  useEffect(() => {
+    const intervalId = setInterval(updatePrice, POLLING_INTERVAL, stock);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [stock, updatePrice]); 
+  }, [stock, updatePrice]);
 
   const getBackgroundColor = () => {
     if (priceChange === 'up') return 'bg-green-100';
@@ -48,7 +58,7 @@ export const Price: React.FC<IPriceProps> = ({ stock }) => {
 
   return (
     <div className="font-bold text-xl">
-      Цена акции: <span className={animationClassName}>{price ?? 'N/A'}</span>
+      Цена акции: <span className={animationClassName}>{marketData.price ?? 'Н/Д'}</span>
     </div>
   );
 };

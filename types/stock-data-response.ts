@@ -1,4 +1,4 @@
-export interface IPriceApiResponse {
+export interface IStockDataResponse {
   securities: IDataSection;
   marketdata: IDataSection;
   dataversion: IDataSection;

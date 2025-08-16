@@ -1,8 +1,13 @@
 import { StockPage } from "@/components/stock-page";
+import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 
 export default async function Stock({ params }: { params: Promise<{ stock: string }> }) {
-  const { stock } = await params;
+  const { stock: stockUrlName } = await params;
+  const stock = getStockByUrlName(stockUrlName)
 
-  return <StockPage initialStock={getStockByUrlName(stock)} />;
+  const marketData = await fetchAggregatedStockData(stock);
+  const initialDataContext = { marketData };
+
+  return <StockPage initialStock={stock} initialDataContext={initialDataContext} />;
 }

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import {
   Table,
   TableBody,
@@ -14,7 +16,7 @@ interface IIncomeByYearTableProps {
   company: TCompany;
 }
 
-export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = ({ company }) => {
+export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ company }) => {
   const {
     units,
     type,
@@ -83,4 +85,6 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = ({ company }
       )}
     </Table>
   )
-}
+});
+
+IncomeByYearTable.displayName = 'IncomeByYearTable';

@@ -1,39 +1,25 @@
 'use client'
-import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
 import { Coefficients } from "@/components//coefficients";
+import { DataContext } from "@/components/data-context";
 import { StockSearch } from "@/components/stock-search";
 import { IncomeByYearTable } from "@/components/income-by-year-table";
 import { Price } from "@/components/price";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useDataContext } from "@/hooks/use-data-context";
+import { useStockSelection } from "@/hooks/use-stock-selection";
 import { IStock } from "@/types/stock";
-import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
-import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
+import { TInitialDataContext } from "@/types/data-context";
 import * as logoImage from '@/public/logo.png'
 
 interface IStockPageProps {
   initialStock: IStock;
+  initialDataContext: TInitialDataContext;
 }
 
-export const StockPage: React.FC<IStockPageProps> = ({ initialStock }) => {
-  const [stock, setStock] = useState<IStock>(initialStock);
-
-  const handleSelect = (stock: IStock) => {
-    setStock(stock);
-    // Не используем useRouter, чтобы это не привело к размонтированию страницы.
-    window.history.pushState(null, "", `/${getUrlNameByStock(stock)}`);
-  };
-
-  const handlePopState = useCallback(() => {
-    const urlName = window.location.pathname.slice(1);
-    setStock(getStockByUrlName(urlName));
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+const StockPageContent: React.FC<Omit<IStockPageProps, 'initialDataContext'>> = ({ initialStock }) => {
+  const [stock, stockSelectionHandler] = useStockSelection(initialStock);
 
   return (
     <div className="flex-[1_0_auto] flex flex-col overflow-hidden">
@@ -42,7 +28,7 @@ export const StockPage: React.FC<IStockPageProps> = ({ initialStock }) => {
           <Image src={logoImage} alt="Инвестемика" height={80} className="h-[80px] w-auto" />
         </div>
         <div className="w-full flex justify-center xl:w-auto">
-          <StockSearch onSelect={handleSelect} />
+          <StockSearch onSelect={stockSelectionHandler} />
         </div>
         <div className="text-white text-center xl:ml-auto xl:text-left">Сайт продолжает пополняться и дорабатываться</div>
       </header>
@@ -70,5 +56,15 @@ export const StockPage: React.FC<IStockPageProps> = ({ initialStock }) => {
         © {new Date().getFullYear()}. Investemika.ru
       </footer>
     </div>
+  );
+}
+
+export const StockPage: React.FC<IStockPageProps> = ({ initialDataContext, ...restProps }) => {
+  const dataContext = useDataContext(initialDataContext);
+
+  return (
+    <DataContext.Provider value={dataContext}>
+      <StockPageContent {...restProps} />
+    </DataContext.Provider>
   );
 }
