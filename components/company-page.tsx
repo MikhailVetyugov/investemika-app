@@ -2,9 +2,11 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
+import { Coefficients } from "@/components//coefficients";
 import { CompanySearch } from "@/components/company-search";
 import { IncomeByYearTable } from "@/components/income-by-year-table";
 import { Price } from "@/components/price";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TCompany } from "@/types/company";
 import { getCompanyByUrlName } from "@/utils/get-company-by-url-name";
 import { getUrlNameByCompany } from "@/utils/get-url-name-by-company";
@@ -44,13 +46,24 @@ export const CompanyPage: React.FC<ICompanyPageProps> = ({ initialCompany }) => 
         </div>
         <div className="text-white text-center xl:ml-auto xl:text-left">Сайт продолжает пополняться и дорабатываться</div>
       </header>
-      <main className="max-w-[min(100%,1368px)] mx-auto my-8 px-8">
-        <section>
-          <h1 className="mb-2 font-bold text-3xl">{company.name} ({company.ticker})</h1>
+      <main className="max-w-[min(100%,1368px)] w-full mx-auto my-8 px-8 flex flex-col gap-4">
+        <section className="flex flex-col gap-2">
+          <h1 className="font-bold text-3xl">{company.name} ({company.ticker})</h1>
           <Price key={company.id} company={company} />
         </section>
         <section>
-          <IncomeByYearTable company={company} />
+          <Tabs defaultValue="financialStatements">
+            <TabsList>
+              <TabsTrigger value="financialStatements" className="cursor-pointer">Финансовая отчетность</TabsTrigger>
+              <TabsTrigger value="coefficients" className="cursor-pointer">Коэффициенты</TabsTrigger>
+            </TabsList>
+            <TabsContent value="financialStatements">
+              <IncomeByYearTable company={company} />
+            </TabsContent>
+            <TabsContent value="coefficients">
+              <Coefficients company={company} />
+            </TabsContent>
+          </Tabs>
         </section>
       </main>
       <footer className="mt-auto px-4 flex items-center justify-center bg-[#00446a] text-white xl:h-[40px] xl:justify-start">

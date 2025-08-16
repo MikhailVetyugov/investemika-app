@@ -23,7 +23,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = ({ company }
 
   return (
     <Table className="table-fixed">
-      <TableCaption className="caption-top font-bold text-xl text-black mb-2">Финансовая отчетность ({units})</TableCaption>
+      <TableCaption className="caption-top font-bold text-xl text-black my-2">Финансовая отчетность ({units})</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[180px] font-bold" />
@@ -36,7 +36,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = ({ company }
           <TableRow>
             <TableCell className="w-[180px] font-bold">Выручка</TableCell>
             {company.revenues.map((item, index) =>
-              <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
+              <TableCell key={index} className="text-right w-[120px]">{formatNumber(item)}</TableCell>
             )}
           </TableRow>
         )}
