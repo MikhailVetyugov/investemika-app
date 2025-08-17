@@ -1,8 +1,9 @@
 import { use, useCallback, useEffect, useRef, useState } from "react";
 
+import { DataContext } from "@/components/data-context";
 import { IStock } from "@/types/stock";
-import { DataContext } from "./data-context";
 import { fetchSingleIssueData } from "@/services/fetch-single-issue-stock-data";
+import { formatNumber } from "@/utils/format-number";
 
 interface IPriceProps {
   stock: IStock;
@@ -35,12 +36,8 @@ export const Price: React.FC<IPriceProps> = ({ stock }) => {
   }, [updateMarketData]);
 
   useEffect(() => {
-    if (!marketData.price) {
-      updatePrice(stock);
-    }
-  }, [stock, !!marketData.price, updatePrice]);
+    setPriceChange(null);
 
-  useEffect(() => {
     const intervalId = setInterval(updatePrice, POLLING_INTERVAL, stock);
 
     return () => {
@@ -55,10 +52,11 @@ export const Price: React.FC<IPriceProps> = ({ stock }) => {
   };
 
   const animationClassName = `transition-colors duration-${ANIMATION_DURATION} ${getBackgroundColor()}`;
+  const priceText = marketData.price ? formatNumber(marketData.price) :'Н/Д';
 
   return (
     <div className="font-bold text-xl">
-      Цена акции: <span className={animationClassName}>{marketData.price ?? 'Н/Д'}</span>
+      Цена акции: <span className={animationClassName}>{priceText}</span>
     </div>
   );
 };

@@ -1,10 +1,11 @@
 export type TCompany = IIndustrialCompany | IBank;
 
 interface ICompany {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
   tickers: string[];
-  units: string,
+  unitsText: string;
+  units: number;
   type: string;
   years: [number, number, number, number, ...number[]];
 }

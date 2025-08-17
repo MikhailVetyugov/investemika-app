@@ -7,19 +7,19 @@ interface IResult {
 }
 
 export async function fetchAggregatedStockData(stock: IStock): Promise<IResult> {
-  const { price, issueCapitalization } = await fetchSingleIssueData(stock);
+  const tickerPromises = stock.company.tickers.map(ticker => fetchSingleIssueData({ ...stock, ticker }));
+  const results = await Promise.all(tickerPromises);
 
-  const otherTickers = stock.company.tickers.filter(ticker => ticker !== stock.ticker);
-  const otherTickerPromises = otherTickers.map(ticker => fetchSingleIssueData({ ...stock, ticker }));
-  const otherResults = await Promise.all(otherTickerPromises);
-
-  const fullCapitalization = otherResults.reduce((acc, { issueCapitalization: currentIssueCapitalization }) => {
-    if (acc && currentIssueCapitalization) {
-      return acc + currentIssueCapitalization;
+  const fullCapitalization = results.reduce((acc, { issueCapitalization }) => {
+    if (acc !== null && issueCapitalization) {
+      return acc + issueCapitalization;
     }
 
-    return acc;
-  }, issueCapitalization)
+    return null;
+  }, 0 as number | null);
+
+  const tickerIndex = stock.company.tickers.findIndex(ticker => ticker === stock.ticker);
+  const price = results[tickerIndex].price;
   
   return {
     price,

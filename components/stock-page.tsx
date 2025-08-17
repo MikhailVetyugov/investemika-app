@@ -30,12 +30,12 @@ const StockPageContent: React.FC<Omit<IStockPageProps, 'initialDataContext'>> = 
         <div className="w-full flex justify-center xl:w-auto">
           <StockSearch onSelect={stockSelectionHandler} />
         </div>
-        <div className="text-white text-center xl:ml-auto xl:text-left">Сайт продолжает пополняться и дорабатываться</div>
+        <div className="text-white text-center xl:ml-auto xl:text-left">Сайт продолжает пополняться</div>
       </header>
       <main className="max-w-[min(100%,1368px)] w-full mx-auto my-8 px-8 flex flex-col gap-4">
         <section className="flex flex-col gap-2">
           <h1 className="font-bold text-3xl">{stock.name} ({stock.ticker})</h1>
-          <Price key={stock.ticker} stock={stock} />
+          <Price stock={stock} />
         </section>
         <section>
           <Tabs defaultValue="financialStatements">

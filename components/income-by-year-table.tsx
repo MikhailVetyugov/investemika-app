@@ -18,14 +18,14 @@ interface IIncomeByYearTableProps {
 
 export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ company }) => {
   const {
-    units,
+    unitsText,
     type,
     years,
   } = company;
 
   return (
     <Table className="table-fixed">
-      <TableCaption className="caption-top font-bold text-xl text-black my-2">Финансовая отчетность ({units})</TableCaption>
+      <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Финансовая отчетность ({unitsText})</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[180px] font-bold" />

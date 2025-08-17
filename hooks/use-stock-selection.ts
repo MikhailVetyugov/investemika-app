@@ -1,20 +1,24 @@
 import { use, useCallback, useEffect, useState } from "react";
 
 import { DataContext } from "@/components/data-context";
+import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
 import { IStock } from "@/types/stock";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
 
 export const useStockSelection = (initialStock: IStock) => {
   const [stock, setStock] = useState<IStock>(initialStock);
-  const { resetMarketData } = use(DataContext);
+  const { updateMarketData, resetMarketData } = use(DataContext);
 
-  const stockSelectionHandler = (stock: IStock) => {
+  const stockSelectionHandler = async (stock: IStock) => {
     setStock(stock);
     resetMarketData();
 
     // Не используем useRouter, чтобы это не привело к размонтированию страницы.
     window.history.pushState(null, "", `/${getUrlNameByStock(stock)}`);
+
+    const marketData = await fetchAggregatedStockData(stock);
+    updateMarketData(marketData);
   };
 
   const popStateHandler = useCallback(() => {
