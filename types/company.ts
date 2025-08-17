@@ -8,6 +8,7 @@ interface ICompany {
   units: number;
   type: string;
   years: [number, number, number, number, ...number[]];
+  nonTradableShareCount?: number;
 }
 
 interface IIndustrialCompany extends ICompany {

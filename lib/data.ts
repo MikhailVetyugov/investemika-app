@@ -34,15 +34,15 @@ const ALL_COMPANIES: TCompany[] = [
     id: 3,
     name: "Норникель",
     tickers: ['GMKN'],
-    unitsText: "в млн. долларов США",
+    unitsText: "в млн. рублей",
     units: 1_000_000,
     type: 'industrial',
     years: [2024, 2023, 2022, 2021],
-    revenues: [12535, 14409, 16876, 17852],
-    operatingIncomes: [3574, 5540, 7581, 9536],
-    netIncomes: [1815, 2870, 5854, 6974],
-    shareCapital: [8097, 7595, 8567, 4788],
-    cashFlowChange: [-184, 282, -4627, 357]
+    revenues: [1166169, 1231711, 1184477, 1316948],
+    operatingIncomes: [332064, 474510, 546046, 703909],
+    netIncomes: [168977, 251769, 429343, 512879],
+    shareCapital: [823098, 681007, 602460, 355736],
+    cashFlowChange: [-7376, 31354, -299410, 28004]
   },
   {
     id: 4,
@@ -125,7 +125,8 @@ const ALL_COMPANIES: TCompany[] = [
     operatingIncomes: [282281, 309674, 298098, 218731],
     netIncomes: [299976, 314282, 253961, 133236],
     shareCapital: [2927953, 2750433, 2539775, 2222739],
-    cashFlowChange: [-23645, 21525, 49946, -20789]
+    cashFlowChange: [-23645, 21525, 49946, -20789],
+    nonTradableShareCount: 569_446_800,
   },
   {
     id: 10,

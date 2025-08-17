@@ -16,7 +16,17 @@ export const getPS = (stock: IStock, marketData: TMarketData) => {
 function getCoefficient(stock: IStock, marketData: TMarketData, rawDenominator: number) {
   if (!marketData.fullCapitalization) return null;
 
+  let numerator = marketData.fullCapitalization;
   const denominator = rawDenominator * stock.company.units;
 
-  return Math.round((marketData.fullCapitalization / denominator) * 100) / 100;
+  if (stock.company.nonTradableShareCount) {
+    if (!marketData.price) {
+      return null;
+    }
+
+    const capitalizationAdjustment = stock.company.nonTradableShareCount * marketData.price;
+    numerator += capitalizationAdjustment;
+  }
+
+  return Math.round((numerator / denominator) * 100) / 100;
 }
