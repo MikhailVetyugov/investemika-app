@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "NODE_OPTIONS=--no-network-family-autoselection next build",
+    "build": "next build",
+    "build:amvera": "NODE_OPTIONS=--no-network-family-autoselection next build",
     "start": "next start",
-    "lint": "next lint"
+    "start:amvera": "next start -H 0.0.0.0",
+    "lint": "next lint",
+    "publish": "git push amvera main:master"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

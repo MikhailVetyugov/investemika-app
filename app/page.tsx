@@ -2,6 +2,8 @@ import { StockPage } from "@/components/stock-page";
 import { ALL_STOCKS } from "@/lib/data";
 import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const initialStock = ALL_STOCKS[0];
 

@@ -14,9 +14,7 @@ const ISSUE_CAPITALIZATION_COLUMN = 'ISSUECAPITALIZATION';
 
 export async function fetchSingleIssueData({ ticker }: IStock): Promise<IResult> {
   try {
-    const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`, {
-      cache: 'no-store'
-    });
+    const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');

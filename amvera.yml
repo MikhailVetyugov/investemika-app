@@ -7,14 +7,14 @@ meta:
     version: 20
 build:
   skip: false
-  additionalCommands: npm run build
+  additionalCommands: npm run build:amvera
   artifacts:
     '*': /
 run:
   scriptName: ""
   scriptArguments: null
   nodeArguments: null
-  command: npm run start
+  command: npm run start:amvera
   persistenceMount: /data
   containerPort: 3000
   servicePort: 80
