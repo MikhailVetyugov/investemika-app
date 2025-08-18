@@ -1,13 +1,14 @@
 import { memo, use } from "react";
 
 import { DataContext } from "@/components/data-context";
+import { PSCoefficient } from "@/components/ps-coefficient";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
 import { getPE } from "@/utils/coefficients";
@@ -40,7 +41,9 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
           </TableRow>
           <TableRow>
             <TableCell className="font-bold">P/S</TableCell>
-            <TableCell className="text-right">{PS ? formatNumber(PS) : 'Н/Д'}</TableCell>
+            <TableCell className="text-right">
+              <PSCoefficient value={PS} stock={stock} />
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
