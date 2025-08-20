@@ -1,5 +1,6 @@
 import { TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
+import { getFCF } from "./cash-flow";
 
 export const getPE = (stock: IStock, marketData: TMarketData) => getCoefficient(stock, marketData, stock.company.netIncomes[0]);
 
@@ -14,14 +15,10 @@ export const getPS = (stock: IStock, marketData: TMarketData) => {
 }
 
 export const getPFCF = (stock: IStock, marketData: TMarketData) => {
-  const { company } = stock;
+  const FCF = getFCF(stock.company);
 
-  if ('operatingCashFlow' in company && company.tangibleAssetsExpenditure && company.intangibleAssetsExpenditure) {
-    return getCoefficient(
-      stock,
-      marketData,
-      company.operatingCashFlow[0] - company.tangibleAssetsExpenditure[0] - company.intangibleAssetsExpenditure[0]
-    );
+  if (FCF) {
+    return getCoefficient(stock, marketData, FCF);
   }
 
   return null;

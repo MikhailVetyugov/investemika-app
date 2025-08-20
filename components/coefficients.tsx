@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
-import { getPE,  getPB, getPS, getPFCF } from "@/utils/coefficients";
+import { getPE,  getPB, getPS, getPFCF } from "@/utils/calculations/coefficients";
 import { formatNumber } from "@/utils/format-number";
 
 interface ICoefficientsProps {

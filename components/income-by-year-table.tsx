@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table"
 import { TCompany } from "@/types/company";
 import { formatNumber } from "@/utils/format-number";
+import { getFCF } from "@/utils/calculations/cash-flow";
 
 interface IIncomeByYearTableProps {
   company: TCompany;
@@ -66,7 +67,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
 
       <TableBody>
         <TableRow>
-          <TableCell className="w-[180px] font-bold">Акционерный капитал</TableCell>
+          <TableCell className="w-[180px] font-bold">Собственный капитал</TableCell>
           {company.shareCapital.map((item, index) =>
             <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
           )}
@@ -76,7 +77,21 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
       {type === 'industrial' && (
         <TableBody>
           <TableRow>
-            <TableCell className="w-[180px] font-bold">Изменение денежного потока</TableCell>
+            <TableCell className="w-[180px] font-bold">Операционный денежный поток</TableCell>
+            {company.operatingCashFlow.map((item, index) =>
+              <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
+            )}
+          </TableRow>
+          <TableRow>
+            <TableCell className="w-[180px] font-bold">Свободный денежный поток</TableCell>
+            {years.map((_item, index) => {
+              const FCF = getFCF(company, index);
+
+              return <TableCell key={index} className="text-right  w-[120px]">{FCF ? formatNumber(FCF) : 'Н/Д'}</TableCell>;
+            })}
+          </TableRow>
+          <TableRow>
+            <TableCell className="w-[180px] font-bold">Изменение денежных потоков</TableCell>
             {company.cashFlowChange.map((item, index) =>
               <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
             )}
