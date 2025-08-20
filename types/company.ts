@@ -18,6 +18,9 @@ interface IIndustrialCompany extends ICompany {
   netIncomes: [number, number, number, number, ...number[]];
   shareCapital: [number, number, number, number, ...number[]];
   cashFlowChange:[number, number, number, number, ...number[]];
+  operatingCashFlow: [number, number, number, number, ...number[]];
+  tangibleAssetsExpenditure?: [number, number, number, number, ...number[]];
+  intangibleAssetsExpenditure?: [number, number, number, number, ...number[]];
 }
 
 interface IBank extends ICompany {

@@ -1,7 +1,7 @@
 import { memo, use } from "react";
 
 import { DataContext } from "@/components/data-context";
-import { PSCoefficient } from "@/components/ps-coefficient";
+import { IndustricalCompanyCoefficient } from "@/components/industrical-company-coefficient";
 import {
   Table,
   TableBody,
@@ -11,8 +11,7 @@ import {
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
-import { getPE } from "@/utils/coefficients";
-import { getPB, getPS } from "@/utils/coefficients";
+import { getPE,  getPB, getPS, getPFCF } from "@/utils/coefficients";
 import { formatNumber } from "@/utils/format-number";
 
 interface ICoefficientsProps {
@@ -25,6 +24,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
   const PE = getPE(stock, marketData);
   const PB = getPB(stock, marketData);
   const PS = getPS(stock, marketData);
+  const PFCF = getPFCF(stock, marketData);
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,7 +42,13 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
           <TableRow>
             <TableCell className="font-bold">P/S</TableCell>
             <TableCell className="text-right">
-              <PSCoefficient value={PS} stock={stock} />
+              <IndustricalCompanyCoefficient value={PS} stock={stock} />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-bold">P/FCF</TableCell>
+            <TableCell className="text-right">
+              <IndustricalCompanyCoefficient value={PFCF} stock={stock} />
             </TableCell>
           </TableRow>
         </TableBody>

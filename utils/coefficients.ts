@@ -13,6 +13,20 @@ export const getPS = (stock: IStock, marketData: TMarketData) => {
   return null;
 }
 
+export const getPFCF = (stock: IStock, marketData: TMarketData) => {
+  const { company } = stock;
+
+  if ('operatingCashFlow' in company && company.tangibleAssetsExpenditure && company.intangibleAssetsExpenditure) {
+    return getCoefficient(
+      stock,
+      marketData,
+      company.operatingCashFlow[0] - company.tangibleAssetsExpenditure[0] - company.intangibleAssetsExpenditure[0]
+    );
+  }
+
+  return null;
+}
+
 function getCoefficient(stock: IStock, marketData: TMarketData, rawDenominator: number) {
   if (!marketData.fullCapitalization) return null;
 

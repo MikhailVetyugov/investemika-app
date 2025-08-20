@@ -15,6 +15,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [851546, 1160271, 775513, 16633],
     shareCapital: [6892008, 6401233, 6864749, 5991579],
     cashFlowChange: [246591, 299475, 333650, -172200],
+    operatingCashFlow: [1788172, 1824311, 1126614, 776574],
+    tangibleAssetsExpenditure: [650, 5540, 337, 235],
+    intangibleAssetsExpenditure: [779724, 720317, 433042, 495443],
   },
   {
     id: 2,
@@ -29,6 +32,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [1318710, -583076, 1311645, 2159086],
     shareCapital: [17660962, 16452714, 16445845, 16866579],
     cashFlowChange: [434891, 269193, -856336, 979004],
+    operatingCashFlow: [2495688, 2296223, 2192682, 3015390],
+    tangibleAssetsExpenditure: [2353789, 2422017, 2191642, 1933766],
+    intangibleAssetsExpenditure: [0, 0, 0, 0]
   },
   {
     id: 3,
@@ -42,7 +48,10 @@ const ALL_COMPANIES: TCompany[] = [
     operatingIncomes: [332064, 474510, 546046, 703909],
     netIncomes: [168977, 251769, 429343, 512879],
     shareCapital: [823098, 681007, 602460, 355736],
-    cashFlowChange: [-7376, 31354, -299410, 28004]
+    cashFlowChange: [-7376, 31354, -299410, 28004],
+    operatingCashFlow: [414134, 495364, 323312, 518661],
+    tangibleAssetsExpenditure: [222745, 253442, 282950, 197015],
+    intangibleAssetsExpenditure: [4948, 4374, 4863, 5919]
   },
   {
     id: 4,
@@ -57,6 +66,7 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [500211, 469487, 451621, 78586],
     shareCapital: [2848001, 2605632, 1911469, 1638427],
     cashFlowChange: [20775, -7834, -73787, 66467],
+    operatingCashFlow: [357142, 433316, 419466, 171896]
   },
   {
     id: 5,
@@ -71,6 +81,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [305538, 151390, 111849, 167421],
     shareCapital: [127015, -56156, 372989, 259978],
     cashFlowChange: [-5914, 46306, -18516, -4498],
+    operatingCashFlow: [323734, 253937, 130225, 215656],
+    tangibleAssetsExpenditure: [137757, 102655, 90744, 83103],
+    intangibleAssetsExpenditure: [0, 0, 0, 0]
   },
   {
     id: 6,
@@ -85,6 +98,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [1341, 1529, 1012, 166],
     shareCapital: [9157, 8414, 6489, 5472],
     cashFlowChange: [330, 35, -151, 581],
+    operatingCashFlow: [2465, 2765, 1166, 1745],
+    tangibleAssetsExpenditure: [1442, 1297, 1049, 785],
+    intangibleAssetsExpenditure: [0, 0, 24, 4]
   },
   {
     id: 7,
@@ -112,6 +128,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [308929, 286263, 284903, 198886],
     shareCapital: [1330244, 1197170, 1104444, 943375],
     cashFlowChange: [30509, -91844, 108630, 26551],
+    operatingCashFlow: [425129, 326632, 357698, 267494],
+    tangibleAssetsExpenditure: [170967, 223599, 160895, 119106],
+    intangibleAssetsExpenditure: [3725, 3496, 0, 0]
   },
   {
     id: 9,
@@ -126,6 +145,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [299976, 314282, 253961, 133236],
     shareCapital: [2927953, 2750433, 2539775, 2222739],
     cashFlowChange: [-23645, 21525, 49946, -20789],
+    operatingCashFlow: [449331, 425058, 427610, 422396],
+    tangibleAssetsExpenditure: [351655, 268440, 268440, 206972],
+    intangibleAssetsExpenditure: [0, 0, 0, 0],
     nonTradableShareCount: 569_446_800,
   },
   {
@@ -141,6 +163,9 @@ const ALL_COMPANIES: TCompany[] = [
     netIncomes: [149554, 190907, 105798, 299648],
     shareCapital: [496524, 608297, 425714, 312671],
     cashFlowChange: [-244997, 187349, 155181, -12058],
+    operatingCashFlow: [183313, 179197, 217729, 344002],
+    tangibleAssetsExpenditure: [109617, 68176, 62619, 78664],
+    intangibleAssetsExpenditure: [8843, 4453, 5251, 6534]
   }
 ];
 
