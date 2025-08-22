@@ -17,15 +17,15 @@ export const metadata: Metadata = {
   title: "Инвестемика - анализ финансовых показателей российских компаний | МСФО отчетность, мультипликаторы, акции",
   description: "Ключевые финансовые показатели российских компаний по МСФО: доходы, прибыль, капитал, денежные потоки. Котировки акций, мультипликаторы (P/E, P/B, P/S, P/FCF), добавление в портфель. Инструмент для частных инвесторов на основе фундаментального анализа.",
   keywords: [
-    "инвестиции", 
-    "российские акции", 
-    "фундаментальный анализ", 
-    "МСФО отчетность", 
+    "инвестиции",
+    "российские акции",
+    "фундаментальный анализ",
+    "МСФО отчетность",
     "финансовые показатели",
     "выручка",
-    "P/E", 
-    "P/B", 
-    "P/S", 
+    "P/E",
+    "P/B",
+    "P/S",
     "инвестиционный портфель",
     "биржа",
     "фондовый рынок"
@@ -53,6 +53,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col font-sans`}
       >

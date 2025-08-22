@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import {
   Command,
@@ -21,9 +21,11 @@ interface IStockSearchProps {
 }
 
 export const StockSearch: React.FC<IStockSearchProps> = ({ onSelect }) => {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const [text, setText] = useState<string>('');
   const [options, setOptions] = useState<IStock[]>([]);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const notFound = text.length > 0 && options.length === 0;
 
@@ -36,12 +38,26 @@ export const StockSearch: React.FC<IStockSearchProps> = ({ onSelect }) => {
     setOpen(true);
   };
 
+  const handleValueClear = () => {
+    setText('');
+    setOptions(ALL_STOCKS);
+    setOpen(true);
+
+    inputRef.current?.focus();
+  }
+
   const handleFocus = () => {
     if (text === '') {
       setOptions(ALL_STOCKS);
       setOpen(true);
     }
   };
+
+  const handleInteractOutside = (event: Event) => {
+    if (event.target === inputRef.current) {
+      event.preventDefault();
+    }
+  }
 
   const handleSelect = (ticker: string) => {
     const stock = ALL_STOCKS.find(stock => stock.ticker === ticker)!;
@@ -56,9 +72,20 @@ export const StockSearch: React.FC<IStockSearchProps> = ({ onSelect }) => {
     <Popover open={open} onOpenChange={setOpen}>
       <Command className="rounded-lg border shadow-md md:min-w-[450px] max-w-[900px]" shouldFilter={false}>
         <PopoverAnchor>
-          <CommandInput placeholder="Введите имя компании..." value={text} onValueChange={handleValueChange} onFocus={handleFocus} />
+          <CommandInput
+            ref={inputRef}
+            placeholder="Введите имя компании..."
+            value={text}
+            onValueChange={handleValueChange}
+            onClearIconClick={handleValueClear}
+            onFocus={handleFocus}
+          />
         </PopoverAnchor>
-        <PopoverContent className="p-0 w-(--radix-popover-trigger-width)" onOpenAutoFocus={event => event.preventDefault()}>
+        <PopoverContent
+          className="p-0 w-(--radix-popover-trigger-width)"
+          onOpenAutoFocus={event => event.preventDefault()}
+          onInteractOutside={handleInteractOutside}
+        >
           <CommandList className={SCROLLBAR_CLASSES}>
             {notFound && <CommandEmpty>Компания не нашлась</CommandEmpty>}
             {options.map(option => (
