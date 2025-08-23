@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { TDataContext, TInitialDataContext, TMarketData } from "@/types/data-context";
+import { IStock } from "@/types/stock";
 
 export const useDataContext = (initialDataContext: TInitialDataContext): TDataContext => {
+  const [stock, setStock] = useState<IStock | null>(initialDataContext.stock);
   const [marketData, setMarketData] = useState<TMarketData>(initialDataContext.marketData);
 
   const updateMarketData = useCallback((newMarketData: Partial<TMarketData>) => {
@@ -20,8 +22,11 @@ export const useDataContext = (initialDataContext: TInitialDataContext): TDataCo
   }, [])
 
   return useMemo(() => ({
+    stock,
+    setStock,
+
     marketData,
     updateMarketData,
     resetMarketData,
-  }), [marketData, updateMarketData]);
+  }), [stock, marketData, updateMarketData]);
 }

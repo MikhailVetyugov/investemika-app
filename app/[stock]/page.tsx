@@ -1,4 +1,5 @@
-import { StockPage } from "@/components/stock-page";
+import { PageShell } from "@/components/page-shell";
+import { StockPageContent } from "@/components/stock-page-content";
 import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 
@@ -7,7 +8,11 @@ export default async function Stock({ params }: { params: Promise<{ stock: strin
   const stock = getStockByUrlName(stockUrlName)
 
   const marketData = await fetchAggregatedStockData(stock);
-  const initialDataContext = { marketData };
+  const initialDataContext = { stock, marketData };
 
-  return <StockPage initialStock={stock} initialDataContext={initialDataContext} />;
+  return (
+    <PageShell initialDataContext={initialDataContext} stockPage>
+      <StockPageContent />
+    </PageShell>
+  );
 }
