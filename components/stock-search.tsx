@@ -62,7 +62,7 @@ export const StockSearch: React.FC<IStockSearchProps> = ({ onSelect }) => {
   const handleSelect = (ticker: string) => {
     const stock = ALL_STOCKS.find(stock => stock.ticker === ticker)!;
 
-    setText(stock.name)
+    setText('')
     setOpen(false);
 
     onSelect(stock);
