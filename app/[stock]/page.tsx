@@ -5,6 +5,7 @@ import { PageShell } from "@/components/page-shell";
 import { StockPageContent } from "@/components/stock-page-content";
 import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
+import { getStockPageSeoTitle } from "@/utils/get-stock-page-seo-title";
 
 type TProps = {
   params: Promise<{ stock: string }>
@@ -18,7 +19,7 @@ export async function generateMetadata(
   const stock = getStockByUrlName(stockUrlName);
 
   const parentMetadata = await parent;
-  const title = `${stock.name} (${stock.ticker}) | Финансовые показатели по МСФО и мультипликаторы`
+  const title = getStockPageSeoTitle(stock);
 
   return {
     title,

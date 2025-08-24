@@ -6,6 +6,7 @@ import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data
 import { IStock } from "@/types/stock";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
+import { getStockPageSeoTitle } from "@/utils/get-stock-page-seo-title";
 
 export const useStockSelection = (stockPage: boolean) => {
   const { setStock, updateMarketData, resetMarketData } = use(DataContext);
@@ -23,6 +24,8 @@ export const useStockSelection = (stockPage: boolean) => {
 
       const marketData = await fetchAggregatedStockData(stock);
       updateMarketData(marketData);
+      
+      window.document.title = getStockPageSeoTitle(stock);
     } else {
       router.push(nextUrl);
     }
