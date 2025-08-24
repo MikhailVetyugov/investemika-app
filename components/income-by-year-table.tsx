@@ -26,7 +26,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
 
   return (
     <Table className="table-fixed">
-      <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Финансовая отчетность ({unitsText})</TableCaption>
+      <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Финансовая отчетность по МСФО ({unitsText})</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[185px] font-bold" />
