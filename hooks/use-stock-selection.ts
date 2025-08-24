@@ -1,4 +1,5 @@
 import { use, useCallback, useEffect } from "react";
+import { useRouter } from 'nextjs-toploader/app';
 
 import { DataContext } from "@/components/data-context";
 import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
@@ -8,12 +9,13 @@ import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
 
 export const useStockSelection = (stockPage: boolean) => {
   const { setStock, updateMarketData, resetMarketData } = use(DataContext);
+  const router = useRouter();
 
   const stockSelectionHandler = async (stock: IStock) => {
     setStock(stock);
     resetMarketData();
 
-    const nextUrl = `/${getUrlNameByStock(stock)}`
+    const nextUrl = `/${getUrlNameByStock(stock)}`;
 
     if (stockPage) {
       // Не используем useRouter, чтобы это не привело к размонтированию страницы.
@@ -22,8 +24,7 @@ export const useStockSelection = (stockPage: boolean) => {
       const marketData = await fetchAggregatedStockData(stock);
       updateMarketData(marketData);
     } else {
-      // Показываем пользователю полную перезагрузку. useRouter + loading файл нельзя использовать из-за SEO.
-      window.location.assign(nextUrl);
+      router.push(nextUrl);
     }
   };
 
