@@ -1,4 +1,3 @@
-import { IStock } from "@/types/stock";
 import { IStockDataResponse } from "@/types/stock-data-response";
 
 interface IResult {
@@ -12,8 +11,14 @@ const BOARD_ID_COLUMN = 'BOARDID';
 const LAST_PRICE_COLUMN = 'LAST';
 const ISSUE_CAPITALIZATION_COLUMN = 'ISSUECAPITALIZATION';
 
-export async function fetchSingleIssueData({ ticker }: IStock): Promise<IResult> {
+export async function fetchSingleIssueData(ticker: string): Promise<IResult> {
   try {
+    const isBrowser = typeof window !== 'undefined';
+
+    if (isBrowser) {
+      return fetchSingleIssueDataInBrowser(ticker);
+    }
+    
     const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`);
 
     if (!response.ok) {
@@ -29,6 +34,31 @@ export async function fetchSingleIssueData({ ticker }: IStock): Promise<IResult>
       price,
       issueCapitalization,
     };
+  } catch (error) {
+    console.error('Error while fetching stock data', error);
+  }
+
+  return {
+    price: null,
+    issueCapitalization: null,
+  };
+}
+
+async function fetchSingleIssueDataInBrowser(ticker: string): Promise<IResult> {
+  try {
+    const response = await fetch(`${window.location.origin}/api/single-issue-stock-data`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ticker }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json();
   } catch (error) {
     console.error('Error while fetching stock data', error);
   }

@@ -24,7 +24,7 @@ export const Price: React.FC<IPriceProps> = ({ stock }) => {
 
   const updatePrice = useCallback(async (stock: IStock) => {
     const prevPrice = priceRef.current;
-    const { price: newPrice } = await fetchSingleIssueData(stock);
+    const { price: newPrice } = await fetchSingleIssueData(stock.ticker);
 
     if (prevPrice && newPrice && prevPrice !== newPrice) {
       const changeType = newPrice > prevPrice ? 'up' : 'down';

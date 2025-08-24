@@ -7,7 +7,7 @@ interface IResult {
 }
 
 export async function fetchAggregatedStockData(stock: IStock): Promise<IResult> {
-  const tickerPromises = stock.company.tickers.map(ticker => fetchSingleIssueData({ ...stock, ticker }));
+  const tickerPromises = stock.company.tickers.map(fetchSingleIssueData);
   const results = await Promise.all(tickerPromises);
 
   const fullCapitalization = results.reduce((acc, { issueCapitalization }) => {
