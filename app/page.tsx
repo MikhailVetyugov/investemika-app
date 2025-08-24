@@ -27,7 +27,7 @@ export default async function Home() {
             <ul>
               {letterGroups[letter].map(stock => (
                 <li key={stock.ticker} className="text-investemika-primary underline decoration-from-font">
-                  <Link href={`/${getUrlNameByStock(stock)}`}>{stock.name}</Link>
+                  <a href={`/${getUrlNameByStock(stock)}`}>{stock.name}</a>
                 </li>
               ))}
             </ul>
