@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const dynamicUrls = ALL_STOCKS.map(stock => ({
     url: `https://investemika.ru/${getUrlNameByStock(stock)}`,
     lastModified: new Date(),
-    priority: 0.9,
+    priority: 0.8,
   }));
 
   return [

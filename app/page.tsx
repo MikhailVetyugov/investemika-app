@@ -6,7 +6,7 @@ import { ALL_STOCKS } from "@/lib/data";
 import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
 import { groupStocksByLetter } from "@/utils/group-stocks-by-letter";
 
-export default async function Home() {
+export default async function HomePage() {
   const initialDataContext = { stock: null, marketData: { price: null, fullCapitalization: null } };
 
   const letterGroups = groupStocksByLetter(ALL_STOCKS);
@@ -15,8 +15,8 @@ export default async function Home() {
   return (
     <PageShell initialDataContext={initialDataContext}>
       <div>
-        «Инвестемика» — это инструмент для частных инвесторов, представляющий ключевые финансовые показатели российских компаний,
-        торгуемых на{NBSP}Московской бирже, по{NBSP}отчетности МСФО по{NBSP}годам: выручка, прибыль, капитал и денежные потоки.
+        «Инвестемика» — это инструмент для частных инвесторов, представляющий ключевые финансовые показатели российских компаний
+        из{NBSP}индекса Московской биржи по{NBSP}отчетности МСФО: выручка, прибыль, капитал и денежные потоки по{NBSP}годам.
         Мы{NBSP}аккумулируем данные и{NBSP}рассчитываем мультипликаторы (P/E, P/B, P/S, P/FCF), чтобы вы могли принимать
         взвешенные инвестиционные решения на{NBSP}основе фундаментального анализа.
       </div>
