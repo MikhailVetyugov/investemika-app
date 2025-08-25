@@ -34,7 +34,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
         </TableRow>
       </TableHeader>
 
-      <TableBody>
+      <TableBody asGroup>
         {type === 'industrial' && (
           <TableRow>
             <TableCell className="w-[200px] md:w-[180px] font-bold">Выручка</TableCell>
@@ -65,7 +65,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
         </TableRow>
       </TableBody>
 
-      <TableBody>
+      <TableBody asGroup>
         <TableRow>
           <TableCell className="w-[200px] md:w-[180px] font-bold">Собственный капитал</TableCell>
           {company.shareCapital.map((item, index) =>
@@ -75,7 +75,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
       </TableBody>
 
       {type === 'industrial' && (
-        <TableBody>
+        <TableBody asGroup>
           <TableRow>
             <TableCell className="w-[200px] md:w-[180px] font-bold">Операционный денежный поток</TableCell>
             {company.operatingCashFlow.map((item, index) =>

@@ -30,11 +30,19 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
   )
 }
 
-function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+type TTableBodyProps = React.ComponentProps<"tbody"> & {
+  asGroup: boolean;
+}
+
+function TableBody({ className, asGroup = false, ...props }: TTableBodyProps) {
+  const trClassNames = asGroup
+    ? ["[&_tr:not(:last-child)]:border-0", "[&:last-child_tr:last-child]:border-0"]
+    : ["[&_tr:last-child]:border-0"];
+
   return (
     <tbody
       data-slot="table-body"
-      className={cn("[&_tr:last-child]:border-0", className)}
+      className={cn(...trClassNames, className)}
       {...props}
     />
   )
