@@ -2,9 +2,17 @@ import { TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
 import { getFCF } from "./cash-flow";
 
-export const getPE = (stock: IStock, marketData: TMarketData) => getCoefficient(stock, marketData, stock.company.netIncomes[0]);
+export const getPE = (stock: IStock, marketData: TMarketData) => {
+  const earnings = stock.company.shareholdersNetIncomes?.[0] || stock.company.netIncomes[0];
 
-export const getPB = (stock: IStock, marketData: TMarketData) => getCoefficient(stock, marketData, stock.company.shareCapital[0]);
+  return getCoefficient(stock, marketData, earnings);
+}
+
+export const getPB = (stock: IStock, marketData: TMarketData) => {
+  const equity = stock.company.shareholdersEquity?.[0] || stock.company.totalEquity[0];
+
+  return getCoefficient(stock, marketData, equity);
+}
 
 export const getPS = (stock: IStock, marketData: TMarketData) => {
   if ('revenues' in stock.company) {

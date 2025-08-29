@@ -17,6 +17,9 @@ interface IIncomeByYearTableProps {
   company: TCompany;
 }
 
+const HEAD_CELL_CLASS_NAME = 'w-[260px] max-w-[260px] font-bold';
+const DATA_CELL_CLASS_NAME = 'text-right w-[150px]';
+
 export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ company }) => {
   const {
     unitsText,
@@ -29,71 +32,117 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
       <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Финансовая отчетность по МСФО ({unitsText})</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[200px] md:w-[180px] font-bold" />
-          {years.map(year => <TableHead key={year} className="text-right w-[120px]">{year}</TableHead>)}
+          <TableHead className={HEAD_CELL_CLASS_NAME} />
+          {years.map(year => <TableHead key={year} className={DATA_CELL_CLASS_NAME}>{year}</TableHead>)}
         </TableRow>
       </TableHeader>
 
       <TableBody asGroup>
-        {type === 'industrial' && (
-          <TableRow>
-            <TableCell className="w-[200px] md:w-[180px] font-bold">Выручка</TableCell>
-            {company.revenues.map((item, index) =>
-              <TableCell key={index} className="text-right w-[120px]">{formatNumber(item)}</TableCell>
+        {type === 'regular' && (
+          <>
+            <TableRow>
+              <TableCell className={HEAD_CELL_CLASS_NAME}>Выручка</TableCell>
+              {company.revenues.map((item, index) =>
+                <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+              )}
+            </TableRow>
+            {company.grossMargins && (
+              <TableRow>
+                <TableCell className={HEAD_CELL_CLASS_NAME}>Валовая прибыль</TableCell>
+                {company.grossMargins.map((item, index) =>
+                  <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+                )}
+              </TableRow>
             )}
-          </TableRow>
+          </>
         )}
         {type === 'bank' && (
           <TableRow>
-            <TableCell className="w-[200px] md:w-[180px] font-bold">Чистые процентные доходы</TableCell>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Чистые процентные доходы</TableCell>
             {company.netInterestIncomes.map((item, index) =>
-              <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
             )}
           </TableRow>
         )}
         <TableRow>
-          <TableCell className="w-[200px] md:w-[180px] font-bold">Операционная прибыль</TableCell>
+          <TableCell className={HEAD_CELL_CLASS_NAME}>Операционная прибыль</TableCell>
           {company.operatingIncomes.map((item, index) =>
-            <TableCell key={index} className="text-right w-[120px]">{formatNumber(item)}</TableCell>
+            <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
           )}
         </TableRow>
         <TableRow>
-          <TableCell className="w-[200px] md:w-[180px] font-bold">Чистая прибыль</TableCell>
+          <TableCell className={HEAD_CELL_CLASS_NAME}>Чистая прибыль</TableCell>
           {company.netIncomes.map((item, index) =>
-            <TableCell key={index} className="text-right w-[120px]">{formatNumber(item)}</TableCell>
+            <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
           )}
         </TableRow>
       </TableBody>
 
       <TableBody asGroup>
+        {company.totalAssets && (
+          <TableRow>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Активы</TableCell>
+            {company.totalAssets.map((item, index) =>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+            )}
+          </TableRow>
+        )}
+        {company.type === 'regular' && (
+          <>
+            {company.currentLiabilities && (
+              <TableRow>
+                <TableCell className={HEAD_CELL_CLASS_NAME}>Текущие обязательства</TableCell>
+                {company.currentLiabilities.map((item, index) =>
+                  <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </>
+        )}
         <TableRow>
-          <TableCell className="w-[200px] md:w-[180px] font-bold">Собственный капитал</TableCell>
-          {company.shareCapital.map((item, index) =>
-            <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
+          <TableCell className={HEAD_CELL_CLASS_NAME}>Собственный капитал</TableCell>
+          {company.totalEquity.map((item, index) =>
+            <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
           )}
         </TableRow>
       </TableBody>
 
-      {type === 'industrial' && (
+      {type === 'regular' && (
         <TableBody asGroup>
           <TableRow>
-            <TableCell className="w-[200px] md:w-[180px] font-bold">Операционный денежный поток</TableCell>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Операционный денежный поток</TableCell>
             {company.operatingCashFlow.map((item, index) =>
-              <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
             )}
           </TableRow>
+          {company.investingCashFlow && (
+            <TableRow>
+              <TableCell className={HEAD_CELL_CLASS_NAME}>Инвестиционный денежный поток</TableCell>
+              {company.investingCashFlow.map((item, index) =>
+                <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+              )}
+            </TableRow>
+          )}
+          {company.financingCashFlow && (
+            <TableRow>
+              <TableCell className={HEAD_CELL_CLASS_NAME}>Финансовый денежный поток</TableCell>
+              {company.financingCashFlow.map((item, index) =>
+                <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+              )}
+            </TableRow>
+          )}
           <TableRow>
-            <TableCell className="w-[200px] md:w-[180px] font-bold">Свободный денежный поток</TableCell>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Свободный денежный поток</TableCell>
             {years.map((_item, index) => {
               const FCF = getFCF(company, index);
 
-              return <TableCell key={index} className="text-right  w-[120px]">{FCF ? formatNumber(FCF) : 'Н/Д'}</TableCell>;
+              return <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{FCF ? formatNumber(FCF) : 'Н/Д'}</TableCell>;
             })}
           </TableRow>
           <TableRow>
-            <TableCell className="w-[200px] md:w-[180px] font-bold">Изменение денежных потоков</TableCell>
-            {company.cashFlowChange.map((item, index) =>
-              <TableCell key={index} className="text-right  w-[120px]">{formatNumber(item)}</TableCell>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Изменение денежных потоков</TableCell>
+            {company.netChangeInCash.map((item, index) =>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
             )}
           </TableRow>
         </TableBody>
