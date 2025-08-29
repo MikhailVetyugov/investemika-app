@@ -31,7 +31,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
 }
 
 type TTableBodyProps = React.ComponentProps<"tbody"> & {
-  asGroup: boolean;
+  asGroup?: boolean;
 }
 
 function TableBody({ className, asGroup = false, ...props }: TTableBodyProps) {
