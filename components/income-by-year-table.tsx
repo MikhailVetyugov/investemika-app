@@ -17,8 +17,8 @@ interface IIncomeByYearTableProps {
   company: TCompany;
 }
 
-const HEAD_CELL_CLASS_NAME = 'w-[260px] max-w-[260px] font-bold';
-const DATA_CELL_CLASS_NAME = 'text-right w-[150px]';
+const HEAD_CELL_CLASS_NAME = 'w-[290px] max-w-[290px] font-bold';
+const DATA_CELL_CLASS_NAME = 'w-[120px] md:w-[145px] xl:w-[180px] text-right';
 
 export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ company }) => {
   const {
@@ -78,6 +78,14 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
             <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
           )}
         </TableRow>
+        {company.shareholdersNetIncomes && (
+          <TableRow>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Прибыль, относящаяся к акционерам</TableCell>
+            {company.shareholdersNetIncomes.map((item, index) =>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+            )}
+          </TableRow>
+        )}
       </TableBody>
 
       <TableBody asGroup>
@@ -107,6 +115,14 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
             <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
           )}
         </TableRow>
+        {company.shareholdersEquity && (
+          <TableRow>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Капитал, относящийся к акционерам</TableCell>
+            {company.shareholdersEquity.map((item, index) =>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+            )}
+          </TableRow>
+        )}
       </TableBody>
 
       {type === 'regular' && (
