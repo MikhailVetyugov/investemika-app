@@ -74,6 +74,7 @@ export const StockSearch: React.FC<IStockSearchProps> = ({ onSelect }) => {
         <PopoverAnchor>
           <CommandInput
             ref={inputRef}
+            className="text-base lg:text-sm"
             placeholder="Введите имя компании..."
             value={text}
             onValueChange={handleValueChange}

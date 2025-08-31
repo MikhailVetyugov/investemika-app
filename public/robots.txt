@@ -1,3 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /_next/
+Disallow: /site.webmanifest
+Disallow: /api/
 Sitemap: https://investemika.ru/sitemap.xml

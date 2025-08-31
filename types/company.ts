@@ -16,6 +16,7 @@ interface ICompany {
   shareholdersEquity?: [number, number, number, number, ...number[]];
 
   nonTradableShareCount?: number;
+  coefficientsNote?: string;
 }
 
 interface IRegularCompany extends ICompany {
@@ -35,5 +36,5 @@ interface IRegularCompany extends ICompany {
 interface IBank extends ICompany {
   type: 'bank';
   netInterestIncomes: [number, number, number, number, ...number[]];
-  operatingIncomes: [number, number, number, number, ...number[]];
+  operatingIncomes?: [number, number, number, number, ...number[]];
 }

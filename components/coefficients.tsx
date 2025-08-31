@@ -53,7 +53,10 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
           </TableRow>
         </TableBody>
       </Table>
-      <div className="text-xs text-gray-500 w-[296px]">Используются данные из годовой отчетности и{NBSP}текущая капитализация</div>
+      <div className="text-xs text-gray-500 w-[296px]">
+        Используются данные из годовой отчетности и{NBSP}текущая капитализация.
+        {stock.company.coefficientsNote}
+      </div>
     </div>
   );
 });

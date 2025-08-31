@@ -64,12 +64,14 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
             )}
           </TableRow>
         )}
-        <TableRow>
-          <TableCell className={HEAD_CELL_CLASS_NAME}>Операционная прибыль</TableCell>
-          {company.operatingIncomes.map((item, index) =>
-            <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
-          )}
-        </TableRow>
+        {company.operatingIncomes && (
+          <TableRow>
+            <TableCell className={HEAD_CELL_CLASS_NAME}>Операционная прибыль</TableCell>
+            {company.operatingIncomes.map((item, index) =>
+              <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+            )}
+          </TableRow>
+        )}
         <TableRow>
           <TableCell className={HEAD_CELL_CLASS_NAME}>Чистая прибыль</TableCell>
           {company.netIncomes.map((item, index) =>
