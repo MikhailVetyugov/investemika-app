@@ -1,4 +1,4 @@
-export type TCompany = IRegularCompany | IBank;
+export type TCompany = IRegularCompany | IBank | IExchange;
 
 interface ICompany {
   id: number;
@@ -7,34 +7,49 @@ interface ICompany {
   unitsText: string;
   units: number;
   type: string;
-  years: [number, number, number, number, ...number[]];
+  years: number[];
 
-  netIncomes: [number, number, number, number, ...number[]];
-  shareholdersNetIncomes?: [number, number, number, number, ...number[]];
-  totalAssets?: [number, number, number, number, ...number[]];
-  totalEquity: [number, number, number, number, ...number[]];
-  shareholdersEquity?: [number, number, number, number, ...number[]];
+  netIncomes: number[];
+  shareholdersNetIncomes?: number[];
+  totalAssets?: number[];
+  totalEquity: number[];
+  shareholdersEquity?: number[];
 
   nonTradableShareCount?: number;
   coefficientsNote?: string;
+  financialStatementsNote?: string;
 }
 
 interface IRegularCompany extends ICompany {
   type: 'regular';
-  revenues: [number, number, number, number, ...number[]];
-  grossMargins?: [number, number, number, number, ...number[]];
-  operatingIncomes: [number, number, number, number, ...number[]];
-  currentLiabilities?: [number, number, number, number, ...number[]];
-  netChangeInCash:[number, number, number, number, ...number[]];
-  operatingCashFlow: [number, number, number, number, ...number[]];
-  tangibleAssetsExpenditure?: [number, number, number, number, ...number[]];
-  intangibleAssetsExpenditure?: [number, number, number, number, ...number[]];
-  investingCashFlow?: [number, number, number, number, ...number[]];
-  financingCashFlow?: [number, number, number, number, ...number[]];
+  revenues: number[];
+  grossMargins?: number[];
+  operatingIncomes: number[];
+  currentAssets?: number[];
+  currentLiabilities?: number[];
+  netChangeInCash: number[];
+  operatingCashFlow: number[];
+  tangibleAssetsExpenditure?: number[];
+  intangibleAssetsExpenditure?: number[];
+  investingCashFlow?: number[];
+  financingCashFlow?: number[];
 }
 
 interface IBank extends ICompany {
   type: 'bank';
-  netInterestIncomes: [number, number, number, number, ...number[]];
-  operatingIncomes?: [number, number, number, number, ...number[]];
+  operatingIncomes?: number[];
+  netInterestIncomes: number[];
+}
+
+interface IExchange extends ICompany {
+  type: 'exchange';
+  commissionIncomes:  number[];
+  revenues: number[];
+  operatingIncomes: number[];
+  netChangeInCash: number[];
+  operatingCashFlow: number[];
+  tangibleAssetsExpenditure?: number[];
+  intangibleAssetsExpenditure?: number[];
+  investingCashFlow?: number[];
+  financingCashFlow?: number[];
 }
