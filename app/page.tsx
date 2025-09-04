@@ -7,7 +7,7 @@ import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
 import { groupStocksByLetter } from "@/utils/group-stocks-by-letter";
 
 export default async function HomePage() {
-  const initialDataContext = { stock: null, marketData: { price: null, fullCapitalization: null } };
+  const initialDataContext = { stock: null, marketData: { price: null, fullCapitalization: null }, currencyRate: null };
 
   const letterGroups = groupStocksByLetter(ALL_STOCKS);
   const letters = Object.keys(letterGroups);
@@ -20,6 +20,7 @@ export default async function HomePage() {
         Мы{NBSP}аккумулируем данные и{NBSP}рассчитываем мультипликаторы (P/E, P/B, P/S, P/FCF), чтобы вы могли принимать
         взвешенные инвестиционные решения на{NBSP}основе фундаментального анализа.
       </div>
+      <h1 className="font-bold text-3xl">Компании</h1>
       <ul className="md:columns-2 gap-4">
         {letters.map(letter => (
           <li key={letter} className="break-inside-avoid mb-4">

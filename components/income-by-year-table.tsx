@@ -27,7 +27,11 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
     years,
   } = company;
 
-  const isTypeRegularOrExchange = type === 'regular' || type === 'exchange';
+  const isCashFlowSectionVisible =
+    'operatingCashFlow' in company ||
+    'investingCashFlow' in company ||
+    'financingCashFlow' in company ||
+    'netChangeInCash' in company;
 
   return (
     <>
@@ -41,7 +45,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
         </TableHeader>
 
         <TableBody asGroup>
-          {isTypeRegularOrExchange && (
+          {'revenues' in company && company.revenues && (
             <TableRow>
               <TableCell className={HEAD_CELL_CLASS_NAME}>Выручка</TableCell>
               {company.revenues.map((item, index) =>
@@ -49,7 +53,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
               )}
             </TableRow>
           )}
-          {company.type === 'regular' && company.grossMargins && (
+          {'grossMargins' in company && company.grossMargins && (
             <TableRow>
               <TableCell className={HEAD_CELL_CLASS_NAME}>Валовая прибыль</TableCell>
               {company.grossMargins.map((item, index) =>
@@ -106,7 +110,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
               )}
             </TableRow>
           )}
-          {company.type === 'regular' && company.currentLiabilities && (
+          {'currentLiabilities' in company && company.currentLiabilities && (
             <TableRow>
               <TableCell className={HEAD_CELL_CLASS_NAME}>Текущие обязательства</TableCell>
               {company.currentLiabilities.map((item, index) =>
@@ -130,14 +134,16 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
           )}
         </TableBody>
 
-        {isTypeRegularOrExchange && (
+        {isCashFlowSectionVisible && (
           <TableBody asGroup>
-            <TableRow>
-              <TableCell className={HEAD_CELL_CLASS_NAME}>Операционный денежный поток</TableCell>
-              {company.operatingCashFlow.map((item, index) =>
-                <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
-              )}
-            </TableRow>
+            {company.operatingCashFlow && (
+              <TableRow>
+                <TableCell className={HEAD_CELL_CLASS_NAME}>Операционный денежный поток</TableCell>
+                {company.operatingCashFlow.map((item, index) =>
+                  <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+                )}
+              </TableRow>
+            )}
             {company.investingCashFlow && (
               <TableRow>
                 <TableCell className={HEAD_CELL_CLASS_NAME}>Инвестиционный денежный поток</TableCell>
@@ -154,20 +160,24 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
                 )}
               </TableRow>
             )}
-            <TableRow>
-              <TableCell className={HEAD_CELL_CLASS_NAME}>Свободный денежный поток</TableCell>
-              {years.map((_item, index) => {
-                const FCF = getFCF(company, index);
+            {company.netChangeInCash && company.type !== 'bank' && (
+              <TableRow>
+                <TableCell className={HEAD_CELL_CLASS_NAME}>Свободный денежный поток</TableCell>
+                {years.map((_item, index) => {
+                  const FCF = getFCF(company, index);
 
-                return <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{FCF ? formatNumber(FCF) : 'Н/Д'}</TableCell>;
-              })}
-            </TableRow>
-            <TableRow>
-              <TableCell className={HEAD_CELL_CLASS_NAME}>Изменение денежных потоков</TableCell>
-              {company.netChangeInCash.map((item, index) =>
-                <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
-              )}
-            </TableRow>
+                  return <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{FCF ? formatNumber(FCF) : 'Н/Д'}</TableCell>;
+                })}
+              </TableRow>
+            )}
+            {company.netChangeInCash && (
+              <TableRow>
+                <TableCell className={HEAD_CELL_CLASS_NAME}>Изменение денежных потоков</TableCell>
+                {company.netChangeInCash.map((item, index) =>
+                  <TableCell key={index} className={DATA_CELL_CLASS_NAME}>{formatNumber(item)}</TableCell>
+                )}
+              </TableRow>
+            )}
           </TableBody>
         )}
       </Table>

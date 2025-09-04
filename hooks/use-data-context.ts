@@ -6,6 +6,7 @@ import { IStock } from "@/types/stock";
 export const useDataContext = (initialDataContext: TInitialDataContext): TDataContext => {
   const [stock, setStock] = useState<IStock | null>(initialDataContext.stock);
   const [marketData, setMarketData] = useState<TMarketData>(initialDataContext.marketData);
+  const currencyRate = initialDataContext.currencyRate;
 
   const updateMarketData = useCallback((newMarketData: Partial<TMarketData>) => {
     setMarketData(prevMarketData => ({
@@ -28,5 +29,7 @@ export const useDataContext = (initialDataContext: TInitialDataContext): TDataCo
     marketData,
     updateMarketData,
     resetMarketData,
-  }), [stock, marketData, updateMarketData]);
+
+    currencyRate,
+  }), [stock, marketData, currencyRate, updateMarketData]);
 }

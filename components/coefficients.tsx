@@ -1,7 +1,7 @@
 import { memo, use } from "react";
 
 import { DataContext } from "@/components/data-context";
-import { IndustricalCompanyCoefficient } from "@/components/industrical-company-coefficient";
+import { NonBankCoefficient } from "@/components/non-bank-coefficient";
 import {
   Table,
   TableBody,
@@ -19,12 +19,18 @@ interface ICoefficientsProps {
 }
 
 export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
-  const { marketData } = use(DataContext);
+  const { marketData, currencyRate } = use(DataContext);
 
-  const PE = getPE(stock, marketData);
-  const PB = getPB(stock, marketData);
-  const PS = getPS(stock, marketData);
-  const PFCF = getPFCF(stock, marketData);
+  const params = {
+    stock,
+    marketData,
+    currencyRate,
+  };
+
+  const PE = getPE(params);
+  const PB = getPB(params);
+  const PS = getPS(params);
+  const PFCF = getPFCF(params);
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,13 +48,13 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
           <TableRow>
             <TableCell className="font-bold">P/S</TableCell>
             <TableCell className="text-right">
-              <IndustricalCompanyCoefficient value={PS} stock={stock} />
+              <NonBankCoefficient value={PS} stock={stock} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold">P/FCF</TableCell>
             <TableCell className="text-right">
-              <IndustricalCompanyCoefficient value={PFCF} stock={stock} />
+              <NonBankCoefficient value={PFCF} stock={stock} />
             </TableCell>
           </TableRow>
         </TableBody>

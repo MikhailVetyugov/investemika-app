@@ -1,3 +1,6 @@
+import { MakeRequired } from "@/types/common";
+import { TCurrency } from "@/types/currency";
+
 export type TCompany = IRegularCompany | IBank | IExchange;
 
 interface ICompany {
@@ -9,47 +12,54 @@ interface ICompany {
   type: string;
   years: number[];
 
+  operatingIncomes?: number[];
   netIncomes: number[];
-  shareholdersNetIncomes?: number[];
-  totalAssets?: number[];
+  shareholdersNetIncomes?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
+  totalAssets?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
   totalEquity: number[];
-  shareholdersEquity?: number[];
+  shareholdersEquity?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
+  operatingCashFlow?: number[];
+  tangibleAssetsExpenditure?: number[];
+  intangibleAssetsExpenditure?: number[];
+  investingCashFlow?: number[];
+  financingCashFlow?: number[];
+  netChangeInCash?: number[];
 
   nonTradableShareCount?: number;
   coefficientsNote?: string;
   financialStatementsNote?: string;
+  currency?: TCurrency;
 }
 
-interface IRegularCompany extends ICompany {
+interface IRegularCompany extends MakeRequired<
+  ICompany,
+  | 'operatingIncomes'
+  | 'operatingCashFlow'
+  | 'netChangeInCash'
+  > { // TODO: Добавить investingCashFlow и financingCashFlow, когда будет у всех regular компаний.
   type: 'regular';
   revenues: number[];
   grossMargins?: number[];
-  operatingIncomes: number[];
   currentAssets?: number[];
   currentLiabilities?: number[];
-  netChangeInCash: number[];
-  operatingCashFlow: number[];
-  tangibleAssetsExpenditure?: number[];
-  intangibleAssetsExpenditure?: number[];
-  investingCashFlow?: number[];
-  financingCashFlow?: number[];
 }
 
 interface IBank extends ICompany {
   type: 'bank';
-  operatingIncomes?: number[];
   netInterestIncomes: number[];
 }
 
-interface IExchange extends ICompany {
+interface IExchange extends MakeRequired<
+  ICompany,
+  | 'operatingIncomes'
+  | 'operatingCashFlow'
+  | 'tangibleAssetsExpenditure'
+  | 'intangibleAssetsExpenditure'
+  | 'investingCashFlow'
+  | 'financingCashFlow'
+  | 'netChangeInCash'
+  > {
   type: 'exchange';
-  commissionIncomes:  number[];
+  commissionIncomes: number[];
   revenues: number[];
-  operatingIncomes: number[];
-  netChangeInCash: number[];
-  operatingCashFlow: number[];
-  tangibleAssetsExpenditure?: number[];
-  intangibleAssetsExpenditure?: number[];
-  investingCashFlow?: number[];
-  financingCashFlow?: number[];
 }

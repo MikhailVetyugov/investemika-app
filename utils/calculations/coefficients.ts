@@ -2,41 +2,47 @@ import { TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
 import { getFCF } from "./cash-flow";
 
-export const getPE = (stock: IStock, marketData: TMarketData) => {
+interface IParams {
+  stock: IStock;
+  marketData: TMarketData;
+  currencyRate: number | null;
+}
+
+export const getPE = ({ stock, marketData, currencyRate }: IParams) => {
   const earnings = stock.company.shareholdersNetIncomes?.[0] || stock.company.netIncomes[0];
 
-  return getCoefficient(stock, marketData, earnings);
+  return getCoefficient(stock, marketData, currencyRate, earnings);
 }
 
-export const getPB = (stock: IStock, marketData: TMarketData) => {
+export const getPB = ({ stock, marketData, currencyRate }: IParams) => {
   const equity = stock.company.shareholdersEquity?.[0] || stock.company.totalEquity[0];
 
-  return getCoefficient(stock, marketData, equity);
+  return getCoefficient(stock, marketData, currencyRate, equity);
 }
 
-export const getPS = (stock: IStock, marketData: TMarketData) => {
+export const getPS = ({ stock, marketData, currencyRate }: IParams) => {
   if ('revenues' in stock.company) {
-    return getCoefficient(stock, marketData, stock.company.revenues[0]);
+    return getCoefficient(stock, marketData, currencyRate, stock.company.revenues[0]);
   }
 
   return null;
 }
 
-export const getPFCF = (stock: IStock, marketData: TMarketData) => {
+export const getPFCF = ({ stock, marketData, currencyRate }: IParams) => {
   const FCF = getFCF(stock.company);
 
   if (FCF) {
-    return getCoefficient(stock, marketData, FCF);
+    return getCoefficient(stock, marketData, currencyRate, FCF);
   }
 
   return null;
 }
 
-function getCoefficient(stock: IStock, marketData: TMarketData, rawDenominator: number) {
-  if (!marketData.fullCapitalization) return null;
+function getCoefficient(stock: IStock, marketData: TMarketData, currencyRate: number | null, rawDenominator: number) {
+  if (!marketData.fullCapitalization || !currencyRate) return null;
 
   let numerator = marketData.fullCapitalization;
-  const denominator = rawDenominator * stock.company.units;
+  const denominator = rawDenominator * stock.company.units * currencyRate;
 
   if (stock.company.nonTradableShareCount) {
     if (!marketData.price) {

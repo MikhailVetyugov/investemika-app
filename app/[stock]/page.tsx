@@ -4,6 +4,7 @@ import { ResolvedOpenGraph } from "next/dist/lib/metadata/types/opengraph-types"
 import { PageShell } from "@/components/page-shell";
 import { StockPageContent } from "@/components/stock-page-content";
 import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
+import { fetchCurrencyRate } from "@/services/fetch-currency-rate";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 import { getStockPageSeoTitle } from "@/utils/get-stock-page-seo-title";
 
@@ -53,7 +54,8 @@ export default async function StockPage({ params }: TProps) {
   const stock = getStockByUrlName(stockUrlName)
 
   const marketData = await fetchAggregatedStockData(stock);
-  const initialDataContext = { stock, marketData };
+  const currencyRate = await fetchCurrencyRate(stock.company.currency ?? 'RUR');
+  const initialDataContext = { stock, marketData, currencyRate };
 
   return (
     <PageShell initialDataContext={initialDataContext} stockPage>

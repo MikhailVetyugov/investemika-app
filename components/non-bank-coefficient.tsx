@@ -13,7 +13,7 @@ interface IPSCoefficientProps {
   stock: IStock;
 }
 
-export const IndustricalCompanyCoefficient: React.FC<IPSCoefficientProps> = ({ value, stock }) => {
+export const NonBankCoefficient: React.FC<IPSCoefficientProps> = ({ value, stock }) => {
   if (value) {
     return formatNumber(value);
   }
