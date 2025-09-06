@@ -1,4 +1,5 @@
 import { IStockDataResponse } from "@/types/stock-data-response";
+import { fetchPriceFromAlternateSource } from "./fetch-price-from-alternate-source";
 
 interface IResult {
   price: number | null;
@@ -19,7 +20,12 @@ export async function fetchSingleIssueData(ticker: string): Promise<IResult> {
       return fetchSingleIssueDataInBrowser(ticker);
     }
     
-    const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`);
+    const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`, {
+      next: {
+        tags: [`${ticker}-main-source`],
+        revalidate: 5,
+      }
+    });
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -27,8 +33,13 @@ export async function fetchSingleIssueData(ticker: string): Promise<IResult> {
 
     const result: IStockDataResponse = await response.json();
 
-    const price = getColumnValue(LAST_PRICE_COLUMN, result);
+    let price = getColumnValue(LAST_PRICE_COLUMN, result);
     const issueCapitalization = getColumnValue(ISSUE_CAPITALIZATION_COLUMN, result);
+
+    if (!price) {
+      console.warn('Using an alternate source for price', ticker);
+      price = await fetchPriceFromAlternateSource(ticker);
+    }
 
     return {
       price,
