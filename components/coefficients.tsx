@@ -1,7 +1,7 @@
 import { memo, use } from "react";
 
 import { DataContext } from "@/components/data-context";
-import { NonBankCoefficient } from "@/components/non-bank-coefficient";
+import { NonFinancialCompanyCoefficient } from "@/components/non-financial-company-coefficient";
 import {
   Table,
   TableBody,
@@ -48,13 +48,13 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
           <TableRow>
             <TableCell className="font-bold">P/S</TableCell>
             <TableCell className="text-right">
-              <NonBankCoefficient value={PS} stock={stock} />
+              <NonFinancialCompanyCoefficient value={PS} stock={stock} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold">P/FCF</TableCell>
             <TableCell className="text-right">
-              <NonBankCoefficient value={PFCF} stock={stock} />
+              <NonFinancialCompanyCoefficient value={PFCF} stock={stock} />
             </TableCell>
           </TableRow>
         </TableBody>

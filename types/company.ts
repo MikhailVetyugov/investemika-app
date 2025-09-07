@@ -1,7 +1,7 @@
 import { MakeRequired } from "@/types/common";
 import { TCurrency } from "@/types/currency";
 
-export type TCompany = IRegularCompany | IBank | IExchange;
+export type TCompany = IRegularCompany | IBank | IExchange | IInsuranceCompany;
 
 interface ICompany {
   id: number;
@@ -12,7 +12,6 @@ interface ICompany {
   type: string;
   years: number[];
 
-  operatingIncomes?: number[];
   netIncomes: number[];
   shareholdersNetIncomes?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
   totalAssets?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
@@ -33,13 +32,13 @@ interface ICompany {
 
 interface IRegularCompany extends MakeRequired<
   ICompany,
-  | 'operatingIncomes'
   | 'operatingCashFlow'
   | 'netChangeInCash'
   > { // TODO: Добавить investingCashFlow и financingCashFlow, когда будет у всех regular компаний.
   type: 'regular';
   revenues: number[];
   grossMargins?: number[];
+  operatingIncomes: number[];
   currentAssets?: number[];
   currentLiabilities?: number[];
 }
@@ -47,11 +46,11 @@ interface IRegularCompany extends MakeRequired<
 interface IBank extends ICompany {
   type: 'bank';
   netInterestIncomes: number[];
+  operatingIncomes?: number[];
 }
 
 interface IExchange extends MakeRequired<
   ICompany,
-  | 'operatingIncomes'
   | 'operatingCashFlow'
   | 'tangibleAssetsExpenditure'
   | 'intangibleAssetsExpenditure'
@@ -61,5 +60,23 @@ interface IExchange extends MakeRequired<
   > {
   type: 'exchange';
   commissionIncomes: number[];
+  operatingIncomes: number[];
   revenues: number[];
+}
+
+interface IInsuranceCompany extends MakeRequired<
+  ICompany,
+  | 'operatingCashFlow'
+  | 'tangibleAssetsExpenditure'
+  | 'intangibleAssetsExpenditure'
+  | 'investingCashFlow'
+  | 'financingCashFlow'
+  | 'netChangeInCash'
+  > {
+  type: 'insurance';
+  netEarnedPremiums: number[];
+  netIncurredLosses: number[];
+  insuranceServiceResult: number[];
+  otherOperatingIncomes: number[];
+  profitBeforeTax: number[];
 }

@@ -1,5 +1,6 @@
 import { TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
+import { isFinancialCompany } from "@/utils/is-financial-company";
 import { getFCF } from "./cash-flow";
 
 interface IParams {
@@ -21,8 +22,10 @@ export const getPB = ({ stock, marketData, currencyRate }: IParams) => {
 }
 
 export const getPS = ({ stock, marketData, currencyRate }: IParams) => {
-  if ('revenues' in stock.company) {
-    return getCoefficient(stock, marketData, currencyRate, stock.company.revenues[0]);
+  const { company } = stock;
+
+  if (!isFinancialCompany(company)) {
+    return getCoefficient(stock, marketData, currencyRate, company.revenues[0]);
   }
 
   return null;

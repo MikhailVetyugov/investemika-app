@@ -30,7 +30,13 @@ const TICKER_TO_URL_MAP: Record<string, string> = {
   'RAGR': 'https://www.rbc.ru/quote/ticker/359887',
   'T': 'https://www.rbc.ru/quote/ticker/234566',
   'VKCO': 'https://www.rbc.ru/quote/ticker/271957',
-  'ASTR': 'https://www.banki.ru/investment/share/Astra_ASTR'
+  'ASTR': 'https://www.banki.ru/investment/share/Astra_ASTR',
+  'POSI': 'https://www.banki.ru/investment/share/gruppapositiv_POSI/',
+  'RENI': 'https://www.banki.ru/investment/share/RenessansStrakhovaniye_RENI/',
+  'RTKM': 'https://www.banki.ru/investment/share/Rostelecom_RTKM/',
+  'RTKMP': 'https://www.banki.ru/investment/share/Rostelecomp_RTKMP/',
+  'SVCB': 'https://www.banki.ru/investment/share/Sovkombank_SVCB/',
+  'UGLD': 'https://www.banki.ru/investment/share/yugyralzolotogk_UGLD/',
 };
 
 export async function fetchPriceFromAlternateSource(ticker: string) {

@@ -7,18 +7,19 @@ import {
 } from "@/components/ui/popover"
 import { IStock } from "@/types/stock";
 import { formatNumber } from "@/utils/format-number";
+import { isFinancialCompany } from "@/utils/is-financial-company";
 
 interface IPSCoefficientProps {
   value: number | null;
   stock: IStock;
 }
 
-export const NonBankCoefficient: React.FC<IPSCoefficientProps> = ({ value, stock }) => {
+export const NonFinancialCompanyCoefficient: React.FC<IPSCoefficientProps> = ({ value, stock }) => {
   if (value) {
     return formatNumber(value);
   }
 
-  if (stock.company.type === 'bank') {
+  if (isFinancialCompany(stock.company)) {
     return (
       <span className="flex items-center justify-end gap-2">
         <span>Н/П</span>
@@ -27,7 +28,8 @@ export const NonBankCoefficient: React.FC<IPSCoefficientProps> = ({ value, stock
             <InfoIcon className="size-4 cursor-pointer" />
           </PopoverTrigger>
           <PopoverContent className="text-xs text-gray-500">
-            Для банков не имеет практического смысла
+            {stock.company.type === 'bank' && 'Для банков не имеет практического смысла'}
+            {stock.company.type === 'insurance' && 'Для страховых компаний не имеет практического смысла'}
           </PopoverContent>
         </Popover>
       </span>
