@@ -69,7 +69,10 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
 
         <TableBody asGroup>
           {company.totalAssets && (
-            <DataRow title="Активы" values={company.totalAssets} />
+            <DataRow title="Активы всего" values={company.totalAssets} />
+          )}
+          {'currentAssets' in company && company.currentAssets && (
+            <DataRow title="Текущие активы" values={company.currentAssets} />
           )}
           {'currentLiabilities' in company && company.currentLiabilities && (
             <DataRow title="Текущие обязательства" values={company.currentLiabilities} />

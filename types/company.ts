@@ -13,10 +13,10 @@ interface ICompany {
   years: number[];
 
   netIncomes: number[];
-  shareholdersNetIncomes?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
-  totalAssets?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
+  shareholdersNetIncomes: number[];
+  totalAssets: number[];
   totalEquity: number[];
-  shareholdersEquity?: number[]; // TODO: Убрать опциональность, когда будет у всех компаний.
+  shareholdersEquity: number[];
   operatingCashFlow?: number[];
   tangibleAssetsExpenditure?: number[];
   intangibleAssetsExpenditure?: number[];
@@ -33,14 +33,16 @@ interface ICompany {
 interface IRegularCompany extends MakeRequired<
   ICompany,
   | 'operatingCashFlow'
+  | 'investingCashFlow'
+  | 'financingCashFlow'
   | 'netChangeInCash'
-  > { // TODO: Добавить investingCashFlow и financingCashFlow, когда будет у всех regular компаний.
+  > {
   type: 'regular';
   revenues: number[];
   grossMargins?: number[];
   operatingIncomes: number[];
-  currentAssets?: number[];
-  currentLiabilities?: number[];
+  currentAssets: number[];
+  currentLiabilities: number[];
 }
 
 interface IBank extends ICompany {
