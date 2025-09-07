@@ -29,7 +29,6 @@ const PageShellComponent: React.FC<Omit<IPageShellProps, 'initialDataContext'>> 
         <div className="w-full flex justify-center xl:w-auto">
           <StockSearch onSelect={stockSelectionHandler} />
         </div>
-        <div className="text-white text-center xl:ml-auto xl:text-left">Сайт продолжает пополняться</div>
       </header>
       <main className="max-w-[min(100%,1368px)] w-full grow-1 mx-auto my-8 px-8 flex flex-col gap-4">
         {children}
