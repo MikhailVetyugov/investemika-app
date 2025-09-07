@@ -1,4 +1,5 @@
 import { IStockDataResponse } from "@/types/stock-data-response";
+import { TTicker } from "@/types/ticker";
 import { fetchPriceFromAlternateSource } from "./fetch-price-from-alternate-source";
 
 interface IResult {
@@ -12,7 +13,7 @@ const BOARD_ID_COLUMN = 'BOARDID';
 const LAST_PRICE_COLUMN = 'LAST';
 const ISSUE_CAPITALIZATION_COLUMN = 'ISSUECAPITALIZATION';
 
-export async function fetchSingleIssueData(ticker: string): Promise<IResult> {
+export async function fetchSingleIssueData(ticker: TTicker): Promise<IResult> {
   try {
     const isBrowser = typeof window !== 'undefined';
 

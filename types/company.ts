@@ -1,12 +1,13 @@
 import { MakeRequired } from "@/types/common";
 import { TCurrency } from "@/types/currency";
+import { TTicker } from "@/types/ticker";
 
 export type TCompany = IRegularCompany | IBank | IExchange | IInsuranceCompany;
 
 interface ICompany {
   id: number;
   name: string;
-  tickers: string[];
+  tickers: TTicker[];
   unitsText: string;
   units: number;
   type: string;

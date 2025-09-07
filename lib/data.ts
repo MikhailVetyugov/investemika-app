@@ -1,5 +1,6 @@
 import { NBHY, NBSP } from '@/constants/symbols';
 import { TCompany } from '@/types/company';
+import { TTicker } from "@/types/ticker";
 import { getStocksFromCompanies } from '@/utils/get-stocks-from-companies';
 
 const ALL_COMPANIES: TCompany[] = [
@@ -191,6 +192,8 @@ const ALL_COMPANIES: TCompany[] = [
     investingCashFlow: [-181637, -296908, -117054, -172638],
     financingCashFlow: [-212983, -121568, -132014, -68305],
     netChangeInCash: [30509, -91844, 108630, 26551],
+
+    financialStatementsNote: `Выручка и${NBSP}операционная прибыль приведены без${NBSP}учёта финансовых услуг.`,
   },
   {
     id: 9,
@@ -448,6 +451,8 @@ const ALL_COMPANIES: TCompany[] = [
     investingCashFlow: [-552756, -657449, -141373, -218312],
     financingCashFlow: [-37561, -65079, -205593, -63782],
     netChangeInCash: [4813, -30377, -217536, 137186],
+
+    financialStatementsNote: `Выручка приведена за${NBSP}минусом экспортных пошлин.`,
   },
   {
     id: 19,
@@ -1014,8 +1019,110 @@ const ALL_COMPANIES: TCompany[] = [
     financingCashFlow: [31285, 2380, 4745, 9922],
     netChangeInCash: [243, 124, -554, 1085],
   },
+  {
+    id: 42,
+    name: 'Юнипро',
+    tickers: ['UPRO'],
+    unitsText: 'в тысячах российских рублей',
+    units: 1_000,
+    type: 'regular',
+    years: [2024, 2023, 2022, 2021],
+    revenues: [128250902, 118631946, 105798884, 88129314],
+    grossMargins: undefined,
+    operatingIncomes: [27739356, 23527274, 25220877, 10021831],
+    netIncomes: [31927474, 22042856, 21267722, 8232855],
+    shareholdersNetIncomes: [31927474, 22042856, 21267722, 8232855],
+    currentAssets: [106908058, 66314877, 41256309, 13169549],
+    totalAssets: [197150055, 166251904, 146366579, 127448256],
+    currentLiabilities: [9476038, 8937980, 10245946, 12290050],
+    totalEquity: [184124704, 152495555, 129710123, 108653069],
+    shareholdersEquity: [184124704, 152495555, 129710123, 108653069],
+    operatingCashFlow: [35832365, 31432418, 34639509, 27698136],
+    tangibleAssetsExpenditure: [13236343, 14193504, 5895396, 11245906],
+    intangibleAssetsExpenditure: [0, 0, 0, 0],
+    investingCashFlow: [-58617731, -8496245, -4088102, -10367776],
+    financingCashFlow: [-295472, -202821, -3499556, -17485972],
+    netChangeInCash: [-23036182, 23059564, 27047696, -162623],
+  },
+  {
+    id: 43,
+    name: 'Совкомфлот',
+    tickers: ['FLOT'],
+    unitsText: 'в тыс. долл. США',
+    units: 1000,
+    type: 'regular',
+    years: [2024, 2023, 2020, 2019],
+    revenues: [1869748, 2316459, 1652488, 1665207],
+    grossMargins: [1116142, 1673540, 983725, 909170],
+    operatingIncomes: [492636, 1164229, 491350, 436351],
+    netIncomes: [424449, 943319, 266865, 225378],
+    shareholdersNetIncomes: [422637, 914929, 267337, 221629],
+    currentAssets: [1604360, 1514401, 1041865, 630625],//
+    totalAssets: [6684561, 7000585, 7743087, 7335940],
+    currentLiabilities: [433274, 728127, 598212, 669627],
+    totalEquity: [5025625, 5008993, 4098397, 3504581],
+    shareholdersEquity: [4900943, 4875985, 3982131, 3372872],
+    operatingCashFlow: [1081208, 1565198, 927362, 793855],
+    investingCashFlow: [-171640, -635060, -377419, -406403],
+    financingCashFlow: [-708594, -435058, -57320, -290587],
+    netChangeInCash: [200974, 495080, 492623, 96865],
+
+    currency: 'USD',
+    financialStatementsNote: `В${NBSP}качестве валовой прибыли рассматривается прибыль от эксплуатации судов.`,
+  },
+  {
+    id: 44,
+    name: `Корпоративный центр ИКС 5 / X5${NBSP}Group`,
+    tickers: ['X5'],
+    unitsText: 'в млн. российских рублей',
+    units: 1_000_000,
+    type: 'regular',
+    years: [2024, 2023, 2022, 2021],
+    revenues: [3908047, 3145859, 2605232, 2204819],
+    grossMargins: [950372, 768040, 635196, 561317],
+    operatingIncomes: [218138, 178873, 138118, 117572],
+    netIncomes: [104064, 78611, 45188, 42738],
+    shareholdersNetIncomes: [103314, 78299, 45199, 42738],
+    currentAssets: [645597, 447821, 340385, 276478],
+    totalAssets: [1843135, 1590281, 1352015, 1286748],
+    currentLiabilities: [837841, 637896, 539010, 482851],
+    totalEquity: [271188, 217579, 133142, 87629],
+    shareholdersEquity: [271188, 217579, 133142, 87629],
+    operatingCashFlow: [277383, 270279, 220924, 227462],
+    tangibleAssetsExpenditure: [139309, 104490, 59554, 76574],
+    intangibleAssetsExpenditure: [17903, 13194, 14121, 15482],
+    investingCashFlow: [-236053, -194255, -75978, -139435],
+    financingCashFlow: [-12549, -78694, -127655, -81890],
+    netChangeInCash: [28829, -2628, 17193, 6054],
+  },
+  {
+    id: 45,
+    name: 'Газпром нефть',
+    tickers: ['SIBN'],
+    unitsText: 'в млн. российских рублей',
+    units: 1_000_000,
+    type: 'regular',
+    years: [2024, 2023, 2022, 2021],
+    revenues: [4099708, 3519959, 3412129, 3068442],
+    grossMargins: undefined,
+    operatingIncomes: [678837, 721049, 870352, 561337],
+    netIncomes: [500762, 637516, 758285, 519363],
+    shareholdersNetIncomes: [479450, 641110, 751473, 503445],
+    currentAssets: [1114618, 1508736, 1137033, 1215535],
+    totalAssets: [6140642, 6053578, 5128816, 4960473],
+    currentLiabilities: [1493037, 1771690, 1290055, 1363785],
+    totalEquity: [3168749, 2993731, 2735653, 2538193],
+    shareholdersEquity: [3087900, 2928439, 2735653, 2348082],
+    operatingCashFlow: [823777, 922950, 793153, 941923],
+    // За 2022 год нет детализации.
+    tangibleAssetsExpenditure: [505491, 522414, 0, 441833],
+    intangibleAssetsExpenditure: [0, 0, 0, 30559],
+    investingCashFlow: [-478463, -572214, -549687, -460062],
+    financingCashFlow: [-719013, -220684, -336257, -143204],
+    netChangeInCash: [-373699, 130052, -92791, 338657],
+  },
 ];
 
-export const PREF_TICKERS = ['SBERP', 'TATNP', 'TRNFP', 'BSPBP', 'RTKMP'];
+export const PREF_TICKERS: TTicker[] = ['SBERP', 'TATNP', 'TRNFP', 'BSPBP', 'RTKMP'];
 
 export const ALL_STOCKS = getStocksFromCompanies(ALL_COMPANIES);

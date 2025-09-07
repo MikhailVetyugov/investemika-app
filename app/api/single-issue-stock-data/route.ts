@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { LRUCache } from 'lru-cache';
 
 import { fetchSingleIssueData } from '@/services/fetch-single-issue-stock-data';
+import { TTicker } from '@/types/ticker';
 
 const responseCache = new LRUCache({
   max: 50,
@@ -9,7 +10,7 @@ const responseCache = new LRUCache({
 });
 
 interface IRequestBody {
-  ticker: string;
+  ticker: TTicker;
 }
 
 export async function POST(request: NextRequest) {

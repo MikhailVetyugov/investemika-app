@@ -1,45 +1,58 @@
-const TICKER_TO_URL_MAP: Record<string, string> = {
-  'LKOH': 'https://www.banki.ru/investment/share/lukoyl_LKOH',
+import { TTicker } from "@/types/ticker";
+
+const TICKER_TO_URL_MAP: Record<TTicker, string> = {
+  'LKOH': 'https://www.banki.ru/investment/share/lukoyl_LKOH/',
   'GAZP': 'https://www.rbc.ru/quote/ticker/59256',
-  'GMKN': 'https://www.banki.ru/investment/share/nornikel_GMKN',
-  'NVTK': 'https://www.banki.ru/investment/share/Novatek_NVTK',
-  'PLZL': 'https://www.banki.ru/investment/share/Polus_PLZL',
-  'ROSN': 'https://www.banki.ru/investment/share/Rosneft_ROSN',
-  'SBER': 'https://www.banki.ru/investment/share/sberbank_SBER',
-  'SBERP': 'https://www.banki.ru/investment/share/sberbankp_SBERP',
-  'TATN': 'https://www.banki.ru/investment/share/Tatneft_TATN',
-  'TATNP': 'https://www.banki.ru/investment/share/Tatneftp_TATNP',
-  'TRNFP': 'https://www.banki.ru/investment/share/Transneftp_TATNP',
-  'CHMF': 'https://www.banki.ru/investment/share/Severstal_CHMF',
-  'AFKS': 'https://www.banki.ru/investment/share/SistemaAFK_AFKS',
-  'AFLT': 'https://www.banki.ru/investment/share/aeroflot_AFLT',
-  'FEES': 'https://www.banki.ru/investment/share/FSKYEES_FEES',
-  'MAGN': 'https://www.banki.ru/investment/share/mmk_MAGN',
-  'MTSS': 'https://www.banki.ru/investment/share/mts_MTSS',
-  'MGNT': 'https://www.banki.ru/investment/share/magnit_MGNT',
-  'NLMK': 'https://www.banki.ru/investment/share/nlmk_NLMK',
-  'SNGS': 'https://www.banki.ru/investment/share/Surgutneftegaz_SNGS',
-  'VTBR': 'https://www.banki.ru/investment/share/vtb_VTBR',
-  'HYDR': 'https://www.banki.ru/investment/share/RusGidro_HYDR',
-  'PIKK': 'https://www.banki.ru/investment/share/Pik_PIKK',
-  'PHOR': 'https://www.banki.ru/investment/share/Phosagro_PHOR',
-  'ALRS': 'https://www.banki.ru/investment/share/alrosa_ALRS',
-  'MOEX': 'https://www.banki.ru/investment/share/Moskovskayabirzha_MOEX',
+  'GMKN': 'https://www.banki.ru/investment/share/nornikel_GMKN/',
+  'NVTK': 'https://www.banki.ru/investment/share/Novatek_NVTK/',
+  'PLZL': 'https://www.banki.ru/investment/share/Polus_PLZL/',
+  'ROSN': 'https://www.banki.ru/investment/share/Rosneft_ROSN/',
+  'SBER': 'https://www.banki.ru/investment/share/sberbank_SBER/',
+  'SBERP': 'https://www.banki.ru/investment/share/sberbankp_SBERP/',
+  'TATN': 'https://www.banki.ru/investment/share/Tatneft_TATN/',
+  'TATNP': 'https://www.banki.ru/investment/share/Tatneftp_TATNP/',
+  'TRNFP': 'https://www.banki.ru/investment/share/Transneftp_TATNP/',
+  'CHMF': 'https://www.banki.ru/investment/share/Severstal_CHMF/',
+  'AFKS': 'https://www.banki.ru/investment/share/SistemaAFK_AFKS/',
+  'AFLT': 'https://www.banki.ru/investment/share/aeroflot_AFLT/',
+  'FEES': 'https://www.banki.ru/investment/share/FSKYEES_FEES/',
+  'MAGN': 'https://www.banki.ru/investment/share/mmk_MAGN/',
+  'MTSS': 'https://www.banki.ru/investment/share/mts_MTSS/',
+  'MGNT': 'https://www.banki.ru/investment/share/magnit_MGNT/',
+  'NLMK': 'https://www.banki.ru/investment/share/nlmk_NLMK/',
+  'SNGS': 'https://www.banki.ru/investment/share/Surgutneftegaz_SNGS/',
+  'VTBR': 'https://www.banki.ru/investment/share/vtb_VTBR/',
+  'HYDR': 'https://www.banki.ru/investment/share/RusGidro_HYDR/',
+  'PIKK': 'https://www.banki.ru/investment/share/Pik_PIKK/',
+  'PHOR': 'https://www.banki.ru/investment/share/Phosagro_PHOR/',
+  'ALRS': 'https://www.banki.ru/investment/share/alrosa_ALRS/',
+  'MOEX': 'https://www.banki.ru/investment/share/Moskovskayabirzha_MOEX/',
   'YDEX': 'https://www.rbc.ru/quote/ticker/69684',
-  'RUAL': 'https://www.banki.ru/investment/share/Rusal_RUAL',
+  'RUAL': 'https://www.banki.ru/investment/share/Rusal_RUAL/',
   'RAGR': 'https://www.rbc.ru/quote/ticker/359887',
   'T': 'https://www.rbc.ru/quote/ticker/234566',
   'VKCO': 'https://www.rbc.ru/quote/ticker/271957',
-  'ASTR': 'https://www.banki.ru/investment/share/Astra_ASTR',
+  'ASTR': 'https://www.banki.ru/investment/share/Astra_ASTR/',
+  'BSPB': 'https://www.banki.ru/investment/share/bankspb_BSPB/',
+  'BSPBP': 'https://www.banki.ru/investment/share/bankspb_BSPBP/',
+  'CBOM': 'https://www.banki.ru/investment/share/mkb_CBOM/',
+  'ENPG': 'https://www.banki.ru/investment/share/Enplus_ENPG/',
+  'HEAD': 'https://www.rbc.ru/quote/ticker/293446',
+  'IRAO': 'https://www.banki.ru/investment/share/interrao_IRAO/',
+  'MDMG': 'https://www.rbc.ru/quote/ticker/305272',
   'POSI': 'https://www.banki.ru/investment/share/gruppapositiv_POSI/',
   'RENI': 'https://www.banki.ru/investment/share/RenessansStrakhovaniye_RENI/',
   'RTKM': 'https://www.banki.ru/investment/share/Rostelecom_RTKM/',
   'RTKMP': 'https://www.banki.ru/investment/share/Rostelecomp_RTKMP/',
   'SVCB': 'https://www.banki.ru/investment/share/Sovkombank_SVCB/',
   'UGLD': 'https://www.banki.ru/investment/share/yugyralzolotogk_UGLD/',
+  'UPRO': 'https://www.banki.ru/investment/share/Junipro_UPRO/',
+  'FLOT': 'https://www.banki.ru/investment/share/Sovkomflot_FLOT/',
+  'X5': 'https://www.rbc.ru/quote/ticker/172651',
+  'SIBN': 'https://www.banki.ru/investment/share/gazpromneft_SIBN/',
 };
 
-export async function fetchPriceFromAlternateSource(ticker: string) {
+export async function fetchPriceFromAlternateSource(ticker: TTicker) {
   const url = TICKER_TO_URL_MAP[ticker];
 
   if (!url) {
@@ -83,6 +96,8 @@ export async function fetchPriceFromAlternateSource(ticker: string) {
 
     return parseFloat(priceText)
   }
+
+  console.error('No price in the alternate source for %s', ticker);
 
   return null;
 }
