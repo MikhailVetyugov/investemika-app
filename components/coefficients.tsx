@@ -62,7 +62,6 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
       <div className="text-xs text-gray-500 w-[296px]">
         Используются данные из годовой отчетности и{NBSP}текущая капитализация.
         {stock.company.currency && ' Курс к рублю рассчитывается на текущую дату.'}
-        {stock.company.coefficientsNote}
       </div>
     </div>
   );

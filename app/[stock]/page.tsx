@@ -53,8 +53,11 @@ export default async function StockPage({ params }: TProps) {
   const { stock: stockUrlName } = await params;
   const stock = getStockByUrlName(stockUrlName)
 
-  const marketData = await fetchAggregatedStockData(stock);
-  const currencyRate = await fetchCurrencyRate(stock.company.currency ?? 'RUR');
+  const [marketData, currencyRate] = await Promise.all([
+    fetchAggregatedStockData(stock),
+    fetchCurrencyRate(stock.company.currency ?? 'RUR'),
+  ]);
+
   const initialDataContext = { stock, marketData, currencyRate };
 
   return (

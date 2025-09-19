@@ -1,6 +1,7 @@
 'use client'
 import { use } from "react";
 
+import { Capitalization } from "@/components/capitalization";
 import { Coefficients } from "@/components/coefficients";
 import { DataContext } from "@/components/data-context";
 import { IncomeByYearTable } from "@/components/income-by-year-table";
@@ -22,6 +23,9 @@ export const StockPageContent: React.FC = () => {
       </section>
       <section>
         <Coefficients stock={stock} />
+      </section>
+      <section>
+        <Capitalization stock={stock} />
       </section>
     </>
   );

@@ -26,8 +26,8 @@ interface ICompany {
   netChangeInCash?: number[];
 
   nonTradableShareCount?: number;
-  coefficientsNote?: string;
   financialStatementsNote?: string;
+  capitalizationNote?: string;
   currency?: TCurrency;
 }
 
