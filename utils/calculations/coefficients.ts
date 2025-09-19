@@ -2,6 +2,7 @@ import { TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
 import { isFinancialCompany } from "@/utils/is-financial-company";
 import { getFCF } from "./cash-flow";
+import { getAdjustedCapitalization } from "./get-adjusted-capitalization";
 
 interface IParams {
   stock: IStock;
@@ -42,19 +43,15 @@ export const getPFCF = ({ stock, marketData, currencyRate }: IParams) => {
 }
 
 function getCoefficient(stock: IStock, marketData: TMarketData, currencyRate: number | null, rawDenominator: number) {
-  if (!marketData.fullCapitalization || !currencyRate) return null;
+  if (!currencyRate) return null;
+  
+  const numerator = getAdjustedCapitalization(stock, marketData);
 
-  let numerator = marketData.fullCapitalization;
-  const denominator = rawDenominator * stock.company.units * currencyRate;
-
-  if (stock.company.nonTradableShareCount) {
-    if (!marketData.price) {
-      return null;
-    }
-
-    const capitalizationAdjustment = stock.company.nonTradableShareCount * marketData.price;
-    numerator += capitalizationAdjustment;
+  if (!numerator) {
+    return null;
   }
+
+  const denominator = rawDenominator * stock.company.units * currencyRate;
 
   return Math.round((numerator / denominator) * 100) / 100;
 }

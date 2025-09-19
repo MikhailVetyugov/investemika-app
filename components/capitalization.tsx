@@ -1,8 +1,15 @@
 import { use } from "react";
+import { InfoIcon } from "lucide-react";
 
 import { DataContext } from "@/components/data-context";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { formatNumber } from "@/utils/format-number";
 import { IStock } from "@/types/stock";
+import { getAdjustedCapitalization } from "@/utils/calculations/get-adjusted-capitalization";
 
 interface ICapitalizationProps {
   stock: IStock;
@@ -11,24 +18,26 @@ interface ICapitalizationProps {
 export const Capitalization: React.FC<ICapitalizationProps> = ({ stock }) => {
   const { marketData } = use(DataContext);
 
-  if (!marketData.fullCapitalization) {
+  const adjustedCapitalization = getAdjustedCapitalization(stock, marketData);
+
+  if (!adjustedCapitalization) {
     return null;
   }
 
   return (
-    <div className="flex flex-col">
-      <h2 className="my-2 font-bold text-xl">
-        Капитализация
-      </h2>
-      <div className="mb-2 text-sm">
-        <span>{formatNumber(Math.round(marketData.fullCapitalization))}</span> (в российских рублях)
+    <div className="flex gap-2">
+      <div className="font-bold text-xl">
+        Капитализация: {formatNumber(Math.round(adjustedCapitalization))}
       </div>
-      <div className="text-xs text-gray-500">
-        Данные на сегодня.
-      </div>
-      <div className="text-xs text-gray-500 w-[550px]">
-        {stock.company.capitalizationNote}
-      </div>
+      <Popover>
+        <PopoverTrigger>
+          <InfoIcon className="size-4 cursor-pointer" />
+        </PopoverTrigger>
+        <PopoverContent className="text-xs text-gray-500">
+          Данные на сегодня.
+          <div>{stock.company.capitalizationNote}</div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

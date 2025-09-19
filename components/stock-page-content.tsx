@@ -17,15 +17,13 @@ export const StockPageContent: React.FC = () => {
       <section className="flex flex-col gap-2">
         <h1 className="font-bold text-3xl">{stock.name} ({stock.ticker})</h1>
         <Price stock={stock} />
+        <Capitalization stock={stock} />
       </section>
       <section className="-mr-8 lg:mr-0">
         <IncomeByYearTable company={stock.company} />
       </section>
       <section>
         <Coefficients stock={stock} />
-      </section>
-      <section>
-        <Capitalization stock={stock} />
       </section>
     </>
   );
