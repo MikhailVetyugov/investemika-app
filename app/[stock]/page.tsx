@@ -1,5 +1,5 @@
-import { Metadata, ResolvingMetadata } from "next";
-import { ResolvedOpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
+import type { Metadata, ResolvingMetadata } from "next";
+import type { ResolvedOpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 import { PageShell } from "@/components/page-shell";
 import { StockPageContent } from "@/components/stock-page-content";

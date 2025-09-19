@@ -56,6 +56,7 @@ export async function fetchSingleIssueData(ticker: TTicker): Promise<IResult> {
   };
 }
 
+// TODO: Separate directories for server and browser calls.
 async function fetchSingleIssueDataInBrowser(ticker: string): Promise<IResult> {
   try {
     const response = await fetch(`${window.location.origin}/api/single-issue-stock-data`, {
