@@ -10,6 +10,7 @@ import {
 import { formatNumber } from "@/utils/format-number";
 import { IStock } from "@/types/stock";
 import { getAdjustedCapitalization } from "@/utils/calculations/get-adjusted-capitalization";
+import { NBSP } from "@/constants/symbols";
 
 interface ICapitalizationProps {
   stock: IStock;
@@ -25,13 +26,14 @@ export const Capitalization: React.FC<ICapitalizationProps> = ({ stock }) => {
   }
 
   return (
-    <div className="flex gap-2">
-      <div className="font-bold text-xl">
+    <div className="font-bold text-xl whitespace-nowrap">
+      <span className="align-middle whitespace-normal">
         Капитализация: {formatNumber(Math.round(adjustedCapitalization))}
-      </div>
+      </span>
+      &#8288;
       <Popover>
-        <PopoverTrigger>
-          <InfoIcon className="size-4 cursor-pointer" />
+        <PopoverTrigger className="ml-2 align-middle cursor-pointer">
+          <InfoIcon className="size-4" />
         </PopoverTrigger>
         <PopoverContent className="text-xs text-gray-500">
           Данные на сегодня.
