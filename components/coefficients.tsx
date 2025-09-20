@@ -38,21 +38,21 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
         <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Коэффициенты</TableCaption>
         <TableBody>
           <TableRow>
-            <TableCell className="font-bold">P/E</TableCell>
+            <TableCell className="font-bold" title="Отношение цены к прибыли">P/E</TableCell>
             <TableCell className="text-right">{PE ? formatNumber(PE) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-bold">P/B</TableCell>
+            <TableCell className="font-bold" title="Отношение цены к балансовой стоимости, также известен как P/BV">P/B</TableCell>
             <TableCell className="text-right">{PB ? formatNumber(PB) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-bold">P/S</TableCell>
+            <TableCell className="font-bold" title="Отношение цены к выручке">P/S</TableCell>
             <TableCell className="text-right">
               <NonFinancialCompanyCoefficient value={PS} stock={stock} />
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-bold">P/FCF</TableCell>
+            <TableCell className="font-bold" title="Отношение цены к свободному денежному потоку">P/FCF</TableCell>
             <TableCell className="text-right">
               <NonFinancialCompanyCoefficient value={PFCF} stock={stock} />
             </TableCell>
