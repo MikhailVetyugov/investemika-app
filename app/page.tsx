@@ -5,9 +5,10 @@ import { NBSP } from "@/constants/symbols";
 import { ALL_STOCKS } from "@/lib/data";
 import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
 import { groupStocksByLetter } from "@/utils/group-stocks-by-letter";
+import { getEmptyInitialDataContext } from "@/utils/get-empty-initial-data-context";
 
 export default async function HomePage() {
-  const initialDataContext = { stock: null, marketData: { price: null, fullCapitalization: null }, currencyRate: null };
+  const initialDataContext = getEmptyInitialDataContext();
 
   const letterGroups = groupStocksByLetter(ALL_STOCKS);
   const letters = Object.keys(letterGroups);

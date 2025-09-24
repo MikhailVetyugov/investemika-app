@@ -9,7 +9,6 @@ import { Price } from "@/components/price";
 import { PriceChart } from "@/components/price-chart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IStock } from "@/types/stock";
-import { CHART } from "@/lib/candles";
 
 export const StockPageContent: React.FC = () => {
   const data = use(DataContext);

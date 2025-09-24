@@ -1,5 +1,6 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import type { ResolvedOpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
+import { notFound } from "next/navigation";
 
 import { PageShell } from "@/components/page-shell";
 import { StockPageContent } from "@/components/stock-page-content";
@@ -18,6 +19,10 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { stock: stockUrlName } = await params;
   const stock = getStockByUrlName(stockUrlName);
+
+  if (!stock) {
+    return { title: 'Страница не найдена '};
+  }
 
   const parentMetadata = await parent;
   const title = getStockPageSeoTitle(stock);
@@ -51,7 +56,11 @@ export async function generateMetadata(
 
 export default async function StockPage({ params }: TProps) {
   const { stock: stockUrlName } = await params;
-  const stock = getStockByUrlName(stockUrlName)
+  const stock = getStockByUrlName(stockUrlName);
+
+  if (!stock) {
+    return notFound();
+  }
 
   const [marketData, currencyRate] = await Promise.all([
     fetchAggregatedStockData(stock),

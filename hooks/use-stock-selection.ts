@@ -33,9 +33,9 @@ export const useStockSelection = (stockPage: boolean) => {
 
   const popStateHandler = useCallback(async () => {
     const urlName = window.location.pathname.slice(1);
-    const stock = getStockByUrlName(urlName);
+    const stock = getStockByUrlName(urlName) as IStock;
 
-    setStock(getStockByUrlName(urlName));
+    setStock(stock);
     resetMarketData();
 
     const marketData = await fetchAggregatedStockData(stock);
