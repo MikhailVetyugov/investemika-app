@@ -1,5 +1,5 @@
 import { TableCell, TableHead, TableRow } from "@/components/ui/table";
-import { formatNumber } from "@/utils/format-number";
+import { formatNumber } from "@/utils/formatters";
 
 interface IRowProps {
   title: string;

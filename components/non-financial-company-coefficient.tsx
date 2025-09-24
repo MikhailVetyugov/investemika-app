@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { IStock } from "@/types/stock";
-import { formatNumber } from "@/utils/format-number";
+import { formatNumber } from "@/utils/formatters";
 import { isFinancialCompany } from "@/utils/is-financial-company";
 
 interface IPSCoefficientProps {

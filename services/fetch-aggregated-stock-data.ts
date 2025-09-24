@@ -1,5 +1,5 @@
+import { fetchSingleIssueData } from "@/services/fetch-single-issue-stock-data";
 import { IStock } from "@/types/stock";
-import { fetchSingleIssueData } from "./fetch-single-issue-stock-data";
 
 interface IResult {
   price: number | null;

@@ -1,14 +1,11 @@
-export interface IStockDataResponse {
-  securities: IDataSection;
-  marketdata: IDataSection;
-  dataversion: IDataSection;
-  marketdata_yields: IDataSection;
+export interface IChartDataExternalResponse {
+  candles: IDataSection;
 }
 
 interface IDataSection {
   metadata: IMetadata;
   columns: string[];
-  data: Array<Array<any>>;
+  data: Array<Array<string | number>>;
 }
 
 interface IMetadata {

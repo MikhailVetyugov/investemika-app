@@ -5,11 +5,15 @@ import * as React from "react"
 import { SCROLLBAR_CLASSES } from "@/constants/classes"
 import { cn } from "@/lib/utils"
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+interface ITableProps extends React.ComponentProps<"table"> {
+  containerClassName?: string;
+}
+
+function Table({ className, containerClassName = '', ...props }: ITableProps) {
   return (
     <div
       data-slot="table-container"
-      className={`relative w-full overflow-x-auto scrollbar scrollbar-thumb-rounded-full ${SCROLLBAR_CLASSES}`}
+      className={cn("relative w-full overflow-x-auto scrollbar scrollbar-thumb-rounded-full", SCROLLBAR_CLASSES, containerClassName)}
     >
       <table
         data-slot="table"

@@ -12,7 +12,7 @@ import {
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
 import { getPE,  getPB, getPS, getPFCF } from "@/utils/calculations/coefficients";
-import { formatNumber } from "@/utils/format-number";
+import { formatNumber } from "@/utils/formatters";
 
 interface ICoefficientsProps {
   stock: IStock;

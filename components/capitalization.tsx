@@ -7,10 +7,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { formatNumber } from "@/utils/format-number";
+import { formatNumber } from "@/utils/formatters";
 import { IStock } from "@/types/stock";
 import { getAdjustedCapitalization } from "@/utils/calculations/get-adjusted-capitalization";
-import { NBSP } from "@/constants/symbols";
 
 interface ICapitalizationProps {
   stock: IStock;

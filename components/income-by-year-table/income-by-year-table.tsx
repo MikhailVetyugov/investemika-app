@@ -30,7 +30,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
 
   return (
     <>
-      <Table className="table-fixed">
+      <Table containerClassName="pl-8 lg:pl-0" className="table-fixed">
         <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Финансовая отчетность по МСФО ({unitsText})</TableCaption>
         <TableHeader>
           <HeadRow values={years} />

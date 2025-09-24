@@ -3,7 +3,7 @@ import { use, useCallback, useEffect, useRef, useState } from "react";
 import { DataContext } from "@/components/data-context";
 import { IStock } from "@/types/stock";
 import { fetchSingleIssueData } from "@/services/fetch-single-issue-stock-data";
-import { formatNumber } from "@/utils/format-number";
+import { formatNumber } from "@/utils/formatters";
 
 interface IPriceProps {
   stock: IStock;

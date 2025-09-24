@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    console.error('Error in API route:', error);
+    console.error('Error in API route (single-issue-stock-data):', error);
 
     return NextResponse.json(
       { error: 'Internal server error' },
