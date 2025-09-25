@@ -31,7 +31,7 @@ export const Capitalization: React.FC<ICapitalizationProps> = ({ stock }) => {
       </span>
       &#8288;
       <Popover>
-        <PopoverTrigger className="ml-2 align-middle cursor-pointer">
+        <PopoverTrigger aria-label="Информация про капитализацию" className="ml-2 align-middle cursor-pointer">
           <InfoIcon className="size-4" />
         </PopoverTrigger>
         <PopoverContent className="text-xs text-gray-500">

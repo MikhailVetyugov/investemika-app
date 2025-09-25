@@ -13,20 +13,20 @@ interface IParams {
 export const getPE = ({ stock, marketData, currencyRate }: IParams) => {
   const earnings = stock.company.shareholdersNetIncomes?.[0] || stock.company.netIncomes[0];
 
-  return getCoefficient(stock, marketData, currencyRate, earnings);
+  return getMultiplier(stock, marketData, currencyRate, earnings);
 }
 
 export const getPB = ({ stock, marketData, currencyRate }: IParams) => {
   const equity = stock.company.shareholdersEquity?.[0] || stock.company.totalEquity[0];
 
-  return getCoefficient(stock, marketData, currencyRate, equity);
+  return getMultiplier(stock, marketData, currencyRate, equity);
 }
 
 export const getPS = ({ stock, marketData, currencyRate }: IParams) => {
   const { company } = stock;
 
   if (!isFinancialCompany(company)) {
-    return getCoefficient(stock, marketData, currencyRate, company.revenues[0]);
+    return getMultiplier(stock, marketData, currencyRate, company.revenues[0]);
   }
 
   return null;
@@ -36,13 +36,13 @@ export const getPFCF = ({ stock, marketData, currencyRate }: IParams) => {
   const FCF = getFCF(stock.company);
 
   if (FCF) {
-    return getCoefficient(stock, marketData, currencyRate, FCF);
+    return getMultiplier(stock, marketData, currencyRate, FCF);
   }
 
   return null;
 }
 
-function getCoefficient(stock: IStock, marketData: TMarketData, currencyRate: number | null, rawDenominator: number) {
+function getMultiplier(stock: IStock, marketData: TMarketData, currencyRate: number | null, rawDenominator: number) {
   if (!currencyRate) return null;
   
   const numerator = getAdjustedCapitalization(stock, marketData);

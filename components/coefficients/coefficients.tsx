@@ -1,7 +1,7 @@
 import { memo, use } from "react";
 
 import { DataContext } from "@/components/data-context";
-import { NonFinancialCompanyCoefficient } from "@/components/non-financial-company-coefficient";
+import { NonFinancialCompanyCoefficient } from "@/components/coefficients/non-financial-company-coefficient";
 import {
   Table,
   TableBody,
@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
-import { getPE,  getPB, getPS, getPFCF } from "@/utils/calculations/coefficients";
+import { getPE,  getPB, getPS, getPFCF } from "@/utils/calculations/multipliers";
+import { getCurrentRatio } from "@/utils/calculations/current-ratio";
 import { formatNumber } from "@/utils/formatters";
 
 interface ICoefficientsProps {
@@ -31,6 +32,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
   const PB = getPB(params);
   const PS = getPS(params);
   const PFCF = getPFCF(params);
+  const CR = getCurrentRatio(stock);
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,6 +57,16 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
             <TableCell className="font-bold" title="Отношение цены к свободному денежному потоку">P/FCF</TableCell>
             <TableCell className="text-right">
               <NonFinancialCompanyCoefficient value={PFCF} stock={stock} />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-bold" title="Коэффициент текущей ликвидности">CR</TableCell>
+            <TableCell className="text-right">
+              <NonFinancialCompanyCoefficient
+                value={CR}
+                stock={stock}
+                description="Коэффициент текущей ликвидности, также известный как Current Ratio или КТЛ"
+              />
             </TableCell>
           </TableRow>
         </TableBody>
