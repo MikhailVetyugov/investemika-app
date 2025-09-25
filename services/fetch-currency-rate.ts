@@ -10,7 +10,8 @@ export async function fetchCurrencyRate(code: TCurrency): Promise<number | null>
     const start = Date.now();
 
     const response = await fetch(`https://www.cbr-xml-daily.ru/daily_json.js`, {
-      next: { revalidate: 60 * 60 * 6 }
+      next: { revalidate: 60 * 60 * 6 },
+      cache: 'force-cache',
     });
 
     const duration = Date.now() - start;

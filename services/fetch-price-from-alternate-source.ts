@@ -68,7 +68,8 @@ export async function fetchPriceFromAlternateSource(ticker: TTicker) {
     next: {
       tags: [`${ticker}-alternate-source`],
       revalidate: 60 * 60 * 6,
-    }
+    },
+    cache: 'force-cache',
   });
 
   const html = await response.text();

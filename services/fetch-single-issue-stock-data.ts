@@ -19,13 +19,12 @@ export async function fetchSingleIssueData(ticker: TTicker): Promise<IStockDataI
       return fetchSingleIssueDataFromAPI(ticker);
     }
 
-    console.info(`fetchSingleIssueData call on server for ${ticker}`);
-    
     const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`, {
       next: {
         tags: [`${ticker}-main-source`],
         revalidate: 5,
-      }
+      },
+      cache: 'force-cache',
     });
 
     if (!response.ok) {

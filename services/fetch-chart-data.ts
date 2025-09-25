@@ -15,7 +15,8 @@ export async function fetchChartData(ticker: TTicker): Promise<TChartDataInterna
       next: {
         tags: [`${ticker}-chart`],
         revalidate: 8 * 60 * 60,
-      }
+      },
+      cache: 'force-cache',
     });
 
     if (!response.ok) {
