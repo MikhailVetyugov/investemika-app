@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
-import { getPE, getPB, getPS, getPFCF, getCurrentRatio, getROE, getCombinedRatio } from "@/utils/calculations";
+import { getPE, getPB, getPS, getPFCF, getCurrentRatio, getROE, getCombinedRatio, getROA } from "@/utils/calculations";
 import { formatNumber } from "@/utils/formatters";
 import { TooltipCoefficient } from "./tooltip-coefficient";
 
@@ -33,6 +33,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
   const PS = getPS(params);
   const PFCF = getPFCF(params);
   const ROE = getROE(stock);
+  const ROA = getROA(stock);
   const CR = getCurrentRatio(stock);
   const combinedRatio = getCombinedRatio(stock);
 
@@ -68,6 +69,16 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
                 text={`${formatNumber(ROE * 100)}`}
                 tooltipAriaLabel="Что это?"
                 tooltipContent="Рентабельность собственного капитала, относящегося к акционерам"
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-bold" title="Рентабельность активов">ROA, %</TableCell>
+            <TableCell className="text-right">
+              <TooltipCoefficient
+                text={`${formatNumber(ROA * 100)}`}
+                tooltipAriaLabel="Что это?"
+                tooltipContent="Рентабельность активов, рассчитываемая на базе прибыли, относящейся к акционерам"
               />
             </TableCell>
           </TableRow>
