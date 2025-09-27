@@ -7,7 +7,7 @@ import {
   TableHeader,
 } from "@/components/ui/table"
 import { TCompany } from "@/types/company";
-import { getFCF } from "@/utils/calculations";
+import { getFCF, getNetCommissionIncome } from "@/utils/calculations";
 import { isFinancialCompany } from "@/utils/is-financial-company";
 import { DataRow, HeadRow } from "./row";
 
@@ -31,7 +31,9 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
   return (
     <>
       <Table containerClassName="pl-8 lg:pl-0" className="table-fixed">
-        <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Финансовая отчетность по МСФО ({unitsText})</TableCaption>
+        <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">
+          Финансовая отчетность по МСФО ({unitsText})
+        </TableCaption>
         <TableHeader>
           <HeadRow values={years} />
         </TableHeader>
@@ -47,7 +49,13 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
             <DataRow title="Комиссионные доходы" values={company.commissionIncomes} />
           )}
           {type === 'bank' && (
-            <DataRow title="Чистые процентные доходы" values={company.netInterestIncomes} />
+            <>
+              <DataRow title="Чистые процентные доходы" values={company.netInterestIncomes} />
+              <DataRow
+                title="Чистые комиссионные доходы"
+                values={years.map((_, index) => getNetCommissionIncome(company, index))}
+              />
+            </>
           )}
           {type === 'insurance' && (
             <>

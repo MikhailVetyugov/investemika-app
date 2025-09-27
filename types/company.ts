@@ -49,6 +49,8 @@ interface IRegularCompany extends MakeRequired<
 interface IBank extends ICompany {
   type: 'bank';
   netInterestIncomes: number[];
+  commissionIncomes: number[];
+  commissionExpenses: number[];
   operatingIncomes?: number[];
 }
 

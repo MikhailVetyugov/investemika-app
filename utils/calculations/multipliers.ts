@@ -1,7 +1,7 @@
 import { TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
 import { isFinancialCompany } from "@/utils/is-financial-company";
-import { getFCF } from "./cash-flow";
+import { getFCF } from "./get-free-cash-flow";
 import { getAdjustedCapitalization } from "./get-adjusted-capitalization";
 
 interface IParams {
