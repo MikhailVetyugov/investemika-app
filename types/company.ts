@@ -79,7 +79,9 @@ interface IInsuranceCompany extends MakeRequired<
   type: 'insurance';
   netEarnedPremiums: number[];
   netIncurredLosses: number[];
+  acquisitionCosts: number[];
   insuranceServiceResult: number[];
+  administrativeCosts: number[];
   otherOperatingIncomes: number[];
   profitBeforeTax: number[];
 }

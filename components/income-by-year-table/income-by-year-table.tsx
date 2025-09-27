@@ -7,7 +7,7 @@ import {
   TableHeader,
 } from "@/components/ui/table"
 import { TCompany } from "@/types/company";
-import { getFCF } from "@/utils/calculations/cash-flow";
+import { getFCF } from "@/utils/calculations";
 import { isFinancialCompany } from "@/utils/is-financial-company";
 import { DataRow, HeadRow } from "./row";
 

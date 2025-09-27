@@ -11,9 +11,7 @@ import {
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
-import { getPE, getPB, getPS, getPFCF } from "@/utils/calculations/multipliers";
-import { getCurrentRatio } from "@/utils/calculations/current-ratio";
-import { getROE } from "@/utils/calculations/return-on-equity";
+import { getPE, getPB, getPS, getPFCF, getCurrentRatio, getROE, getCombinedRatio } from "@/utils/calculations";
 import { formatNumber } from "@/utils/formatters";
 import { TooltipCoefficient } from "./tooltip-coefficient";
 
@@ -36,6 +34,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
   const PFCF = getPFCF(params);
   const ROE = getROE(stock);
   const CR = getCurrentRatio(stock);
+  const combinedRatio = getCombinedRatio(stock);
 
   return (
     <div className="flex flex-col gap-4">
@@ -82,6 +81,18 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
               />
             </TableCell>
           </TableRow>
+          {combinedRatio && (
+            <TableRow>
+              <TableCell className="font-bold" title="Комбинированный коэффициент убыточности">Combined Ratio, %</TableCell>
+              <TableCell className="text-right">
+                <TooltipCoefficient
+                  text={`${formatNumber(combinedRatio * 100)}`}
+                  tooltipAriaLabel="Что это?"
+                  tooltipContent="Комбинированный (сводный) коэффициент убыточности для оценки эффективности страховой деятельности"
+                />
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
       <div className="text-xs text-gray-500 w-[296px]">
