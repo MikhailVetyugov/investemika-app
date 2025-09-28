@@ -1,4 +1,5 @@
-import { fetchSingleIssueData } from "@/services/fetch-single-issue-stock-data";
+import { fetchSingleIssueDataFromAPI } from "@/services/browser";
+import { fetchSingleIssueData } from "@/services/server";
 import { IStock } from "@/types/stock";
 
 interface IResult {
@@ -7,7 +8,9 @@ interface IResult {
 }
 
 export async function fetchAggregatedStockData(stock: IStock): Promise<IResult> {
-  const tickerPromises = stock.company.tickers.map(fetchSingleIssueData);
+  const isBrowser = typeof window !== 'undefined';
+
+  const tickerPromises = stock.company.tickers.map(isBrowser ? fetchSingleIssueDataFromAPI : fetchSingleIssueData);
   const results = await Promise.all(tickerPromises);
 
   const fullCapitalization = results.reduce((acc, { issueCapitalization }) => {

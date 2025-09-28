@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { fetchChartData } from '@/services/fetch-chart-data';
+import { fetchChartData } from '@/services/server';
 import { TTicker } from '@/types/ticker';
 
 interface IRequestBody {

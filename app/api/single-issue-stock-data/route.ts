@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { LRUCache } from 'lru-cache';
 
-import { fetchSingleIssueData } from '@/services/fetch-single-issue-stock-data';
+import { fetchSingleIssueData } from '@/services/server';
 import { TTicker } from '@/types/ticker';
 
 const responseCache = new LRUCache({

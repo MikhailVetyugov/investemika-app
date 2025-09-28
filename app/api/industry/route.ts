@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { LRUCache } from 'lru-cache';
 
 import { ALL_STOCKS } from '@/lib/data';
-import { fetchAggregatedStockData } from '@/services/fetch-aggregated-stock-data';
+import { fetchAggregatedStockData } from '@/services/shared';
 
 const responseCache = new LRUCache({
   max: 50,

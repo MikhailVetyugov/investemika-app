@@ -2,7 +2,7 @@ import { use, useCallback, useEffect } from "react";
 import { useRouter } from 'nextjs-toploader/app';
 
 import { DataContext } from "@/components/data-context";
-import { fetchAggregatedStockData } from "@/services/fetch-aggregated-stock-data";
+import { fetchAggregatedStockData } from "@/services/shared";
 import { IStock } from "@/types/stock";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";

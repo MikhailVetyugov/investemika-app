@@ -2,7 +2,7 @@ import { LoaderCircle } from 'lucide-react';
 import React, { memo, useEffect, useState } from 'react';
 
 import { usePriceChart } from '@/hooks/use-price-chart';
-import { fetchChartDataFromAPI } from '@/services/api';
+import { fetchChartDataFromAPI } from '@/services/browser';
 import { TChartDataInternalResponse } from '@/types/response/internal';
 import { TTicker } from '@/types/ticker';
 

@@ -2,7 +2,7 @@ import { use, useCallback, useEffect, useRef, useState } from "react";
 
 import { DataContext } from "@/components/data-context";
 import { IStock } from "@/types/stock";
-import { fetchSingleIssueData } from "@/services/fetch-single-issue-stock-data";
+import { fetchSingleIssueDataFromAPI } from "@/services/browser";
 import { formatNumber } from "@/utils/formatters";
 
 interface IPriceProps {
@@ -24,7 +24,7 @@ export const Price: React.FC<IPriceProps> = ({ stock }) => {
 
   const updatePrice = useCallback(async (stock: IStock) => {
     const prevPrice = priceRef.current;
-    const { price: newPrice } = await fetchSingleIssueData(stock.ticker);
+    const { price: newPrice } = await fetchSingleIssueDataFromAPI(stock.ticker);
 
     if (prevPrice && newPrice && prevPrice !== newPrice) {
       const changeType = newPrice > prevPrice ? 'up' : 'down';

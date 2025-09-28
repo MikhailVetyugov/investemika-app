@@ -1,5 +1,4 @@
-import { fetchSingleIssueDataFromAPI } from "@/services/api";
-import { fetchPriceFromAlternateSource } from "@/services/fetch-price-from-alternate-source";
+import { fetchPriceFromAlternateSource } from "@/services/server";
 import { IStockDataExternalResponse } from "@/types/response/external";
 import { IStockDataInternalResponse } from "@/types/response/internal";
 import { TTicker } from "@/types/ticker";
@@ -10,15 +9,8 @@ const BOARD_ID_COLUMN = 'BOARDID';
 const LAST_PRICE_COLUMN = 'LAST';
 const ISSUE_CAPITALIZATION_COLUMN = 'ISSUECAPITALIZATION';
 
-// TODO: Refactor to call this function only on server side to remove a browser condition below.
 export async function fetchSingleIssueData(ticker: TTicker): Promise<IStockDataInternalResponse> {
   try {
-    const isBrowser = typeof window !== 'undefined';
-
-    if (isBrowser) {
-      return fetchSingleIssueDataFromAPI(ticker);
-    }
-
     const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`, {
       next: {
         tags: [`${ticker}-main-source`],
