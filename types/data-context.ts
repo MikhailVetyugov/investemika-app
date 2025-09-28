@@ -9,9 +9,13 @@ export type TDataContext = {
   resetMarketData: () => void;
 
   currencyRate: number | null;
+  setCurrencyRate: (currencyRate: number | null) => void;
 };
 
-export type TInitialDataContext = Omit<TDataContext, 'setStock' | 'updateMarketData' | 'resetMarketData'>;
+export type TInitialDataContext = Omit<
+  TDataContext,
+  'setStock' | 'updateMarketData' | 'resetMarketData' | 'setCurrencyRate'
+>;
 
 export type TMarketData = {
   price: number | null;

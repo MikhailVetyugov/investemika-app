@@ -14,4 +14,5 @@ export const DataContext = createContext<TDataContext>({
   resetMarketData: () => {},
 
   currencyRate: null,
+  setCurrencyRate: () => {},
 });

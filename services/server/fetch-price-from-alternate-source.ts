@@ -1,4 +1,7 @@
 import { TTicker } from "@/types/ticker";
+import { createCacheWrapper } from './cache-wrapper';
+
+type TResult = number | null;
 
 const TICKER_TO_URL_MAP: Record<TTicker, string> = {
   'LKOH': 'https://www.banki.ru/investment/share/lukoyl_LKOH/',
@@ -52,7 +55,16 @@ const TICKER_TO_URL_MAP: Record<TTicker, string> = {
   'SIBN': 'https://www.banki.ru/investment/share/gazpromneft_SIBN/',
 };
 
-export async function fetchPriceFromAlternateSource(ticker: TTicker) {
+const { withCache } = createCacheWrapper<TResult>({
+  max: 100,
+  ttl: 1000 * 60 * 60 * 6,
+});
+
+export async function fetchPriceFromAlternateSource(code: TTicker) {
+  return withCache(fetchPriceFromAlternateSourceRaw, code);
+}
+
+async function fetchPriceFromAlternateSourceRaw(ticker: TTicker): Promise<TResult> {
   const url = TICKER_TO_URL_MAP[ticker];
 
   if (!url) {
@@ -64,12 +76,7 @@ export async function fetchPriceFromAlternateSource(ticker: TTicker) {
       'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    },
-    next: {
-      tags: [`${ticker}-alternate-source`],
-      revalidate: 60 * 60 * 6,
-    },
-    cache: 'force-cache',
+    }
   });
 
   const html = await response.text();
@@ -95,7 +102,9 @@ export async function fetchPriceFromAlternateSource(ticker: TTicker) {
       .replace(' ', '')
       .replace(',', '.');
 
-    return parseFloat(priceText)
+    const price = parseFloat(priceText);
+
+    return price;
   }
 
   console.error('No price in the alternate source for %s', ticker);

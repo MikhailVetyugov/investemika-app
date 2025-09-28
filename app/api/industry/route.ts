@@ -21,11 +21,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const cachedIndustryData = responseCache.get(industry);
+    const cacheItem = responseCache.get(industry);
 
-    if (cachedIndustryData) {
+    if (cacheItem) {
       return NextResponse.json({
-        industryData: cachedIndustryData,
+        industryData: cacheItem,
         stale: true,
       });
     }

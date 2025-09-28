@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { LRUCache } from 'lru-cache';
 
 import { fetchSingleIssueData } from '@/services/server';
 import { TTicker } from '@/types/ticker';
-
-const responseCache = new LRUCache({
-  max: 50,
-  ttl: 1000 * 60 * 30,
-});
 
 interface IRequestBody {
   ticker: TTicker;
@@ -27,25 +21,8 @@ export async function POST(request: NextRequest) {
 
     const result = await fetchSingleIssueData(ticker);
 
-    if (!result.price) {
-      throw new Error('No filled price found for the given ticker');
-    }
-
-    responseCache.set(ticker, result);
-
     return NextResponse.json(result);
   } catch (error) {
-    const staleData = responseCache.get(ticker);
-
-    if (staleData) {
-      console.error('Stale data returned due to error:', error);
-
-      return NextResponse.json({
-        ...staleData,
-        stale: true,
-      });
-    }
-
     console.error('Error in API route (single-issue-stock-data):', error);
 
     return NextResponse.json(

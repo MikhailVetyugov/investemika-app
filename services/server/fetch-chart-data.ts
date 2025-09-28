@@ -2,6 +2,7 @@ import { TTicker } from "@/types/ticker";
 import { TChartDataInternalResponse } from "@/types/response/internal";
 import { IChartDataExternalResponse } from "@/types/response/external";
 import { formatDate } from "@/utils/formatters";
+import { createCacheWrapper } from './cache-wrapper';
 
 const DATE_COLUMN = 'begin';
 const CLOSE_PRICE_COLUMN = 'close';
@@ -9,15 +10,19 @@ const CLOSE_PRICE_COLUMN = 'close';
 const INTERVAL = 7;
 const YEARS_COUNT = 4;
 
-export async function fetchChartData(ticker: TTicker): Promise<TChartDataInternalResponse> {
+const { withCache } = createCacheWrapper<TChartDataInternalResponse>({
+  max: 100,
+  ttl: 1000 * 60 * 60 * 8,
+});
+
+
+export async function fetchChartData(ticker: TTicker) {
+  return withCache(fetchChartDataRaw, ticker);
+}
+
+async function fetchChartDataRaw(ticker: TTicker): Promise<TChartDataInternalResponse> {
   try {
-    const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}/candles.json?interval=${INTERVAL}&from=${getFromParam(YEARS_COUNT)}`, {
-      next: {
-        tags: [`${ticker}-chart`],
-        revalidate: 8 * 60 * 60,
-      },
-      cache: 'force-cache',
-    });
+    const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}/candles.json?interval=${INTERVAL}&from=${getFromParam(YEARS_COUNT)}`);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -35,10 +40,12 @@ export async function fetchChartData(ticker: TTicker): Promise<TChartDataInterna
       return formatDate(date);
     });
 
-    return {
+    const result = {
       values,
       labels,
     };
+
+    return result;
   } catch (error) {
     console.error('Error while fetching chart data', error);
   }
