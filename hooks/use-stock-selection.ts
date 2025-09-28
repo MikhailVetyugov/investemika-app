@@ -16,7 +16,7 @@ export const useStockSelection = (stockPage: boolean) => {
   const fetchAndUpdateData = async (stock: IStock) => {
     const [marketData, currencyRate] = await Promise.all([
       fetchAggregatedStockData(stock),
-      fetchCurrencyRateFromAPI(stock.company.currency ?? 'RUR')
+      fetchCurrencyRateFromAPI(stock.company.currency)
     ]);
 
     updateMarketData(marketData);

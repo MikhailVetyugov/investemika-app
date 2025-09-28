@@ -1,3 +1,4 @@
+import { RUR_CURRENCY_RATE } from "@/constants/currencies";
 import { TCurrency } from "@/types/currency";
 import { ICurrencyRateResponse } from "@/types/response/external";
 import { createCacheWrapper } from './cache-wrapper';
@@ -15,7 +16,7 @@ export async function fetchCurrencyRate(code: TCurrency = 'RUR') {
 
 async function fetchCurrencyRateRaw(code: TCurrency): Promise<TResult> {
   if (code === 'RUR') {
-    return 1;
+    return RUR_CURRENCY_RATE;
   }
 
   try {

@@ -1,6 +1,11 @@
+import { RUR_CURRENCY_RATE } from "@/constants/currencies";
 import { TCurrency } from "@/types/currency";
 
-export async function fetchCurrencyRateFromAPI(currency: TCurrency): Promise<number | null> {
+export async function fetchCurrencyRateFromAPI(currency: TCurrency = 'RUR'): Promise<number | null> {
+  if (currency === 'RUR') {
+    return RUR_CURRENCY_RATE;
+  }
+
   try {
     const response = await fetch(`${window.location.origin}/api/currency-rate?currency=${currency}`);
 
