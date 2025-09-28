@@ -7,6 +7,8 @@ import {
   TableBody,
   TableCaption,
   TableCell,
+  TableHead,
+  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
@@ -20,7 +22,7 @@ interface ICoefficientsProps {
 }
 
 export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
-  const { marketData, currencyRate } = use(DataContext);
+  const { marketData, currencyRate, averageCoefficients } = use(DataContext);
 
   const params = {
     stock,
@@ -37,30 +39,51 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
   const CR = getCurrentRatio(stock);
   const combinedRatio = getCombinedRatio(stock);
 
+  const {
+    averagePE,
+    averagePB,
+    averagePS,
+    averagePFCF,
+    averageROE,
+    averageROA,
+    averageCR,
+  } = averageCoefficients ?? {};
+
   return (
     <div className="flex flex-col gap-4">
       <Table className="table-fixed w-[296px]">
         <TableCaption className="caption-top text-left font-bold text-xl text-black my-2">Коэффициенты</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="font-bold" />
+            <TableHead className="font-bold text-right">Компания</TableHead>
+            <TableHead className="font-bold text-right">Отрасль</TableHead>
+          </TableRow>
+        </TableHeader>
         <TableBody>
           <TableRow>
             <TableCell className="font-bold" title="Отношение цены к прибыли">P/E</TableCell>
             <TableCell className="text-right">{PE ? formatNumber(PE) : 'Н/Д'}</TableCell>
+            <TableCell className="text-right">{averagePE ? formatNumber(averagePE) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold" title="Отношение цены к балансовой стоимости, также известен как P/BV">P/B</TableCell>
             <TableCell className="text-right">{PB ? formatNumber(PB) : 'Н/Д'}</TableCell>
+            <TableCell className="text-right">{averagePB ? formatNumber(averagePB) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold" title="Отношение цены к выручке">P/S</TableCell>
             <TableCell className="text-right">
               <NonFinancialCompanyCoefficient value={PS} stock={stock} />
             </TableCell>
+            <TableCell className="text-right">{averagePS ? formatNumber(averagePS) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold" title="Отношение цены к свободному денежному потоку">P/FCF</TableCell>
             <TableCell className="text-right">
               <NonFinancialCompanyCoefficient value={PFCF} stock={stock} />
             </TableCell>
+            <TableCell className="text-right">{averagePFCF ? formatNumber(averagePFCF) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold" title="Рентабельность собственного капитала">ROE, %</TableCell>
@@ -71,6 +94,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
                 tooltipContent="Рентабельность собственного капитала, относящегося к акционерам"
               />
             </TableCell>
+            <TableCell className="text-right">{averageROE ? formatNumber(averageROE * 100) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold" title="Рентабельность активов">ROA, %</TableCell>
@@ -81,6 +105,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
                 tooltipContent="Рентабельность активов, рассчитываемая на базе прибыли, относящейся к акционерам"
               />
             </TableCell>
+            <TableCell className="text-right">{averageROA ? formatNumber(averageROA * 100) : 'Н/Д'}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-bold" title="Коэффициент текущей ликвидности">CR</TableCell>
@@ -91,6 +116,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
                 description="Коэффициент текущей ликвидности, также известный как Current Ratio или КТЛ"
               />
             </TableCell>
+            <TableCell className="text-right">{averageCR ? formatNumber(averageCR) : 'Н/Д'}</TableCell>
           </TableRow>
           {combinedRatio && (
             <TableRow>
@@ -102,6 +128,7 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
                   tooltipContent="Комбинированный (сводный) коэффициент убыточности для оценки эффективности страховой деятельности"
                 />
               </TableCell>
+              <TableCell>Н/Д</TableCell>
             </TableRow>
           )}
         </TableBody>

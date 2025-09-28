@@ -73,12 +73,12 @@ function getAverageCoefficients(items: TIndustryCompanyData[]) {
   }
 
   return {
-    averagePE: cumulatedPE / items.length,
-    averagePB: cumulatedPB / items.length,
-    averagePS: cumulatedPS / items.length,
-    averagePFCF: cumulatedPFCF / items.length,
-    averageCR: cumulatedCR / items.length,
-    averageROE: cumulatedROE / items.length,
-    averageROA: cumulatedROA / items.length,
+    averagePE: Math.round(cumulatedPE / items.length * 100) / 100,
+    averagePB: Math.round(cumulatedPB / items.length * 100) / 100,
+    averagePS: Math.round(cumulatedPS / items.length * 100) / 100,
+    averagePFCF: Math.round(cumulatedPFCF / items.length * 100) / 100,
+    averageCR: Math.round(cumulatedCR / items.length * 10) / 10,
+    averageROE: Math.round(cumulatedROE / items.length * 1000) / 1000,
+    averageROA: Math.round(cumulatedROA / items.length * 1000) / 1000,
   }
 }

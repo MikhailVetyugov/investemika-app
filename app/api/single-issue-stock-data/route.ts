@@ -7,7 +7,7 @@ interface IRequestBody {
   ticker: TTicker;
 }
 
-// POST, чтобы нельзя было заспамить простым открытием вкладок.
+// POST, to prevent spamming by simply pasting this URL into the address bar.
 export async function POST(request: NextRequest) {
   const body: IRequestBody = await request.json();
   const { ticker } = body;

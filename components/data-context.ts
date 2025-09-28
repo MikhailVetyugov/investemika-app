@@ -15,4 +15,7 @@ export const DataContext = createContext<TDataContext>({
 
   currencyRate: null,
   setCurrencyRate: () => {},
+
+  averageCoefficients: null,
+  setAverageCoefficients: () => {},
 });

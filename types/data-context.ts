@@ -1,3 +1,4 @@
+import { IAggregatedDataInternalResponse, TAverageCoefficientsInternalResponse } from "./response/internal";
 import { IStock } from "./stock";
 
 export type TDataContext = {
@@ -10,14 +11,15 @@ export type TDataContext = {
 
   currencyRate: number | null;
   setCurrencyRate: (currencyRate: number | null) => void;
+
+  averageCoefficients: TAverageCoefficients;
+  setAverageCoefficients: (averageCoefficients: TAverageCoefficients) => void;
 };
 
 export type TInitialDataContext = Omit<
   TDataContext,
-  'setStock' | 'updateMarketData' | 'resetMarketData' | 'setCurrencyRate'
+  'setStock' | 'updateMarketData' | 'resetMarketData' | 'setCurrencyRate' | 'setAverageCoefficients'
 >;
 
-export type TMarketData = {
-  price: number | null;
-  fullCapitalization: number | null;
-}
+export type TMarketData = IAggregatedDataInternalResponse;
+export type TAverageCoefficients = TAverageCoefficientsInternalResponse;

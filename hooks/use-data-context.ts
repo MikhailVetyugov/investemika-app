@@ -1,12 +1,13 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { TDataContext, TInitialDataContext, TMarketData } from "@/types/data-context";
+import { TAverageCoefficients, TDataContext, TInitialDataContext, TMarketData } from "@/types/data-context";
 import { IStock } from "@/types/stock";
 
 export const useDataContext = (initialDataContext: TInitialDataContext): TDataContext => {
   const [stock, setStock] = useState<IStock | null>(initialDataContext.stock);
   const [marketData, setMarketData] = useState<TMarketData>(initialDataContext.marketData);
   const [currencyRate, setCurrencyRate] = useState<number | null>(initialDataContext.currencyRate);
+  const [averageCoefficients, setAverageCoefficients] = useState<TAverageCoefficients>(initialDataContext.averageCoefficients);
 
   const updateMarketData = useCallback((newMarketData: Partial<TMarketData>) => {
     setMarketData(prevMarketData => ({
@@ -32,5 +33,8 @@ export const useDataContext = (initialDataContext: TInitialDataContext): TDataCo
 
     currencyRate,
     setCurrencyRate,
+
+    averageCoefficients,
+    setAverageCoefficients,
   }), [stock, marketData, currencyRate, updateMarketData]);
 }

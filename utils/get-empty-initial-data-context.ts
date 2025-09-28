@@ -5,5 +5,6 @@ export function getEmptyInitialDataContext(): TInitialDataContext {
     stock: null,
     marketData: { price: null, fullCapitalization: null },
     currencyRate: null,
+    averageCoefficients: null,
   };
 }

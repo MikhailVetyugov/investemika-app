@@ -62,13 +62,13 @@ export default async function StockPage({ params }: TProps) {
     return notFound();
   }
 
-  const [marketData, currencyRate] = await Promise.all([
+  const [marketData, currencyRate, averageCoefficients] = await Promise.all([
     fetchAggregatedStockData(stock),
     fetchCurrencyRate(stock.company.currency),
     fetchAverageCoefficients(stock.company.industry),
   ]);
 
-  const initialDataContext = { stock, marketData, currencyRate };
+  const initialDataContext = { stock, marketData, currencyRate, averageCoefficients };
 
   return (
     <PageShell initialDataContext={initialDataContext} stockPage>
