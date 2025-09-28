@@ -1,0 +1,18 @@
+export type TIndustry = 
+  | 'banks'
+  | 'oilAndGas'
+  | 'metalsAndMining'
+  | 'it'
+  | 'electricPower'
+  | 'telecommunications'
+  | 'foodPharmaRetail'
+  | 'insurance'
+  | 'investmentServices'
+  | 'investmentHoldings'
+  | 'chemicalIndustry'
+  | 'agriculture'
+  | 'constructionDevelopers'
+  | 'recruitment'
+  | 'passengerTransportation'
+  | 'maritimeTransportation'
+  | 'healthcare';

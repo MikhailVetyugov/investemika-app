@@ -1,5 +1,6 @@
 import { MakeRequired } from "@/types/common";
 import { TCurrency } from "@/types/currency";
+import { TIndustry } from "@/types/industry";
 import { TTicker } from "@/types/ticker";
 
 export type TCompany = IRegularCompany | IBank | IExchange | IInsuranceCompany;
@@ -11,6 +12,7 @@ interface ICompany {
   unitsText: string;
   units: number;
   type: string;
+  industry: TIndustry;
   years: number[];
 
   netIncomes: number[];
