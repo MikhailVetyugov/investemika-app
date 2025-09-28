@@ -1,13 +1,9 @@
 import { fetchSingleIssueDataFromAPI } from "@/services/browser";
 import { fetchSingleIssueData } from "@/services/server";
+import { IAggregatedDataInternalResponse } from "@/types/response/internal";
 import { IStock } from "@/types/stock";
 
-interface IResult {
-  price: number | null;
-  fullCapitalization: number | null;
-}
-
-export async function fetchAggregatedStockData(stock: IStock): Promise<IResult> {
+export async function fetchAggregatedStockData(stock: IStock): Promise<IAggregatedDataInternalResponse> {
   const isBrowser = typeof window !== 'undefined';
 
   const tickerPromises = stock.company.tickers.map(isBrowser ? fetchSingleIssueDataFromAPI : fetchSingleIssueData);

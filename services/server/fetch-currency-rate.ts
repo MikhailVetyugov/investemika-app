@@ -9,7 +9,7 @@ const { withCache } = createCacheWrapper<TResult>({
   ttl: 1000 * 60 * 60 * 6,
 });
 
-export async function fetchCurrencyRate(code: TCurrency) {
+export async function fetchCurrencyRate(code: TCurrency = 'RUR') {
   return withCache(fetchCurrencyRateRaw, code);
 }
 

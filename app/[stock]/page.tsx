@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/page-shell";
 import { StockPageContent } from "@/components/stock-page-content";
 import { fetchAggregatedStockData } from "@/services/shared";
-import { fetchCurrencyRate } from "@/services/server";
+import { fetchCurrencyRate, fetchAverageCoefficients } from "@/services/server";
 import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
 import { getStockPageSeoTitle } from "@/utils/get-stock-page-seo-title";
 
@@ -64,7 +64,8 @@ export default async function StockPage({ params }: TProps) {
 
   const [marketData, currencyRate] = await Promise.all([
     fetchAggregatedStockData(stock),
-    fetchCurrencyRate(stock.company.currency ?? 'RUR'),
+    fetchCurrencyRate(stock.company.currency),
+    fetchAverageCoefficients(stock.company.industry),
   ]);
 
   const initialDataContext = { stock, marketData, currencyRate };
