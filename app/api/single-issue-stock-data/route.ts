@@ -7,6 +7,7 @@ interface IRequestBody {
   ticker: TTicker;
 }
 
+// POST, чтобы нельзя было заспамить простым открытием вкладок.
 export async function POST(request: NextRequest) {
   const body: IRequestBody = await request.json();
   const { ticker } = body;

@@ -3,13 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { fetchChartData } from '@/services/server';
 import { TTicker } from '@/types/ticker';
 
-interface IRequestBody {
-  ticker: TTicker;
-}
-
-export async function POST(request: NextRequest) {
-  const body: IRequestBody = await request.json();
-  const { ticker } = body;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const ticker = searchParams.get('ticker') as TTicker;
 
   try {
     if (!ticker) {
