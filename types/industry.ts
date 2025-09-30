@@ -1,6 +1,7 @@
 export type TIndustry = 
   | 'banks'
   | 'oilAndGas'
+  | 'oilAndGasServices'
   | 'metalsAndMining'
   | 'it'
   | 'electricPower'

@@ -212,7 +212,7 @@ const ALL_COMPANIES: TCompany[] = [
     unitsText: 'в млн. рублей',
     units: 1_000_000,
     type: 'regular',
-    industry: 'oilAndGas',
+    industry: 'oilAndGasServices',
     years: [2024, 2023, 2022, 2020],
     // expenditure, netChange revalidate
     revenues: [1423904, 1330899, 1204703, 962440],

@@ -28,7 +28,7 @@ export const StockPageContent: React.FC = () => {
         </TabsList>
         <TabsContent value="tables" className="flex flex-col gap-4">
           <section className="-mx-8 lg:mx-0">
-          <IncomeByYearTable company={stock.company} />
+            <IncomeByYearTable company={stock.company} />
           </section>
           <section>
             <Coefficients stock={stock} />

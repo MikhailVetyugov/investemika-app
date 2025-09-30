@@ -4,7 +4,7 @@ import { fetchCurrencyRate } from "@/services/server";
 import { TIndustry } from "@/types/industry";
 import { IAggregatedDataInternalResponse, TAverageCoefficientsInternalResponse } from "@/types/response/internal";
 import { IStock } from "@/types/stock";
-import { getCurrentRatio, getPB, getPE, getPS, getROA, getROE } from "@/utils/calculations";
+import { getCurrentRatio, getPB, getPE, getPFCF, getPS, getROA, getROE } from "@/utils/calculations";
 import { createCacheWrapper } from './cache-wrapper';
 
 type TIndustryCompanyData = {
@@ -25,7 +25,7 @@ export async function fetchAverageCoefficients(industry: TIndustry) {
 async function fetchAverageCoefficientsRaw(industry: TIndustry): Promise<TAverageCoefficientsInternalResponse> {
   try {
     const industryStocks = ALL_STOCKS.filter(stock =>
-      stock.company.industry === industry && !PREF_TICKERS.includes(stock.ticker));
+      stock.company.industry === industry && (stock.company.tickers.length === 1 || !PREF_TICKERS.includes(stock.ticker)));
     const industryCompanyPromises = industryStocks.map(fetchIndustryCompanyData);
 
     const industryCompanies = await Promise.all(industryCompanyPromises);
@@ -60,25 +60,68 @@ function getAverageCoefficients(items: TIndustryCompanyData[]) {
   let cumulatedROE = 0;
   let cumulatedROA = 0;
 
+  let countPE = 0;
+  let countPB = 0;
+  let countPS = 0;
+  let countPFCF = 0;
+  let countCR = 0;
+  let countROE = 0;
+  let countROA = 0;
+
   for (let i = 0; i < items.length; i++) {
     const { stock, marketData, currencyRate } = items[i];
 
-    cumulatedPE += getPE({ stock, marketData, currencyRate }) ?? 0;
-    cumulatedPB += getPB({ stock, marketData, currencyRate }) ?? 0;
-    cumulatedPS += getPS({ stock, marketData, currencyRate }) ?? 0;
-    cumulatedPFCF += getPS({ stock, marketData, currencyRate }) ?? 0;
-    cumulatedCR += getCurrentRatio(stock) ?? 0;
-    cumulatedROE += getROE(stock);
-    cumulatedROA += getROA(stock);
+    const PE = getPE({ stock, marketData, currencyRate });
+
+    if (PE != null) {
+      cumulatedPE += PE;
+      countPE++;
+    }
+
+    const PB = getPB({ stock, marketData, currencyRate });
+    if (PB != null) {
+      cumulatedPB += PB;
+      countPB++;
+    }
+
+    const PS = getPS({ stock, marketData, currencyRate });
+    if (PS != null) {
+      cumulatedPS += PS;
+      countPS++;
+    }
+
+    const PFCF = getPFCF({ stock, marketData, currencyRate });
+    if (PFCF != null) {
+      cumulatedPFCF += PFCF;
+      countPFCF++;
+    }
+
+    const CR = getCurrentRatio(stock);
+    if (CR != null) {
+      cumulatedCR += CR;
+      countCR++;
+    }
+
+    const ROE = getROE(stock);
+    if (ROE != null) {
+      cumulatedROE += ROE;
+      countROE++;
+    }
+
+    const ROA = getROA(stock);
+    if (ROA != null) {
+      cumulatedROA += ROA;
+      countROA++;
+    }
   }
 
   return {
-    averagePE: Math.round(cumulatedPE / items.length * 100) / 100,
-    averagePB: Math.round(cumulatedPB / items.length * 100) / 100,
-    averagePS: Math.round(cumulatedPS / items.length * 100) / 100,
-    averagePFCF: Math.round(cumulatedPFCF / items.length * 100) / 100,
-    averageCR: Math.round(cumulatedCR / items.length * 10) / 10,
-    averageROE: Math.round(cumulatedROE / items.length * 1000) / 1000,
-    averageROA: Math.round(cumulatedROA / items.length * 1000) / 1000,
+    averagePE: countPE > 0 ? Math.round(cumulatedPE / countPE * 100) / 100 : 0,
+    averagePB: countPB > 0 ? Math.round(cumulatedPB / countPB * 100) / 100 : 0,
+    averagePS: countPS > 0 ? Math.round(cumulatedPS / countPS * 100) / 100 : 0,
+    averagePFCF: countPFCF > 0 ? Math.round(cumulatedPFCF / countPFCF * 100) / 100 : 0,
+    averageCR: countCR > 0 ? Math.round(cumulatedCR / countCR * 10) / 10 : 0,
+    averageROE: countROE > 0 ? Math.round(cumulatedROE / countROE * 1000) / 1000 : 0,
+    averageROA: countROA > 0 ? Math.round(cumulatedROA / countROA * 1000) / 1000 : 0,
   }
 }
