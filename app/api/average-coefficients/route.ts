@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     const averageCoefficients = await fetchAverageCoefficients(industry);
 
-    return NextResponse.json({ averageCoefficients });
+    return NextResponse.json(averageCoefficients);
   } catch (error) {
     console.error('Error in API route (average coefficients):', error);
 

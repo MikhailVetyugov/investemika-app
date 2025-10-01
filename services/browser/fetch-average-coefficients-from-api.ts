@@ -1,6 +1,7 @@
 import { TIndustry } from "@/types/industry";
+import { TAverageCoefficientsInternalResponse } from "@/types/response/internal";
 
-export async function fetchAverageCoefficientsFromAPI(industry: TIndustry): Promise<number | null> {
+export async function fetchAverageCoefficientsFromAPI(industry: TIndustry): Promise<TAverageCoefficientsInternalResponse> {
   try {
     const response = await fetch(`${window.location.origin}/api/average-coefficients?industry=${industry}`);
 
