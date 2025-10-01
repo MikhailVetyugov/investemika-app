@@ -19,15 +19,12 @@ export const Capitalization: React.FC<ICapitalizationProps> = ({ stock }) => {
   const { marketData } = use(DataContext);
 
   const adjustedCapitalization = getAdjustedCapitalization(stock, marketData);
-
-  if (!adjustedCapitalization) {
-    return null;
-  }
+  const capitalizationText = adjustedCapitalization ? formatNumber(Math.round(adjustedCapitalization)) : 'Н/Д';
 
   return (
     <div className="font-bold text-xl whitespace-nowrap">
       <span className="align-middle whitespace-normal">
-        Капитализация: {formatNumber(Math.round(adjustedCapitalization))}
+        Капитализация: {capitalizationText}
       </span>
       &#8288;
       <Popover>
