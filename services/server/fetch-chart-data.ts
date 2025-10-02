@@ -21,8 +21,6 @@ export async function fetchChartData(ticker: TTicker) {
 }
 
 async function fetchChartDataRaw(ticker: TTicker): Promise<TChartDataInternalResponse> {
-  console.info('fetchChartDataRaw call');
-
   try {
     const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}/candles.json?interval=${INTERVAL}&from=${getFromParam(YEARS_COUNT)}`);
 

@@ -9,6 +9,7 @@ import { Price } from "@/components/price";
 import { PriceChart } from "@/components/price-chart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IStock } from "@/types/stock";
+import { DESCRIPTIONS, SEO_DESCRIPTION } from "@/lib/descriptions";
 
 export const StockPageContent: React.FC = () => {
   const data = use(DataContext);
@@ -40,6 +41,11 @@ export const StockPageContent: React.FC = () => {
           </section>
         </TabsContent>
       </Tabs>
+      <section>
+        <h2 className="my-2 font-bold text-xl">О компании</h2>
+        <p>{DESCRIPTIONS[stock.ticker]}</p>
+        <p>{SEO_DESCRIPTION}</p>
+      </section>
     </>
   );
 }
