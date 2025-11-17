@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NextTopLoader from 'nextjs-toploader';
 
+import YandexMetrika from "@/components/yandex-metrika";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -61,11 +63,12 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <YandexMetrika />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
-        <NextTopLoader 
+        <NextTopLoader
           color="#3B82F6"
           height={3}
           showSpinner={false}
