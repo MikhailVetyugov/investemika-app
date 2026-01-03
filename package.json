@@ -8,6 +8,7 @@
     "build:amvera": "NODE_OPTIONS=--no-network-family-autoselection next build",
     "start": "next start",
     "start:amvera": "next start -H 0.0.0.0",
+    "test": "vitest run",
     "lint": "next lint",
     "publish": "git push amvera main:master"
   },
@@ -46,6 +47,7 @@
     "eslint-config-next": "15.4.4",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.16"
   }
 }

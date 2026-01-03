@@ -5,9 +5,8 @@ import { DataContext } from "@/components/data-context";
 import { fetchAverageCoefficientsFromAPI, fetchCurrencyRateFromAPI } from "@/services/browser";
 import { fetchAggregatedStockData } from "@/services/shared";
 import { IStock } from "@/types/stock";
-import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
-import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
-import { getStockPageSeoTitle } from "@/utils/get-stock-page-seo-title";
+import { getStockByUrlName, getUrlNameByStock } from "@/utils/transliteration";
+import { getStockPageSeoTitle } from "@/utils/seo-titles";
 
 export const useStockSelection = (stockPage: boolean) => {
   const { setStock, updateMarketData, resetMarketData, setCurrencyRate, setAverageCoefficients } = use(DataContext);

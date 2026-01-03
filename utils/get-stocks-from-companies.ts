@@ -12,6 +12,7 @@ export const getStocksFromCompanies = (companies: TCompany[]): IStock[] => {
         name: `${company.name}${prefSuffix}`,
         ticker,
         company,
+        firstCompanyTicker: company.tickers[0],
       };
     })
   });

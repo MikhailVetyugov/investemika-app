@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
 import { NBSP } from "@/constants/symbols";
 import { ALL_STOCKS } from "@/lib/data";
-import { getUrlNameByStock } from "@/utils/get-url-name-by-stock";
+import { getUrlNameByStock } from "@/utils/transliteration";
 import { groupStocksByLetter } from "@/utils/group-stocks-by-letter";
 import { getEmptyInitialDataContext } from "@/utils/get-empty-initial-data-context";
 

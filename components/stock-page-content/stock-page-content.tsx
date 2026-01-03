@@ -1,15 +1,17 @@
 'use client'
 import { use } from "react";
 
-import { Capitalization } from "@/components/capitalization";
-import { Coefficients } from "@/components/coefficients";
 import { DataContext } from "@/components/data-context";
-import { IncomeByYearTable } from "@/components/income-by-year-table";
-import { Price } from "@/components/price";
-import { PriceChart } from "@/components/price-chart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IStock } from "@/types/stock";
 import { DESCRIPTIONS, SEO_DESCRIPTION } from "@/lib/descriptions";
+import { Coefficients } from "./coefficients";
+
+import { Capitalization } from "./capitalization";
+import { DownloadPageButton } from "./download-page-button";
+import { IncomeByYearTable } from "./income-by-year-table";
+import { Price } from "./price";
+import { PriceChart } from "./price-chart";
 
 export const StockPageContent: React.FC = () => {
   const data = use(DataContext);
@@ -29,7 +31,7 @@ export const StockPageContent: React.FC = () => {
         </TabsList>
         <TabsContent value="tables" className="flex flex-col gap-4">
           <section className="-mx-8 lg:mx-0">
-            <IncomeByYearTable company={stock.company} />
+            <IncomeByYearTable company={stock.company} downloadPageButton={<DownloadPageButton stock={stock} />} />
           </section>
           <section>
             <Coefficients stock={stock} />

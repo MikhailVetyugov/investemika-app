@@ -6,8 +6,8 @@ import { PageShell } from "@/components/page-shell";
 import { StockPageContent } from "@/components/stock-page-content";
 import { fetchAggregatedStockData } from "@/services/shared";
 import { fetchCurrencyRate, fetchAverageCoefficients } from "@/services/server";
-import { getStockByUrlName } from "@/utils/get-stock-by-url-name";
-import { getStockPageSeoTitle } from "@/utils/get-stock-page-seo-title";
+import { getStockByUrlName } from "@/utils/transliteration";
+import { getStockPageSeoTitle } from "@/utils/seo-titles";
 
 type TProps = {
   params: Promise<{ stock: string }>

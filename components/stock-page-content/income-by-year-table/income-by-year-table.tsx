@@ -13,9 +13,10 @@ import { DataRow, HeadRow } from "./row";
 
 interface IIncomeByYearTableProps {
   company: TCompany;
+  downloadPageButton: React.ReactNode;
 }
 
-export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ company }) => {
+export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ company, downloadPageButton }) => {
   const {
     unitsText,
     type,
@@ -116,6 +117,7 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
           {company.financialStatementsNote}
         </div>
       )}
+      {downloadPageButton}
     </>
   )
 });
