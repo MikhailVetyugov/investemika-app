@@ -9,12 +9,14 @@ interface IDownloadFileRowProps {
 }
 
 export const DownloadFileRow: React.FC<IDownloadFileRowProps> = ({ file }) => {
+  const href = `/api/download?path=${encodeURIComponent(file.path)}`;
+
   return (
     <div className="p-4 hover:bg-gray-50 transition-colors">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2">
           <a
-            href={`/reports/${file.path}`}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block font-medium text-lg hover:text-lightblue hover:underline underline-offset-2 transition-colors"
@@ -33,7 +35,7 @@ export const DownloadFileRow: React.FC<IDownloadFileRowProps> = ({ file }) => {
         <div className="flex-shrink-0">
           <Button asChild size="sm">
             <a
-              href={`/api/download?path=${encodeURIComponent(file.path)}`}
+              href={href}
               target="_blank"
               rel="noopener noreferrer"
               download
