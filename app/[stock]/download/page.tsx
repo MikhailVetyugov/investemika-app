@@ -10,7 +10,7 @@ import { getStockByUrlName } from "@/utils/transliteration/get-stock-by-url-name
 import { getDownloadPageSeoTitle } from "@/utils/seo-titles";
 import { getEmptyInitialDataContext } from "@/utils/get-empty-initial-data-context";
 import { FilesGroupCard } from "@/components/download-page-content";
-import { fetchDownloadFilesGroups } from "@/services/server/fetch-download-files-groups";
+import { fetchDownloadFilesGroups } from "@/services/server";
 
 type TProps = {
   params: Promise<{ stock: string }>

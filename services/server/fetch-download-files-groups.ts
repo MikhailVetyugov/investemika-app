@@ -1,67 +1,92 @@
-import fs from "fs";
-import path from "path";
-
+import { YANDEX_DISK_DIR } from '@/constants/yandex-disk';
 import { IDownloadFile, IDownloadFilesGroup } from "@/types/download";
 import { parseFileName } from "@/utils/parse-file-name";
 
 export async function fetchDownloadFilesGroups(stockUrlName: string): Promise<IDownloadFilesGroup[]> {
   try {
-    const filesDir = path.join(process.cwd(), 'data', stockUrlName);
-    
-    if (!fs.existsSync(filesDir)) {
+    const apiUrl = 'https://cloud-api.yandex.net/v1/disk/public/resources';
+    const params = new URLSearchParams({
+      public_key: YANDEX_DISK_DIR,
+      path: `/${stockUrlName}`,
+      limit: "1000"
+    });
+
+    const response = await fetch(`${apiUrl}?${params}`);
+
+    if (!response.ok) {
       return [];
     }
-    
-    const items = fs.readdirSync(filesDir, { withFileTypes: true });
+
+    const data = await response.json();
+
+    if (!data._embedded?.items) {
+      return [];
+    }
+
+    const items = data._embedded.items;
     const groups: IDownloadFilesGroup[] = [];
-    
-    // Основная группа
+
+    // Основная группа (файлы в корне папки)
     const rootFiles = items
-      .filter(item => item.isFile() && item.name.endsWith('.pdf'))
-      .map(item => parseFileName(item.name))
-      .filter(parsed => parsed != null)
-      .map(parsed => {
+      // TODO: Добавить типизацию.
+      .filter((item: any) => item.type === 'file' && item.name.endsWith('.pdf'))
+      .map((item: any) => parseFileName(item.name))
+      .filter((parsed: any) => parsed != null)
+      .map((parsed: any) => {
         return {
           ...parsed,
           path: `${stockUrlName}/${parsed.name}`,
         } as IDownloadFile;
       });
-    
+
     if (rootFiles.length > 0) {
       groups.push({
         name: 'Основная отчетность',
-        files: rootFiles.sort((a, b) => b.year - a.year)
+        files: rootFiles.sort((a: any, b: any) => b.year - a.year)
       });
     }
-    
+
     // Подпапки (компании-предшественники)
-    const subfolders = items.filter(item => item.isDirectory());
-    
+    const subfolders = items.filter((item: any) => item.type === 'dir');
+
     for (const subfolder of subfolders) {
-      const subfolderPath = path.join(filesDir, subfolder.name);
-      const subfolderFiles = fs.readdirSync(subfolderPath)
-        .filter(file => file.endsWith('.pdf'))
-        .map(filename => parseFileName(filename))
-        .filter(parsed => parsed != null)
-        .map(parsed => {
+      const subfolderResponse = await fetch(
+        `${apiUrl}?${new URLSearchParams({
+          public_key: YANDEX_DISK_DIR,
+          path: `/${stockUrlName}/${subfolder.name}`,
+          limit: "1000"
+        })}`
+      );
+
+      if (!subfolderResponse.ok) continue;
+
+      const subfolderData = await subfolderResponse.json();
+
+      if (!subfolderData._embedded?.items) continue;
+
+      const subfolderFiles = subfolderData._embedded.items
+        .filter((item: any) => item.type === 'file' && item.name.endsWith('.pdf'))
+        .map((item: any) => parseFileName(item.name))
+        .filter((parsed: any) => parsed != null)
+        .map((parsed: any) => {
           return {
             ...parsed,
             path: `${stockUrlName}/${subfolder.name}/${parsed.name}`,
           } as IDownloadFile;
         });
-      
+
       if (subfolderFiles.length > 0) {
         groups.push({
           name: subfolder.name,
-          files: subfolderFiles.sort((a, b) => b.year - a.year),
+          files: subfolderFiles.sort((a: any, b: any) => b.year - a.year),
           isPredecessor: true,
         });
       }
     }
-    
+
     return groups;
   } catch (error) {
-    console.error(`Error reading reports for ${stockUrlName}:`, error);
+    console.error(`Error reading download files groups for ${stockUrlName}:`, error);
 
     return [];
   }
