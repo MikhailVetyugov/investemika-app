@@ -8,9 +8,10 @@ import { ALL_STOCKS } from '@/lib/data';
 
 interface IDownloadPageButtonProps {
   stock: IStock;
+  className: string;
 };
 
-export const DownloadPageButton: React.FC<IDownloadPageButtonProps> = ({ stock }) => {
+export const DownloadPageButton: React.FC<IDownloadPageButtonProps> = ({ stock, className }) => {
   const router = useRouter()
 
   const goToDownloadPage = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -23,5 +24,5 @@ export const DownloadPageButton: React.FC<IDownloadPageButtonProps> = ({ stock }
     router.push(`/${url}/download/`);
   }, [stock]);
 
-  return <Button className="mt-4" size="sm" onClick={goToDownloadPage}>Скачать отчётность</Button>;
+  return <Button className={`mt-4 ${className}`} size="sm" onClick={goToDownloadPage}>Скачать отчётность</Button>;
 };
