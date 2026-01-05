@@ -1,8 +1,6 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import type { ResolvedOpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 import { notFound } from "next/navigation";
-import fs from "fs";
-import path from "path";
 
 import { PageShell } from "@/components/page-shell";
 import { NBSP } from "@/constants/symbols";
