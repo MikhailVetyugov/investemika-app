@@ -15,16 +15,6 @@ const currencyFormatter = new Intl.NumberFormat('ru-RU', {
   useGrouping: true,
 });
 
-const calculateGordonPrice = (d0: number, g: number, r: number): number => {
-  // Все вычисления в копейках для точности
-  const d0Kopecks = Math.round(d0 * 100);
-  const d1Kopecks = Math.round(d0Kopecks * (1 + g / 100));
-  
-  const priceInKopecks = Math.round(d1Kopecks * 100 / (r - g));
-  
-  return priceInKopecks / 100;
-};
-
 export const GordonCalculatorContent: React.FC = () => {
   const [dividend0, setDividend0] = useState<string>('2.00');
   const [growthRate, setGrowthRate] = useState<string>('3');

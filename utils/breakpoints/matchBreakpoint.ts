@@ -1,4 +1,4 @@
-type TBreakpoint = '--breakpoint-xl' | '--breakpoint-lg' | '--breakpoint-md' | '--breakpoint-sm';
+import { TBreakpoint } from "@/types/breakpoint";
 
 export function matchBreakpoint(breakpoint: TBreakpoint) {
   const styles = getComputedStyle(document.documentElement);

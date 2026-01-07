@@ -1,24 +1,14 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
 import { TChartDataInternalResponse } from '@/types/response/internal';
-import { matchBreakpoint } from '@/utils/breakpoints';
+import { useBreakpointMatch } from './use-breakpoint-match';
 
 export const usePriceChart = (data: TChartDataInternalResponse) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart>(null);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
-  useEffect(() => {
-    const mediaQuery = matchBreakpoint('--breakpoint-lg')
-    setIsLargeScreen(mediaQuery.matches);
-    
-    const handleMediaChange = (event: MediaQueryListEvent) => setIsLargeScreen(event.matches);
-
-    mediaQuery.addEventListener('change', handleMediaChange);
-
-    return () => mediaQuery.removeEventListener('change', handleMediaChange);
-  }, []);
+  const isLargeScreen = useBreakpointMatch('--breakpoint-lg');
 
   useEffect(() => {
     if (chartRef.current && data) {
