@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NextTopLoader from 'nextjs-toploader';
 
+import { Toaster } from "@/components/ui/sonner";
 import YandexMetrika from "@/components/yandex-metrika";
 
 import "./globals.css";
@@ -74,6 +75,7 @@ export default function RootLayout({
           showSpinner={false}
         />
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

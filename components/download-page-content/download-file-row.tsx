@@ -1,4 +1,6 @@
+'use client'
 import { Download } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { LanguageBadge, TypeBadge, PDFBadge, YearBadge } from "@/components/download-page-content/badges";
@@ -10,6 +12,12 @@ interface IDownloadFileRowProps {
 
 export const DownloadFileRow: React.FC<IDownloadFileRowProps> = ({ file }) => {
   const href = `/api/download?path=${encodeURIComponent(file.path)}`;
+
+  const handleDownloadClick = () => {
+    toast.info("Скачивание скоро начнется", {
+      duration: 2500,
+    });
+  };
 
   return (
     <div className="p-4 hover:bg-gray-50 transition-colors">
@@ -40,6 +48,7 @@ export const DownloadFileRow: React.FC<IDownloadFileRowProps> = ({ file }) => {
               rel="noopener noreferrer"
               download
               className="w-full"
+              onClick={handleDownloadClick}
             >
               <Download className="h-4 w-4" />
               Скачать
