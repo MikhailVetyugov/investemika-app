@@ -3,10 +3,18 @@ import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
+type ProcessInfo = {
+  pid: string;
+  cmd: string;
+};
+
 export async function GET() {
   const memory = process.memoryUsage();
   
-  const processCheck = { error: null as string | null, data: null as string | null };
+  const processCheck = { 
+    error: null as string | null, 
+    data: null as string | null 
+  };
 
   try {
     const cmd = 'ps -o pid,comm,rss,args -C node 2>/dev/null || ps aux | grep -E "(node|next)" | grep -v grep 2>/dev/null || echo "No ps command"';
@@ -14,28 +22,34 @@ export async function GET() {
     const result = await execAsync(cmd, { shell: '/bin/sh' });
     processCheck.data = result.stdout.trim();
     
-  } catch (e: any) {
-    processCheck.error = e?.message || 'Unknown error';
+  } catch (e: unknown) {
+    const error = e as Error;
+    processCheck.error = error?.message || 'Unknown error';
 
     try {
       const fs = await import('fs');
       const dirs = fs.readdirSync('/proc').filter((dir: string) => /^\d+$/.test(dir));
-      const nodeProcs: any[] = [];
+      const nodeProcs: ProcessInfo[] = [];
       
       for (const dir of dirs.slice(0, 10)) {
         try {
           const cmdline = fs.readFileSync(`/proc/${dir}/cmdline`, 'utf8');
           if (cmdline.includes('node') || cmdline.includes('next')) {
-            nodeProcs.push({ pid: dir, cmd: cmdline.substring(0, 100) });
+            nodeProcs.push({ 
+              pid: dir, 
+              cmd: cmdline.substring(0, 100) 
+            });
           }
         } catch {
           // Пропускаем процессы без доступа
+          continue;
         }
       }
       
       processCheck.data = `Found via /proc: ${nodeProcs.length} processes - ${JSON.stringify(nodeProcs)}`;
-    } catch (procError: any) {
-      processCheck.error += ` | /proc error: ${procError.message}`;
+    } catch (procError: unknown) {
+      const procErr = procError as Error;
+      processCheck.error += ` | /proc error: ${procErr.message}`;
     }
   }
   
