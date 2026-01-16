@@ -1,14 +1,15 @@
+import { execSync } from 'child_process';
+
 export async function GET() {
   try {
     const memory = process.memoryUsage();
 
-    const { execSync } = require('child_process');
     const nodeProcesses = execSync('ps aux | grep node | grep -v grep').toString();
     const processes = nodeProcesses.split('\n').filter(Boolean);
 
     let totalRssKb = 0;
 
-    processes.forEach((p: any) => {
+    processes.forEach(p => {
       const columns = p.trim().split(/\s+/);
 
       if (columns.length >= 6) {
@@ -33,12 +34,13 @@ export async function GET() {
       allNodeProcesses: {
         count: processes.length,
         totalRss: totalRssAllProcessesMb,
-        processes: processes.map((p: any) => p.substring(0, 100)),
+        processes: processes.map(p => p.substring(0, 100)),
       },
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : 'Unknown error';
     return Response.json({
-      error: e.message,
+      error: errorMessage,
     });
   }
 }
