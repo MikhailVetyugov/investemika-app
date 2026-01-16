@@ -1,3 +1,6 @@
+import cluster from 'cluster';
+import Module from 'module';
+
 export async function GET() {
   const memory = process.memoryUsage();
   
@@ -11,6 +14,15 @@ export async function GET() {
     env: {
       NODE_OPTIONS: process.env.NODE_OPTIONS,
       NODE_ENV: process.env.NODE_ENV,
-    }
+    },
+    clusterInfo: {
+      isPrimary: cluster.isPrimary,
+      isWorker: cluster.isWorker,
+      workerId: cluster.worker ? cluster.worker.id : null
+    },
+    loadedModules: {
+      hasWorkerThreads: Module.builtinModules.includes('worker_threads'),
+      hasCluster: Module.builtinModules.includes('cluster')
+    },
   });
 }
