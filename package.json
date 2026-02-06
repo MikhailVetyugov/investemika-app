@@ -7,7 +7,7 @@
     "build": "next build",
     "build:amvera": "NODE_OPTIONS=--no-network-family-autoselection next build",
     "start": "next start",
-    "start:amvera": "NODE_OPTIONS=--max-old-space-size=320 next start -H 0.0.0.0",
+    "start:amvera": "NODE_OPTIONS=--max-old-space-size=304 next start -H 0.0.0.0",
     "test": "vitest run",
     "lint": "next lint",
     "publish": "git push amvera main:master"
