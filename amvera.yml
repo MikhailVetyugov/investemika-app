@@ -1,20 +1,8 @@
----
-version: null
 meta:
-  environment: node
+  environment: docker
   toolchain:
-    name: npm
-    version: 20
-build:
-  skip: false
-  additionalCommands: npm run build:amvera
-  artifacts:
-    '*': /
+    name: docker
 run:
-  scriptName: ""
-  scriptArguments: null
-  nodeArguments: null
-  command: npm run start:amvera
   persistenceMount: /data
   containerPort: 3000
   servicePort: 80
