@@ -16,4 +16,5 @@ export type TIndustry =
   | 'recruitment'
   | 'passengerTransportation'
   | 'maritimeTransportation'
-  | 'healthcare';
+  | 'healthcare'
+  | 'e-commerce';

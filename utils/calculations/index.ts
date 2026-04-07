@@ -1,4 +1,3 @@
-export * from './combined-ratio';
 export * from './current-ratio';
 export * from './get-adjusted-capitalization';
 export * from './get-free-cash-flow';

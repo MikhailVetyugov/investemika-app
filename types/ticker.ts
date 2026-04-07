@@ -47,4 +47,7 @@ export type TTicker =
   | 'UPRO'
   | 'FLOT'
   | 'X5'
-  | 'SIBN';
+  | 'SIBN'
+  | 'OZON'
+  | 'LENT'
+  | 'DOMRF';

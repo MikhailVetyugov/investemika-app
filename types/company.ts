@@ -81,11 +81,14 @@ interface IInsuranceCompany extends MakeRequired<
   | 'netChangeInCash'
   > {
   type: 'insurance';
+  /** @deprecated устарело в связи с переходом Ренессанса на МСФО 17 */
   netEarnedPremiums: number[];
+  /** @deprecated устарело в связи с переходом Ренессанса на МСФО 17 */
   netIncurredLosses: number[];
-  acquisitionCosts: number[];
+  insuranceExpenses: number[];
+  insuranceRevenues: number[];
   insuranceServiceResult: number[];
-  administrativeCosts: number[];
+  investmentAndFinancialResult: number[];
   otherOperatingIncomes: number[];
   profitBeforeTax: number[];
 }

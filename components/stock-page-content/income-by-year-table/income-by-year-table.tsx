@@ -62,8 +62,11 @@ export const IncomeByYearTable: React.FC<IIncomeByYearTableProps> = memo(({ comp
             <>
               <DataRow title="Чистая заработанная премия" values={company.netEarnedPremiums} />
               <DataRow title="Чистая сумма произошедших убытков" values={company.netIncurredLosses} />
+              <DataRow title="Выручка по страхованию" values={company.insuranceRevenues} />
+              <DataRow title="Расходы по страховым услугам" values={company.insuranceExpenses} />
               <DataRow title="Результат от страховых операций" values={company.insuranceServiceResult} />
-              <DataRow title="Прочие операционные доходы" values={company.otherOperatingIncomes} />
+              <DataRow title="Инвестиционный и финансовый результат" values={company.investmentAndFinancialResult} />
+              <DataRow title="Прочие доходы" values={company.otherOperatingIncomes} />
               <DataRow title="Прибыль до налогообложения" values={company.profitBeforeTax} />
             </>
           )}

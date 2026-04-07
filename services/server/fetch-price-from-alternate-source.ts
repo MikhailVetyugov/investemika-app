@@ -53,6 +53,9 @@ const TICKER_TO_URL_MAP: Record<TTicker, string> = {
   'FLOT': 'https://www.banki.ru/investment/share/Sovkomflot_FLOT/',
   'X5': 'https://www.rbc.ru/quote/ticker/172651',
   'SIBN': 'https://www.banki.ru/investment/share/gazpromneft_SIBN/',
+  'OZON': 'https://www.rbc.ru/quote/ticker/305273',
+  'LENT': 'https://www.rbc.ru/quote/ticker/335580',
+  'DOMRF': 'https://www.rbc.ru/quote/ticker/366513',
 };
 
 const { withCache } = createCacheWrapper<TResult>({

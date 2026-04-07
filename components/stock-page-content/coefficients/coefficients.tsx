@@ -12,10 +12,9 @@ import {
 } from "@/components/ui/table";
 import { NBSP } from "@/constants/symbols";
 import { IStock } from "@/types/stock";
-import { getPE, getPB, getPS, getPFCF, getCurrentRatio, getROE, getCombinedRatio, getROA } from "@/utils/calculations";
+import { getPE, getPB, getPS, getPFCF, getCurrentRatio, getROE, getROA } from "@/utils/calculations";
 import { formatNumber } from "@/utils/formatters";
 import { TooltipCoefficient } from "./tooltip-coefficient";
-import { NO_DATA_TEXT } from "./texts";
 import { CommonCoefficient } from "./common-coefficient";
 import { NonFinancialCompanyCoefficient } from "./non-financial-company-coefficient";
 
@@ -41,7 +40,6 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
   const ROE = getROE(stock);
   const ROA = getROA(stock);
   const CR = getCurrentRatio(stock);
-  const combinedRatio = getCombinedRatio(stock);
 
   const {
     averagePE,
@@ -151,19 +149,6 @@ export const Coefficients: React.FC<ICoefficientsProps> = memo(({ stock }) => {
               />
             </TableCell>
           </TableRow>
-          {combinedRatio && (
-            <TableRow>
-              <TableCell className="font-bold whitespace-normal md:whitespace-nowrap" title="Комбинированный коэффициент убыточности">Combined Ratio, %</TableCell>
-              <TableCell className="text-right">
-                <TooltipCoefficient
-                  text={`${formatNumber(combinedRatio * 100)}`}
-                  tooltipAriaLabel="Что это?"
-                  tooltipContent="Комбинированный (сводный) коэффициент убыточности для оценки эффективности страховой деятельности"
-                />
-              </TableCell>
-              <TableCell className="text-right">{NO_DATA_TEXT}</TableCell>
-            </TableRow>
-          )}
         </TableBody>
       </Table>
       <div className={`text-xs text-gray-500 ${TABLE_WIDTH_CLASS_NAME}`}>
