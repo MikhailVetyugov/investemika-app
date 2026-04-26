@@ -50,4 +50,5 @@ export type TTicker =
   | 'SIBN'
   | 'OZON'
   | 'LENT'
-  | 'DOMRF';
+  | 'DOMRF'
+  | 'CNRU';

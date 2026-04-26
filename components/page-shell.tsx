@@ -34,7 +34,7 @@ const PageShellComponent: React.FC<Omit<IPageShellProps, 'initialDataContext'>> 
         {children}
       </main>
       <footer className="mt-auto px-4 flex items-center justify-center bg-investemika-primary text-white xl:h-[40px] xl:justify-start">
-        © {new Date().getFullYear()}. Investemika.ru
+        © 2025-{new Date().getFullYear()}. Investemika.ru
       </footer>
     </div>
   );

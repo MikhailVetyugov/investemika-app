@@ -56,6 +56,7 @@ const TICKER_TO_URL_MAP: Record<TTicker, string> = {
   'OZON': 'https://www.rbc.ru/quote/ticker/305273',
   'LENT': 'https://www.rbc.ru/quote/ticker/335580',
   'DOMRF': 'https://www.rbc.ru/quote/ticker/366513',
+  'CNRU': 'https://www.rbc.ru/quote/ticker/333504',
 };
 
 const { withCache } = createCacheWrapper<TResult>({
