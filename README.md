@@ -4,13 +4,27 @@
 
 ## Как начать
 
-Сначала запустите дев сервер:
+Сначала установите зависимости и запустите дев сервер:
 
 ```bash
-npm run dev
+pnpm i
+pnpm dev
 ```
 
 Откройте [http://localhost:3000](http://localhost:3000) в вашем браузере и увидите результат.
+
+## Как задеплоить
+
+```bash
+pnpm run publish
+```
+
+## Как запустить в контейнере
+
+```bash
+docker build --no-cache -t investemika-app .
+docker run --rm --name investemika-debug -p 3000:3000 investemika-app
+```
 
 ## Соглашения
 

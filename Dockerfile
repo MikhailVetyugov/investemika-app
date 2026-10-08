@@ -1,21 +1,24 @@
 # Stage 1: Dependencies
-FROM node:20-alpine AS deps
+FROM node:24-alpine AS deps
 WORKDIR /srv
-COPY package.json package-lock.json* ./
+RUN npm install --global pnpm@12.10.1
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 # To copy on Stage 3 only prod dependecies.
-RUN npm ci --only=production && npm cache clean --force
+RUN pnpm install --prod --frozen-lockfile
 
 # Stage 2: Build
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /srv
-COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install --global pnpm@12.10.1
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
-RUN npm run build:amvera
+RUN pnpm run build:amvera
 
 # Stage 3: Production
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 WORKDIR /srv
+#RUN npm install --global pnpm@12.10.1
 
 ENV NODE_ENV=production
 ENV PORT=3000
@@ -28,6 +31,8 @@ COPY --from=deps --chown=nextjs:nodejs /srv/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /srv/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /srv/public ./public
 COPY --from=builder --chown=nextjs:nodejs /srv/package.json ./package.json
+COPY --from=builder /srv/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /srv/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 RUN mkdir -p /data && chown nextjs:nodejs /data
 
