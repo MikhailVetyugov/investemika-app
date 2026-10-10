@@ -18,7 +18,6 @@ RUN pnpm run build:amvera
 # Stage 3: Production
 FROM node:24-alpine AS runner
 WORKDIR /srv
-#RUN npm install --global pnpm@12.10.1
 
 ENV NODE_ENV=production
 ENV PORT=3000
@@ -31,8 +30,6 @@ COPY --from=deps --chown=nextjs:nodejs /srv/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /srv/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /srv/public ./public
 COPY --from=builder --chown=nextjs:nodejs /srv/package.json ./package.json
-COPY --from=builder /srv/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder /srv/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 RUN mkdir -p /data && chown nextjs:nodejs /data
 
