@@ -10,7 +10,8 @@
     "start:amvera": "NODE_OPTIONS=--max-old-space-size=304 next start -H 0.0.0.0",
     "test": "vitest run",
     "lint": "next lint",
-    "publish": "git push amvera main:master"
+    "publish": "git push amvera main:master",
+    "publish-warsaw": "git push amvera-warsaw main:master"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.14",

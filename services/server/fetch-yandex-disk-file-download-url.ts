@@ -17,7 +17,7 @@ export async function fetchYandexDiskFileDownloadUrl(filePath: string): Promise<
     return data.href || null;
     
   } catch (error) {
-    console.error('Error getting yandex disk file download URL:', error);
+    console.error('Error getting yandex disk file download URL:', filePath, error);
 
     return null;
   }

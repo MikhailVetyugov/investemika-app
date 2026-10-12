@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error in API Route (downloading from Yandex Disk):', error);
+    console.error('Error in API Route (downloading from Yandex Disk):', filePath, error);
 
     return NextResponse.json(
       { error: 'Internal server error' },
