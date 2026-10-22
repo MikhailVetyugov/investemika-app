@@ -63,27 +63,6 @@ export default async function DownloadPage({ params }: TProps) {
   return (
     <PageShell initialDataContext={initialDataContext}>
       <div className="space-y-6">
-        <div
-          role="alert"
-          className="flex items-start gap-3 rounded-lg border border-amber-300/70 bg-amber-50 p-4 text-amber-950 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-200"
-        >
-          <AlertTriangle
-            className="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-400"
-            aria-hidden="true"
-          />
-          <div className="space-y-1">
-            <p className="font-semibold">
-              Возможны проблемы со{NBSP}скачиванием отчетности
-            </p>
-            <p className="text-sm leading-relaxed text-amber-900/80 dark:text-amber-200/80">
-              Из-за технических проблем в{NBSP}инфраструктуре нашего облачного провайдера скачивание отчетности
-              может работать нестабильно. Если{NBSP}документ не{NBSP}удаётся скачать, пожалуйста,
-              попробуйте повторить попытку позднее. Приносим извинения за{NBSP}неудобства.
-            </p>
-          </div>
-        </div>
-
-
         <div className="space-y-2">
           <h1 className="font-bold text-3xl">Скачать отчетность {stock.company.name}</h1>
           <p className="text-gray-600">
