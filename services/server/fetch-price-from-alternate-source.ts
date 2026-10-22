@@ -88,16 +88,11 @@ async function fetchPriceFromAlternateSourceRaw(ticker: TTicker): Promise<TResul
   let match;
 
   if (url.startsWith('https://www.rbc.ru')) {
-    const spanRegex = /<span\s+class="chart__info__sum">([\s\S]*?)<\/span>/;
-    const spanMatch = html.match(spanRegex);
-
-    if (spanMatch) {
-      const priceRegex = /(\d[\d\s,]*(?:\.\d+)?)/;
-      match = spanMatch[1].match(priceRegex);
-    }
+    const priceRegex = /<p[^>]*>\s*₽\s*([\d\s\u00A0.,]+?)\s*<\/p>/;
+    match = html.match(priceRegex);
   } else {
-    const regex = /<div[^>]*data-test="investment-item-price-block__price"[^>]*>([^<]+)<\/div>/;
-    match = html.match(regex);
+    const priceBlockRegex = /<div[^>]*class="[^"]*node-investment_PriceBlock_[^"]*"[\s\S]*?<div[^>]*data-test="text"[^>]*>([^<]*₽[^<]*)<\/div>/;
+    match = html.match(priceBlockRegex);
   }
 
   if (match && match[1]) {
