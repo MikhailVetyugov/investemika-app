@@ -2,7 +2,12 @@ import { YANDEX_DISK_DIR } from '@/constants/yandex-disk';
 import { IDownloadFile, IDownloadFilesGroup } from "@/types/download";
 import { parseFileName } from "@/utils/parse-file-name";
 
-export async function fetchDownloadFilesGroups(stockUrlName: string): Promise<IDownloadFilesGroup[]> {
+/**
+ * Retrieves files groups from Yandex Disk to display on Download page.
+ * 
+ * @deprecated Deprecated in favor of S3.
+ */
+export async function fetchDownloadFilesGroupsFromYandex(stockUrlName: string): Promise<IDownloadFilesGroup[]> {
   try {
     const apiUrl = 'https://cloud-api.yandex.net/v1/disk/public/resources';
     const params = new URLSearchParams({

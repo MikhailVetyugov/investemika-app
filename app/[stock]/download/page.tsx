@@ -9,7 +9,7 @@ import { getStockByUrlName } from "@/utils/transliteration/get-stock-by-url-name
 import { getDownloadPageSeoTitle } from "@/utils/seo-titles";
 import { getEmptyInitialDataContext } from "@/utils/get-empty-initial-data-context";
 import { FilesGroupCard } from "@/components/download-page-content";
-import { fetchDownloadFilesGroups } from "@/services/server";
+import { fetchDownloadFilesGroupsFromS3 } from "@/services/server";
 
 type TProps = {
   params: Promise<{ stock: string }>
@@ -58,7 +58,7 @@ export default async function DownloadPage({ params }: TProps) {
   }
 
   const initialDataContext = getEmptyInitialDataContext();
-  const filesGroups = await fetchDownloadFilesGroups(stockUrlName);
+  const filesGroups = await fetchDownloadFilesGroupsFromS3(stockUrlName);
 
   return (
     <PageShell initialDataContext={initialDataContext}>

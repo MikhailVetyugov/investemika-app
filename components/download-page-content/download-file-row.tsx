@@ -11,7 +11,7 @@ interface IDownloadFileRowProps {
 }
 
 export const DownloadFileRow: React.FC<IDownloadFileRowProps> = ({ file }) => {
-  const href = `/api/download?path=${encodeURIComponent(file.path)}`;
+  const href = `/api/v2/download?path=${encodeURIComponent(file.path)}`;
 
   const handleDownloadClick = () => {
     toast.info("Скачивание скоро начнется", {

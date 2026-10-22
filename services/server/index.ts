@@ -4,4 +4,6 @@ export * from './fetch-currency-rate';
 export * from './fetch-price-from-alternate-source';
 export * from './fetch-single-issue-stock-data';
 export * from './fetch-yandex-disk-file-download-url';
-export * from './fetch-download-files-groups';
+export * from './fetch-download-files-groups-from-yandex';
+export * from './fetch-download-files-groups-from-s3';
+export * from './s3';
