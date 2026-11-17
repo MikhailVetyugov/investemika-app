@@ -9,9 +9,11 @@ import { Coefficients } from "./coefficients";
 
 import { Capitalization } from "./capitalization";
 import { DownloadPageButton } from "./download-page-button";
+import { IndustryPeers } from "./industry-peers";
 import { IncomeByYearTable } from "./income-by-year-table";
 import { Price } from "./price";
 import { PriceChart } from "./price-chart";
+import { StockTypeSwitch } from "./stock-type-switch";
 
 export const StockPageContent: React.FC = () => {
   const data = use(DataContext);
@@ -21,6 +23,7 @@ export const StockPageContent: React.FC = () => {
     <>
       <section className="flex flex-col gap-2">
         <h1 className="font-bold text-3xl">{stock.name} ({stock.ticker})</h1>
+        <StockTypeSwitch stock={stock} />
         <Price stock={stock} />
         <Capitalization stock={stock} />
       </section>
@@ -51,6 +54,7 @@ export const StockPageContent: React.FC = () => {
         <p>{DESCRIPTIONS[stock.ticker]}</p>
         <p>{SEO_DESCRIPTION}</p>
       </section>
+      <IndustryPeers stock={stock} />
     </>
   );
 }
