@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 import { ALL_STOCKS } from '@/lib/data';
 import { getUrlNameByStock } from '@/utils/transliteration/get-url-name-by-stock';
-import { EVA_CALCULATOR_URL, GORDON_CALCULATOR_URL, IRR_CALCULATOR_URL } from '@/constants/urls';
+import { EVA_CALCULATOR_URL, GORDON_CALCULATOR_URL, IRR_CALCULATOR_URL, SCREENER_URL } from '@/constants/urls';
 
 const lastModified = new Date();
 
@@ -41,6 +41,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `https://investemika.ru${EVA_CALCULATOR_URL}`,
+      lastModified,
+      priority: 1,
+    },
+    {
+      url: `https://investemika.ru${SCREENER_URL}`,
       lastModified,
       priority: 1,
     },

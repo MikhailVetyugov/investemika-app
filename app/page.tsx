@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
 import { NBSP } from "@/constants/symbols";
-import { EVA_CALCULATOR_URL, GORDON_CALCULATOR_URL, IRR_CALCULATOR_URL } from "@/constants/urls";
+import { EVA_CALCULATOR_URL, GORDON_CALCULATOR_URL, IRR_CALCULATOR_URL, SCREENER_URL } from "@/constants/urls";
 import { ALL_STOCKS } from "@/lib/data";
 import { getUrlNameByStock } from "@/utils/transliteration";
 import { groupStocksByLetter } from "@/utils/group-stocks-by-letter";
@@ -52,6 +52,13 @@ export default async function HomePage() {
         </li>
         <li className={linkClassName}>
           <Link href={EVA_CALCULATOR_URL}>Калькулятор EVA</Link>
+        </li>
+      </ul>
+
+      <h2 className={headingClassName}>Скринеры</h2>
+      <ul>
+        <li className={linkClassName}>
+          <Link href={SCREENER_URL}>Скринер компаний из{NBSP}индекса Мосбиржи по{NBSP}показателям МСФО</Link>
         </li>
       </ul>
     </PageShell>

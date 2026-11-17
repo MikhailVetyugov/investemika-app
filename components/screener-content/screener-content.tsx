@@ -103,7 +103,7 @@ export const ScreenerContent: React.FC<IScreenerContentProps> = ({
       <section className="flex flex-col gap-2">
         <h1 className="font-bold text-3xl">Скринер компаний</h1>
         <p>
-          Отбор российских публичных компаний по{NBSP}данным отчётности МСФО за{NBSP}последний отчётный год.
+          Отбор компаний из{NBSP}индекса Московской биржи по{NBSP}данным отчётности МСФО за{NBSP}последний отчётный год.
         </p>
       </section>
 

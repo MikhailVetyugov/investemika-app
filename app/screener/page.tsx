@@ -31,12 +31,12 @@ const toSearchString = (searchParams: Record<string, string | string[] | undefin
 // Курс доллара должен запрашиваться при обращении к странице, а не один раз при сборке.
 export const dynamic = 'force-dynamic';
 
-const TITLE = 'Скринер российских компаний по показателям МСФО | Инвестемика';
+const TITLE = 'Скринер компаний из индекса Мосбиржи по показателям МСФО | Инвестемика';
 
 export async function generateMetadata(_props: TProps, parent: ResolvingMetadata): Promise<Metadata> {
   const parentMetadata = await parent;
 
-  const description = 'Бесплатный скринер российских публичных компаний по данным отчётности МСФО: отбор по выручке, прибыли, активам, капиталу, свободному денежному потоку, рентабельности (ROE, ROA), марже и темпам роста.';
+  const description = 'Бесплатный скринер публичных российских компаний из индекса Московской биржи по данным отчётности МСФО: отбор по выручке, прибыли, активам, капиталу, свободному денежному потоку, рентабельности (ROE, ROA), марже и темпам роста.';
 
   return {
     title: TITLE,
