@@ -43,7 +43,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const fileBuffer = s3Object.Body as Buffer;
+    const fileBuffer = Buffer.from(
+      await s3Object.Body.transformToByteArray()
+    );
 
     const parts = safeFilePath.split('/');
     const fileName = parts[parts.length - 1] || 'file';

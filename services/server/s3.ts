@@ -1,24 +1,29 @@
-import S3 from 'aws-sdk/clients/s3';
-import { AWSError } from 'aws-sdk/lib/error';
-import { PromiseResult } from 'aws-sdk/lib/request';
+import {
+  S3Client,
+  GetObjectCommand,
+  ListObjectsV2Command,
+} from '@aws-sdk/client-s3';
 
 const bucket = process.env.S3_BUCKET ?? 'd14ff143-860b-4cf0-bd4f-86045542966d';
 
-const s3 = new S3({
-  accessKeyId: process.env.S3_ACCESS_KEY,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY!,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+  },
   endpoint: process.env.S3_ENDPOINT ?? 'https://s3.twcstorage.ru',
-  s3ForcePathStyle: true,
+  forcePathStyle: true,
   region: 'ru-1',
-  apiVersion: 'latest',
 });
 
-
-export async function getS3Object(objectKey: string): Promise<PromiseResult<S3.GetObjectOutput, AWSError> | null> {
+export async function getS3Object(objectKey: string) {
   try {
-    const requestParams = { Bucket: bucket, Key: objectKey };
-
-    return await s3.getObject(requestParams).promise();
+    return await s3.send(
+      new GetObjectCommand({
+        Bucket: bucket,
+        Key: objectKey,
+      }),
+    );
   } catch (error) {
     console.error(`Error getting S3 object, ${objectKey}`, error);
 
@@ -26,11 +31,14 @@ export async function getS3Object(objectKey: string): Promise<PromiseResult<S3.G
   }
 }
 
-export async function listS3Objects(prefix = ''): Promise<PromiseResult<S3.ListObjectsOutput, AWSError> | null> {
+export async function listS3Objects(prefix = '') {
   try {
-    const requestParams = { Bucket: bucket, Prefix: prefix };
-    
-    return await s3.listObjects(requestParams).promise();
+    return await s3.send(
+      new ListObjectsV2Command({
+        Bucket: bucket,
+        Prefix: prefix,
+      }),
+    );
   } catch (error) {
     console.error(`Error listing S3 objects: ${prefix}`, error);
 
