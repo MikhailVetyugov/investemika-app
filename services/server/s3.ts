@@ -18,7 +18,7 @@ export async function getS3Object(objectKey: string): Promise<PromiseResult<S3.G
   try {
     const requestParams = { Bucket: bucket, Key: objectKey };
 
-    return s3.getObject(requestParams).promise();
+    return await s3.getObject(requestParams).promise();
   } catch (error) {
     console.error(`Error getting S3 object, ${objectKey}`, error);
 
@@ -30,7 +30,7 @@ export async function listS3Objects(prefix = ''): Promise<PromiseResult<S3.ListO
   try {
     const requestParams = { Bucket: bucket, Prefix: prefix };
     
-    return s3.listObjects(requestParams).promise();
+    return await s3.listObjects(requestParams).promise();
   } catch (error) {
     console.error(`Error listing S3 objects: ${prefix}`, error);
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getS3Object } from '@/services/server';
+import { getS3Object } from '@/services/server/s3';
 
 /**
  * Accepts a file path: polyus/2025.pdf or t_tehnologii/TCS Group Holding PLC/2022-en.pdf
