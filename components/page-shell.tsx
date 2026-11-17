@@ -13,13 +13,22 @@ interface IPageShellProps {
   initialDataContext: TInitialDataContext;
   children: React.ReactNode | React.ReactNode[];
   stockPage?: boolean;
+  /**
+   * На странице есть элементы с `position: sticky`.
+   * `overflow-hidden` делает оболочку контейнером прокрутки и ломает их, поэтому он заменяется на `overflow-x-clip`.
+   */
+  stickyContent?: boolean;
 }
 
-const PageShellComponent: React.FC<Omit<IPageShellProps, 'initialDataContext'>> = ({ children, stockPage = false }) => {
+const PageShellComponent: React.FC<Omit<IPageShellProps, 'initialDataContext'>> = ({
+  children,
+  stockPage = false,
+  stickyContent = false,
+}) => {
   const { stockSelectionHandler } = useStockSelection(stockPage);
 
   return (
-    <div className="flex-[1_0_auto] flex flex-col overflow-hidden">
+    <div className={`flex-[1_0_auto] flex flex-col ${stickyContent ? 'overflow-x-clip' : 'overflow-hidden'}`}>
       <header className="h-auto p-4 flex flex-col items-center gap-2 bg-investemika-primary xl:h-[80px] xl:flex-row xl:p-0 xl:pr-8">
         <div className="flex-none">
           <Link href="/">

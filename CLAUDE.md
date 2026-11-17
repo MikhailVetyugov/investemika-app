@@ -21,7 +21,7 @@ pnpm vitest run -t "parseFileName"                              # by test name
 pnpm run publish         # deploy: git push amvera main:master (Amvera hosting)
 ```
 
-Tests live in `__tests__/` folders next to the code they cover. There is no vitest config, so the `@/` alias is not set up in tests: test files import the code under test by relative path, and code under test can't have runtime (non-type) `@/` imports unless a `vitest.config.ts` with the alias is added.
+Tests live in `__tests__/` folders next to the code they cover. `vitest.config.ts` sets up the `@/` alias, so code under test can use `@/` imports; test files themselves import the code under test by relative path.
 
 To check the Docker image locally: `docker build --no-cache -t investemika-app .` and then `docker run --rm -p 3000:3000 investemika-app`. In production, the Dockerfile runs `build:amvera` / `start:amvera`, which cap the heap at 304 MB. `/api/memory` reports process memory usage.
 
@@ -54,6 +54,8 @@ The S3 env vars (`S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_ACCESS_KEY`, `S3_ENDPO
 **Page state flow.** Each server page (e.g. `app/[stock]/page.tsx`) fetches its initial data and passes it to `PageShell`. `PageShell` holds `DataContext` (`components/data-context.ts`, `hooks/use-data-context.ts`). When the user picks a stock in the header search while already on a stock page, `useStockSelection` does not navigate. It calls `history.pushState`, re-fetches the data through the browser services, and sets `document.title` itself, so the page is not unmounted. It also handles `popstate`. On other pages it navigates normally with `router.push`.
 
 **Calculations.** Multipliers and ratios are in `utils/calculations/`. Which metrics apply depends on the company type (see `utils/is-financial-company.ts`): banks and insurers use different income lines.
+
+**Screener.** `/skriner-kompanij` (`app/screener/page.tsx`, rewritten like the calculators) lists one row per company with metrics for its latest reporting year. Rows are built on the server by `utils/screener/get-screener-rows.ts`; filtering, sorting and URL-query sync happen on the client (`components/screener-content/`, `utils/screener/`). The metric registry in `constants/screener-metrics.ts` drives the filter panel, table columns, cards and chips. Screener metrics must not depend on external sources (price, capitalization); the only exception is the USD rate, used to convert USD statements to rubles. The page is not in the sitemap and is not linked from anywhere yet.
 
 **Report downloads.** `/[stock]/download` lists files from S3 under the prefix `investemika/<stock-url-name>/` (`services/server/s3.ts`, `fetch-download-files-groups-from-s3.ts`). Files are served through `/api/v2/download?path=…`, which rejects any path containing `..`. File names encode their metadata (`2024-en-press_release.pdf`; see `utils/parse-file-name.ts`). Older code that read files from Yandex Disk (`fetch-*-yandex*`, `constants/yandex-disk.ts`, `/api/download`) is still in the repo. The current UI uses only the S3 path.
 
