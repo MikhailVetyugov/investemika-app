@@ -1,6 +1,13 @@
 'use client';
 import { useEffect, useMemo, useState } from "react";
 import { AlertCircle, ArrowDown, ArrowUp, SlidersHorizontal } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -160,17 +167,27 @@ export const ScreenerContent: React.FC<IScreenerContentProps> = ({
               </DialogContent>
             </Dialog>
 
-            <select
-              className="h-9 min-w-0 flex-1 rounded-md border bg-background px-2 text-base"
-              aria-label="Сортировка"
+            <Select
               value={sort.key}
-              onChange={event => handleSortClick(event.target.value as TScreenerSortKey)}
+              onValueChange={value => handleSortClick(value as TScreenerSortKey)}
             >
-              <option value="name">По названию</option>
-              {SCREENER_METRICS.map(metric => (
-                <option key={metric.id} value={metric.id}>{getMetricLabel(metric, true)}</option>
-              ))}
-            </select>
+              <SelectTrigger
+                className="h-9 min-w-0 flex-1"
+                aria-label="Сортировка"
+              >
+                <SelectValue />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="name">По названию</SelectItem>
+
+                {SCREENER_METRICS.map(metric => (
+                  <SelectItem key={metric.id} value={metric.id}>
+                    {getMetricLabel(metric, true)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Button
               type="button"
               variant="outline"
