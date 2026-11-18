@@ -1,7 +1,9 @@
 import { X } from "lucide-react";
 
+import { SCROLLBAR_CLASSES } from "@/constants/classes";
 import { INDUSTRY_NAMES } from "@/constants/industries";
 import { SCREENER_METRICS } from "@/constants/screener-metrics";
+import { cn } from "@/lib/utils"
 import { IScreenerFilters } from "@/types/screener";
 import { getRangeBounds } from "@/utils/screener/filter-rows";
 import { getRangeLabel } from "@/utils/screener/format";
@@ -59,7 +61,7 @@ export const ActiveFilters: React.FC<IActiveFiltersProps> = ({ filters, onChange
   }
 
   return (
-    <ul className="-mx-8 px-8 flex gap-2 overflow-x-auto pb-1 lg:mx-0 lg:px-0 lg:flex-wrap lg:overflow-visible lg:pb-0" aria-label="Активные фильтры">
+    <ul className={cn("-mx-8 px-8 flex gap-2 overflow-x-auto pb-1 lg:mx-0 lg:px-0 lg:flex-wrap lg:overflow-visible lg:pb-0", SCROLLBAR_CLASSES)} aria-label="Активные фильтры">
       {chips.map(chip => (
         <li key={chip.key} className="shrink-0">
           <button
