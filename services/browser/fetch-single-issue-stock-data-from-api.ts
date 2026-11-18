@@ -16,7 +16,7 @@ export async function fetchSingleIssueDataFromAPI(ticker: string): Promise<IStoc
 
     return await response.json();
   } catch (error) {
-    console.error('Error while fetching stock data', error);
+    console.error(`Error while fetching stock data ${ticker}`, error);
   }
 
   return {

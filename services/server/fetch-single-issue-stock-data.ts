@@ -34,7 +34,7 @@ export async function fetchSingleIssueData(ticker: TTicker): Promise<IStockDataI
       issueCapitalization,
     };
   } catch (error) {
-    console.error('Error while fetching stock data', error);
+    console.error(`Error while fetching stock data ${ticker}`, error);
   }
 
   return {
