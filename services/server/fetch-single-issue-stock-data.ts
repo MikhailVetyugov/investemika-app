@@ -44,13 +44,26 @@ export async function fetchSingleIssueData(ticker: TTicker): Promise<IStockDataI
 }
 
 async function fetchSingleIssueDataFromMOEX(ticker: TTicker): Promise<IStockDataExternalResponse> {
-  const response = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`);
+  let lastError: unknown;
 
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const response = await fetch(
+        `https://iss.moex.com/iss/engines/stock/markets/shares/securities/${ticker}.json`
+      );
+
+      if (!response.ok) {
+        throw new Error(`MOEX response status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      lastError = error;
+      console.warn(`MOEX request failed for ${ticker}, attempt ${attempt + 1}/3`, error);
+    }
   }
 
-  return await response.json();
+  throw lastError;
 }
 
 function getColumnValue(columnName: string, response: IStockDataExternalResponse) {
