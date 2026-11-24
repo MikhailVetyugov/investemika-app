@@ -22,6 +22,16 @@ WORKDIR /srv
 ENV NODE_ENV=production
 ENV PORT=3000
 
+RUN apk add --no-cache ca-certificates
+COPY certs/Russian_Trusted_Root_CA.cer \
+     /usr/local/share/ca-certificates/Russian_Trusted_Root_CA.crt
+COPY certs/Russian_Trusted_Sub_CA.cer \
+     /usr/local/share/ca-certificates/Russian_Trusted_Sub_CA.crt
+COPY certs/Russian_Trusted_Sub_CA_2024.cer \
+     /usr/local/share/ca-certificates/Russian_Trusted_Sub_CA_2024.crt
+RUN update-ca-certificates
+ENV NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
