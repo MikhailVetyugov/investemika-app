@@ -44,7 +44,7 @@ export async function generateMetadata(
       ...parentMetadata.openGraph as ResolvedOpenGraph,
       title,
       description: `Скачайте годовую отчетность ${stock.company.name} по МСФО. Официальные PDF-документы для глубокого анализа компании.`,
-      url: `https://investemika.ru/${stockUrlName}/download/`
+      url: `https://investemika.ru/${stockUrlName}/download`
     },
   }
 }
